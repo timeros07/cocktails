@@ -1,0 +1,13 @@
+-przemyslec ajaxa
+-zrobic cruda dla drinkow i sk³adników
+-przemyœleæ walidacje
+-upload obrazków mozliwy jest tylko stary sposób z servletem, spr czy mozna usunac fileupload, io commons i gmultipart
+-dodaæ obs³ugê b³êdu 404
+-dodaæ wygl¹d strony 404
+
+-polskie litery - do ka¿dego pliku jsp nale¿y dodaæ wpis page encoding utf8
+
+-uprawnienia do panelu admina
+-zrobiæ ³adny tag do uploadu plików
+-logowanie przez google
+-logowanie przez fb

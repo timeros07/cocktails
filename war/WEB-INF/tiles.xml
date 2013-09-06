@@ -1,0 +1,64 @@
+<!DOCTYPE tiles-definitions PUBLIC
+      "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+      "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+  
+<tiles-definitions>
+	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Administration pages !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+	<definition name="adminLayout" template="/resources/pages/admin/layout/layout.jsp">
+   		<put-attribute name="title" value=""/>
+   		<put-attribute name="header" value="/resources/pages/admin/layout/header.jsp"/>
+   		<put-attribute name="menu" value="/resources/pages/admin/layout/menu.jsp"/>
+   		<put-attribute name="body" value=""/>
+   		<put-attribute name="footer" value="/resources/pages/admin/layout/footer.jsp"/>
+   	</definition>
+
+   	<definition name="adminHome" extends="adminLayout">
+   		<put-attribute name="title" value="Home"/>
+   		<put-attribute name="body" value="/resources/pages/admin/home.jsp"/>
+   	</definition>
+   	
+   	<definition name="adminIngredientCreate" extends="adminLayout">
+   		<put-attribute name="title" value="Dodawanie nowego składnika"/>
+   		<put-attribute name="body" value="/resources/pages/admin/ingredients/ingredientCreate.jsp"/>
+   		<put-attribute name="mode" value="C"/>
+   	</definition>
+   	
+   	<definition name="adminIngredientDetails" extends="adminLayout">
+   		<put-attribute name="title" value="Dodawanie nowego składnika"/>
+   		<put-attribute name="body" value="/resources/pages/admin/ingredients/ingredientCreate.jsp"/>
+   		<put-attribute name="mode" value="D"/>
+   	</definition>
+   	
+   	<definition name="adminIngredientModify" extends="adminLayout">
+   		<put-attribute name="title" value="Dodawanie nowego składnika"/>
+   		<put-attribute name="body" value="/resources/pages/admin/ingredients/ingredientCreate.jsp"/>
+   		<put-attribute name="mode" value="M"/>
+   	</definition>
+   	
+   	<definition name="adminIngredients" extends="adminLayout">
+   		<put-attribute name="title" value="Składniki"/>
+   		<put-attribute name="body" value="/resources/pages/admin/ingredients/ingredients.jsp"/>
+   	</definition>
+   	
+   	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  Member pages !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  -->
+   	<definition name="layout" template="/resources/pages/main/layout/layout.jsp">
+   		<put-attribute name="title" value=""/>
+   		<put-attribute name="header" value="/resources/pages/main/layout/header.jsp"/>
+   		<put-attribute name="menu" value="/resources/pages/main/layout/menu.jsp"/>
+   		<put-attribute name="body" value=""/>
+   		<put-attribute name="footer" value="/resources/pages/main/layout/footer.jsp"/>
+   	</definition>
+
+   	<definition name="home" extends="layout">
+   		<put-attribute name="title" value="Home"/>
+   		<put-attribute name="body" value="/resources/pages/main/home.jsp"/>
+   	</definition>
+   	
+   	
+   	
+   	   	<definition name="test" extends="layout">
+   		<put-attribute name="title" value="Test"/>
+   		<put-attribute name="body" value="/resources/pages/main/test.jsp"/>
+   	</definition>
+
+</tiles-definitions>

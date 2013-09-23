@@ -1,11 +1,16 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ attribute name="property" required="true" rtexprvalue="true" %>
 <%@ attribute name="required" required="false" type="java.lang.Boolean" rtexprvalue="true" %>
+<%@ attribute name="id" required="false" rtexprvalue="true" %>
 <%@ attribute name="disabled" required="false" rtexprvalue="true" %>
 <%@ attribute name="label" required="true" rtexprvalue="true" %>
+<%@ attribute name="hidden" required="false" type="java.lang.Boolean" rtexprvalue="true" %>
+<%@ attribute name="minLength" required="false" rtexprvalue="true" %>
+<%@ attribute name="maxLength" required="false" rtexprvalue="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 
 	<label for="${property}">${label}</label>
-	<sf:input path="${property}"/>	
+	<input path="${property}"/>	
 
 <script>
 	$('${property}').textinput({

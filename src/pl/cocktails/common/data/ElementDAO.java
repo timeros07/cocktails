@@ -9,4 +9,5 @@ public interface ElementDAO {
 	public void create(ElementData element);
 	public ElementData getElementById(Long id); 
 	public void modify(ElementData element);
+	public void remove(Long id);
 }

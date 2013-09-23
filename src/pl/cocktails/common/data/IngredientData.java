@@ -48,12 +48,6 @@ public class IngredientData implements Serializable {
 	public void setElement(ElementData element){
 		this.element = element;
 	}
-	/*public Long getId() {
-		return this.id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}*/
 	public Key getKey() {
 		return key;
 	}

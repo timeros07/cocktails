@@ -7,4 +7,5 @@ public interface CocktailDAO {
 	public void modify(CocktailData cocktail);
 	public CocktailData getCocktailById(Long id);
 	public List<CocktailData> getAllCocktails();
+	public void remove(Long id);
 }

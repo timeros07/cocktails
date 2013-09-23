@@ -27,3 +27,22 @@ a:link:hover, a:visited:hover  {
   font-weight : bold;
   text-decoration : underline;
 }
+
+/*---------------------------FORM---------------------------------*/
+ form td{
+	text-align: right;
+	margin-left:50px;
+}
+form table .buttons{
+	text-align: left;
+	margin-top:	20px;
+}
+.errorHeader{
+	color:Red;
+}
+.errorText{
+	background: Red;
+}
+.errorTextArea{
+	background: Red;
+}

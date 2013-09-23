@@ -10,9 +10,15 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.support.RequestContext;
+
+import com.google.appengine.labs.repackaged.org.json.JSONException;
+import com.google.appengine.labs.repackaged.org.json.JSONObject;
 
 import pl.cocktails.common.data.CocktailData;
 import pl.cocktails.common.data.CocktailService;
@@ -27,15 +33,18 @@ public class AdminIngredientsController {
 	@Autowired
 	private CocktailService cocktailService;
 	
-	@RequestMapping(value="/ingredient", method=RequestMethod.GET, params="create")
+	@RequestMapping(value="/ingredientCreate", method=RequestMethod.GET)
 	public String initCreateIngredientForm(Model model) {
 		model.addAttribute(new ElementData());
 		
 		return "adminIngredientCreate";
 	}
 	
-	@RequestMapping(value="/ingredient", method=RequestMethod.POST)
+	@RequestMapping(value="/ingredientCreate", method=RequestMethod.POST)
 	public String addIngredient(@Validated ElementData element, BindingResult bindingResult) {
+		AdminIngredientValidator validator = new AdminIngredientValidator();
+		validator.validate(element, bindingResult);
+	
 		if(bindingResult.hasErrors()){
 			return "adminIngredientCreate";
 		}
@@ -43,10 +52,29 @@ public class AdminIngredientsController {
 		return "redirect:/admin/ingredients";
 	}
 	
-	@RequestMapping(value="/ingredient/{elementId}", method=RequestMethod.GET)
-	public String showIngredient(@PathVariable Long elementId, Model model){
-		model.addAttribute(cocktailService.getElement(elementId));
-		return "adminIngredientCreate";
+	@RequestMapping(value="/ingredientDetails", method=RequestMethod.GET)
+	public String showIngredient(@RequestParam(required= true) Long id, Model model){
+		model.addAttribute(cocktailService.getElement(id));
+		return "adminIngredientDetails";
+	}
+	
+	@RequestMapping(value="/ingredientModify", method=RequestMethod.GET)
+	public String initModify(@RequestParam(required= true) Long id, Model model){
+		
+		model.addAttribute(cocktailService.getElement(id));
+		return "adminIngredientModify";
+	}
+	
+	@RequestMapping(value="/ingredientModify", method=RequestMethod.POST)
+	public String modifyIngredient(@Validated ElementData element, BindingResult bindingResult) {
+		AdminIngredientValidator validator = new AdminIngredientValidator();
+		validator.validate(element, bindingResult);
+	
+		if(bindingResult.hasErrors()){
+			return "adminIngredientModify";
+		}
+		cocktailService.modifyElement(element);
+		return "redirect:/admin/ingredientDetails?id=" + element.getId();
 	}
 	
 	@RequestMapping(value="/ingredients", method=RequestMethod.GET)
@@ -54,5 +82,11 @@ public class AdminIngredientsController {
 		List<ElementData> elements = cocktailService.findElements();
 		model.addAttribute("ingredients", elements);
 		return "adminIngredients";
+	}
+	
+	@RequestMapping(value="/ingredientRemove", method=RequestMethod.POST)
+	public @ResponseBody String removeIngredient(@RequestParam(required= true) Long id, Model model){
+		cocktailService.removeElement(id);
+		return "success";
 	}
 }

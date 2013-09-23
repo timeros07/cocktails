@@ -6,8 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.google.appengine.api.datastore.Key;
-
 
 @Service
 public class CocktailServiceImpl implements CocktailService{
@@ -33,10 +31,28 @@ public class CocktailServiceImpl implements CocktailService{
 		cocktailDAO.create(cocktail);
 	}
 
-	@Override
+	public void modifyElement(ElementData element) {
+		elementDAO.modify(element);
+	}
+
+	public void removeElement(Long id) {
+		elementDAO.remove(id);
+	}
+
 	public CocktailData getCocktail(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return cocktailDAO.getCocktailById(id);
+	}
+	
+	public List<CocktailData> findCocktails() {
+		return cocktailDAO.getAllCocktails();
+	}
+
+	public void modifyCocktail(CocktailData cocktail) {
+		cocktailDAO.modify(cocktail);	
+	}
+
+	public void removeCocktail(Long id) {
+		cocktailDAO.remove(id);
 	}
 	
 	

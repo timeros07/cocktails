@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@page contentType="text/html; charset=utf-8" %>
 <%@page pageEncoding="utf-8" %>
@@ -11,11 +12,13 @@
     <link href="/resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
 	<title><tiles:insertAttribute name="title" ignore="true" /></title>
 	
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/redmond/jquery-ui.css">
+	<link rel="stylesheet" href="/resources/css/ui-lightness/jquery-ui-1.9.2.custom.css">
 	<link rel="stylesheet" href="/resources/scripts/jquery-ui-plugins/css/jquery-ui-plugins-0.0.16.css" type="text/css"/>
-	<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
-	<script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+	<script src="/resources/scripts/jquery-1.8.3.js"></script>
+	<script src="/resources/scripts/jquery-ui-1.9.2.custom.js"></script>
 	<script type="text/javascript" src="/resources/scripts/jquery-ui-plugins/js/jquery-ui-plugins-0.0.16.js"></script>  
+
+	
 	
 </head>
 <body>
@@ -27,7 +30,7 @@
 		<tiles:insertAttribute name="menu" />
 	</div>
 	
-	<div id="body">
+	<div id="body" class="right_content">
 		<tiles:insertAttribute name="body" />
 	</div>
 

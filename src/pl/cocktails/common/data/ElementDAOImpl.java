@@ -67,6 +67,16 @@ public class ElementDAOImpl implements ElementDAO {
 		}
 		
 	}
+
+	public void remove(Long id) {
+		PersistenceManager manager = DataStoreManager.getManager().createPersistenceManager();
+		ElementData element = manager.getObjectById(ElementData.class, id);
+		if(element != null){
+			manager.deletePersistent(element);
+		}
+	}
+	
+	
 	
 	
 }

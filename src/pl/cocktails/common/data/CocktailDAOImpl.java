@@ -29,6 +29,7 @@ public class CocktailDAOImpl implements CocktailDAO{
 			oldCocktail.setName(cocktail.getName());
 			oldCocktail.setDescription(cocktail.getDescription());
 			oldCocktail.setType(cocktail.getType());
+			oldCocktail.setIngredients(cocktail.getIngredients());
 		}finally{
 			manager.close();
 		}
@@ -38,7 +39,12 @@ public class CocktailDAOImpl implements CocktailDAO{
 	public CocktailData getCocktailById(Long id) {
 		PersistenceManager manager = DataStoreManager.getManager().createPersistenceManager();
 		try{
-			return manager.getObjectById(CocktailData.class, id);
+			CocktailData cocktail = manager.getObjectById(CocktailData.class, id);
+			for(IngredientData data: cocktail.getIngredients()){
+				data.getElement();
+				data.getCount();
+			}
+			return cocktail;
 		}finally{
 			manager.close();
 		}
@@ -59,6 +65,14 @@ public class CocktailDAOImpl implements CocktailDAO{
 		}
 		finally{
 			manager.close();
+		}
+	}
+	
+	public void remove(Long id) {
+		PersistenceManager manager = DataStoreManager.getManager().createPersistenceManager();
+		CocktailData cocktail = manager.getObjectById(CocktailData.class, id);
+		if(cocktail != null){
+			manager.deletePersistent(cocktail);
 		}
 	}
 

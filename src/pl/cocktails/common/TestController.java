@@ -14,12 +14,13 @@ public class TestController {
 	String message;
 
 	@RequestMapping(value="/{name}", method = RequestMethod.GET)
-	public String getMovie(@PathVariable String name, ModelMap model) {
+	public String test(@PathVariable String name, ModelMap model) {
  
 		model.addAttribute("name", name);
 		model.addAttribute("message", this.message);
  
-		//return to jsp page, configured in mvc-dispatcher-servlet.xml, view resolver
+
+		
 		return "test";
  
 	}

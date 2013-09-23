@@ -35,5 +35,36 @@
 	<!-- MULTIPART RESOLVER CONFIGURATION -->
 	<bean id="multipartResolver" class="org.gmr.web.multipart.GMultipartResolver" p:maxUploadSize="500000">
 	</bean>
+	
+	<!-- MESSAGES CONFIGURATION -->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource" >
+		<property name="basename">
+    		<value>messages</value>
+		</property>
+	</bean>
+	
+	
+	<!--JSON CONVERTER CONFIGURATION -->
+	<bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"></bean>
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="messageConverters">
+          <list>
+            <ref bean="jsonConverter"/>
+          </list>
+    </property>
+	</bean>
+	
+	
+	
+	<!-- VIEW RESOLVER CONFIGURATION 
+	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver" >
+		<property name="mediaTypes">
+    		<map>
+    			<entry key="json" value="application/json"></entry>
+    			<entry key="html" value="text/html"></entry>
+    		</map>
+		</property>
+		<property name="defaultContentType" value="text/html"/>
+	</bean>-->
  
 </beans>

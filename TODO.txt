@@ -1,6 +1,12 @@
 -przemyslec ajaxa
+-generyczna obs³ga ¿¹daæ, od strony clienta tag do submitu i obs³ugi success i failure
+-od strony serwera generyczna konwersja b³êdów na json
+
+
 -zrobic cruda dla drinkow i sk³adników
--przemyœleæ walidacje
+dokonczyc ingredients
+
+
 -upload obrazków mozliwy jest tylko stary sposób z servletem, spr czy mozna usunac fileupload, io commons i gmultipart
 -dodaæ obs³ugê b³êdu 404
 -dodaæ wygl¹d strony 404
@@ -11,3 +17,11 @@
 -zrobiæ ³adny tag do uploadu plików
 -logowanie przez google
 -logowanie przez fb
+
+
+
+-wyjatki na bazie obsluzyc dodac swoje
+obsluga wyjatkow na poziomie service, przemyslec tranzakcje
+przechwytywacz wyjatkow ktory wyswietla window z bledem
+
+-usuwanie i modyfikacja skladnikow drinku

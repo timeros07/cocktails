@@ -18,10 +18,12 @@ dokonczyc ingredients
 -logowanie przez google
 -logowanie przez fb
 
-
+-zrobic taga do confirm
 
 -wyjatki na bazie obsluzyc dodac swoje
 obsluga wyjatkow na poziomie service, przemyslec tranzakcje
 przechwytywacz wyjatkow ktory wyswietla window z bledem
 
 -usuwanie i modyfikacja skladnikow drinku
+
+linki socials: http://www.promocyjni.pl/

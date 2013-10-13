@@ -3,6 +3,12 @@
       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
   
 <tiles-definitions>
+
+   	<definition name="ExceptionPage" extends="adminLayout">
+   		<put-attribute name="title" value="Home"/>
+   		<put-attribute name="body" value="/resources/pages/ExceptionPage.jsp"/>
+   	</definition>
+
 	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Administration pages !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 	<definition name="adminLayout" template="/resources/pages/admin/layout/layout.jsp">
    		<put-attribute name="title" value=""/>
@@ -34,22 +40,22 @@
    	</definition>
    	
    	<definition name="adminIngredientCreate" extends="adminLayout">
-   		<put-attribute name="title" value="Dodawanie nowego składnika"/>
+   		<put-attribute name="title" value="title.ingredient.create"/>
    		<put-attribute name="body" value="adminIngredientCreateDef"/>
    	</definition>
    	
    	<definition name="adminIngredientDetails" extends="adminLayout">
-   		<put-attribute name="title" value="Dodawanie nowego składnika"/>
+   		<put-attribute name="title" value="title.ingredient.details"/>
    		<put-attribute name="body" value="adminIngredientDetailsDef"/>
    	</definition>
    	
    	<definition name="adminIngredientModify" extends="adminLayout">
-   		<put-attribute name="title" value="Dodawanie nowego składnika"/>
+   		<put-attribute name="title" value="title.ingredient.modify"/>
    		<put-attribute name="body" value="adminIngredientModifyDef"/>
    	</definition>
    	
    	<definition name="adminIngredients" extends="adminLayout">
-   		<put-attribute name="title" value="Składniki"/>
+   		<put-attribute name="title" value="title.ingredients.list"/>
    		<put-attribute name="body" value="/resources/pages/admin/ingredients/ingredients.jsp"/>
    	</definition>
    	
@@ -69,22 +75,22 @@
    	</definition>
    	
    	<definition name="adminCocktailCreate" extends="adminLayout">
-   		<put-attribute name="title" value="Dodawanie nowego drinka"/>
+   		<put-attribute name="title" value="title.cocktail.create"/>
    		<put-attribute name="body" value="adminCocktailCreateDef"/>
    	</definition>
    	
    	<definition name="adminCocktailDetails" extends="adminLayout">
-   		<put-attribute name="title" value="Dodawanie nowego składnika"/>
+   		<put-attribute name="title" value="title.cocktail.details"/>
    		<put-attribute name="body" value="adminCocktailDetailsDef"/>
    	</definition>
    	
    	<definition name="adminCocktailModify" extends="adminLayout">
-   		<put-attribute name="title" value="Dodawanie nowego składnika"/>
+   		<put-attribute name="title" value="title.cocktail.modify"/>
    		<put-attribute name="body" value="adminCocktailModifyDef"/>
    	</definition>
    	
    	<definition name="adminCocktails" extends="adminLayout">
-   		<put-attribute name="title" value="Drinki"/>
+   		<put-attribute name="title" value="title.cocktails.list"/>
    		<put-attribute name="body" value="/resources/pages/admin/cocktails/cocktails.jsp"/>
    	</definition>
    	

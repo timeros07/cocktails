@@ -13,46 +13,25 @@
 
 
 <c:set var="_width" value="width:${width}px;"/>
-<c:set var="_tooltip">
-	<fmt:message key="${label}"/>
-</c:set>
 <c:if test="${!hidden}">
 	<label for="${property}"><fmt:message key="${label}"/></label>
 </c:if>
-<sf:input
+<sf:textarea
  	path="${property}"
   	disabled="${disabled}"
   	id="_${property}"
-  	cssErrorClass="errorText"
+  	cssErrorClass="errorTextArea"
   	maxLength="${maxLength}"
   	cssStyle="${!empty pageScope.width ? _width : 'width:auto;'}
-  			${ hidden ? 'display:none' : 'display:inline;'}"
-  	title="${_tooltip}"
-  	onKeyDown="onKeyDown_${property}()"
+  			${ hidden ? 'display:none;' : 'display:inline;'}
+  			resize:none;vertical-align: middle;"
+  	rows="5"
+	onKeyDown="onKeyDown_${property}()"
 />
 <script>
-$(function() {
-	 $('#_${property}').tooltip({
-	      position: {
-	        my: "center bottom-20",
-	        at: "center top",
-	        using: function( position, feedback ) {
-	          $( this ).css( position );
-	          $( "<div>" )
-	            .addClass( "arrow" )
-	            .addClass( feedback.vertical )
-	            .addClass( feedback.horizontal )
-	            .appendTo( this );
-	        }
-	      }
-	    });
-	 
-	 
-  });
-  
 function onKeyDown_${property}(){
-	if($('#_${property}').attr('class') == 'errorText'){
-		$('#_${property}').removeClass('errorText');
+	if($('#_${property}').attr('class') == 'errorTextArea'){
+		$('#_${property}').removeClass('errorTextArea');
 	} 
 }
 </script>

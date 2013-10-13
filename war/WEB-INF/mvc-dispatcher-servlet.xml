@@ -54,6 +54,18 @@
     </property>
 	</bean>
 	
+	<!--EXCEPTION HANDLING CONFIGURATION -->
+	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+   <property name="exceptionMappings">
+      <props>
+         <prop key="pl.cocktails.admin.SystemException">
+            ExceptionPage
+         </prop>
+      </props>
+   </property>
+   <property name="defaultErrorView" value="error"/>
+	</bean>
+	
 	
 	
 	<!-- VIEW RESOLVER CONFIGURATION 

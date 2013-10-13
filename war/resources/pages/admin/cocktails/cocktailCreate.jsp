@@ -107,7 +107,7 @@ var $grid;
 			<tr>
 				<td>
 					<label for="name"><fmt:message key="labels.cocktail.name"/></label>
-					<sf:input  path="name" disabled="${detailsMode}" cssErrorClass="errorText"/>
+					<sf:input  path="name" cssErrorClass="errorText"/>
 				</td>
 			</tr>
 			<tr>

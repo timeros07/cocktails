@@ -7,6 +7,7 @@ import javax.jdo.Query;
 
 import org.springframework.stereotype.Repository;
 
+import pl.cocktails.admin.SystemException;
 import pl.cocktails.common.DataStoreManager;
 
 @Repository
@@ -37,6 +38,9 @@ public class CocktailDAOImpl implements CocktailDAO{
 	}
 
 	public CocktailData getCocktailById(Long id) {
+		if(id == null){
+			throw new SystemException("zjeba³eœ");
+		}
 		PersistenceManager manager = DataStoreManager.getManager().createPersistenceManager();
 		try{
 			CocktailData cocktail = manager.getObjectById(CocktailData.class, id);

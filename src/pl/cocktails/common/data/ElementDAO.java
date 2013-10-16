@@ -2,7 +2,6 @@ package pl.cocktails.common.data;
 
 import java.util.List;
 
-import com.google.appengine.api.datastore.Key;
 
 public interface ElementDAO {
 	public List<ElementData> getAll();

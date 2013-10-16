@@ -1,5 +1,9 @@
 <%@page pageEncoding="utf-8" %>
 <%@include file="/resources/pages/admin/layout/tags.jsp" %>
+
+		<link rel="stylesheet" href="/resources/scripts/jquery-ui-plugins/css/slick-grid.css" type="text/css" />
+	<link rel="stylesheet" href="/resources/scripts/jquery-ui-plugins/css/jquery-ui-plugins-grid.css" type="text/css" />	
+
 	<!-- to avoid all these imports you can just include jquery-ui-plugins-0.0.12.js -->		
 	<script src="/resources/scripts/jquery-ui-plugins/js/lib/jquery.event.drag-2.0.min.js"></script>
 	<script src="/resources/scripts/jquery-ui-plugins/js/lib/jquery.event.drop-2.0.min.js"></script>
@@ -18,22 +22,12 @@
 <div id="myGrid" style="width: 500px; height: 300px; margin:20px;"></div>
 
 	<script>		
-		
-		var cols = [ 
-		{
-			id : 'name',
-			name : 'Name',
-			field : 'name',
-			filter: 'contains',
-			formatter: urlFormatter
-		}, 		
-		{
-			id : 'description',
-			name : 'Description',
-			field : 'description',
-			filter: 'contains',
-			formatter: urlFormatter
+		function urlFormatter(rowNum, cellNum, value, columnDef, row){
+			return '<a href="ingredientDetails?id=' + row.id + '">' + value + '</a>'
 		}
+		var cols = [
+			{id : 'name',name : 'Name',	field : 'name',	filter: 'contains',	formatter: urlFormatter}, 		
+			{id : 'description',name : 'Description', field : 'description', filter: 'contains', formatter: urlFormatter}
 		];		
 
 			var data = [];
@@ -51,11 +45,6 @@
 				'forceFitColumns': true,
 				'enableColumnReorder': false,
 				'enableCellNavigation' : true
-			});						
-		
-		function urlFormatter(rowNum, cellNum, value, columnDef, row){
-			return '<a href="ingredientDetails?id=' + row.id + '">' + value + '</a>'
-		}
-		
-		
+			});	
+	
 	</script>

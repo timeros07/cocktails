@@ -1,6 +1,14 @@
--przemyslec ajaxa
--generyczna obs³ga ¿¹daæ, od strony clienta tag do submitu i obs³ugi success i failure
--od strony serwera generyczna konwersja b³êdów na json
+
+
+napisac komponent rozszerzajacy slick grid
+trzeba sicagnac nowe zrodla js bo te sa chyba juz nie wspierane
+
+napisac tagi simple handler i submit handler
+
+
+OBSLUGA BLEDOW
+- bez ajaxa: zadania typu save add. generyczna obsluga springa
+- ajax: zadana typy add obsluga recznei bledow, zwrot jsonem i wyswietlenie bledu, mozna jedynie napisac jakies pomocnicze funkcje, tagi.
 
 
 -zrobic cruda dla drinkow i sk³adników

@@ -108,7 +108,7 @@
 		_initButton: function() {
 			var $input = this.$input;
 			
-			return $("<button>&nbsp;</button>")
+			return $("<button type=\"button\">&nbsp;</button>")
 				.attr("tabIndex", -1)
 				.attr("title", "Show All Items")
 				.insertAfter($input)

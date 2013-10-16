@@ -2,11 +2,13 @@ package pl.cocktails.common.data;
 
 import java.util.List;
 
+import javax.jdo.JDOObjectNotFoundException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import org.springframework.stereotype.Repository;
 
+import pl.cocktails.admin.Errors;
 import pl.cocktails.admin.SystemException;
 import pl.cocktails.common.DataStoreManager;
 
@@ -31,6 +33,8 @@ public class CocktailDAOImpl implements CocktailDAO{
 			oldCocktail.setDescription(cocktail.getDescription());
 			oldCocktail.setType(cocktail.getType());
 			oldCocktail.setIngredients(cocktail.getIngredients());
+		}catch(JDOObjectNotFoundException ex){
+			throw new SystemException(Errors.COCKTAIL_NOT_FOUND, "Cocktail with id: " + cocktail.getId() + " not found");
 		}finally{
 			manager.close();
 		}
@@ -38,9 +42,6 @@ public class CocktailDAOImpl implements CocktailDAO{
 	}
 
 	public CocktailData getCocktailById(Long id) {
-		if(id == null){
-			throw new SystemException("zjeba³eœ");
-		}
 		PersistenceManager manager = DataStoreManager.getManager().createPersistenceManager();
 		try{
 			CocktailData cocktail = manager.getObjectById(CocktailData.class, id);
@@ -49,6 +50,8 @@ public class CocktailDAOImpl implements CocktailDAO{
 				data.getCount();
 			}
 			return cocktail;
+		}catch(JDOObjectNotFoundException ex){
+			throw new SystemException(Errors.COCKTAIL_NOT_FOUND, "Cocktail with id: " + id + " not found");
 		}finally{
 			manager.close();
 		}
@@ -74,9 +77,13 @@ public class CocktailDAOImpl implements CocktailDAO{
 	
 	public void remove(Long id) {
 		PersistenceManager manager = DataStoreManager.getManager().createPersistenceManager();
-		CocktailData cocktail = manager.getObjectById(CocktailData.class, id);
-		if(cocktail != null){
+		try{
+			CocktailData cocktail = manager.getObjectById(CocktailData.class, id);
 			manager.deletePersistent(cocktail);
+		}catch(JDOObjectNotFoundException ex){
+			throw new SystemException(Errors.COCKTAIL_NOT_FOUND, "Cocktail with id: " + id + " not found");
+		}finally{
+			manager.close();
 		}
 	}
 

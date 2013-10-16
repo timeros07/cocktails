@@ -10,25 +10,26 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-
-<c:set var="_width" value="width:${width}px;"/>
+<c:set var="_width" value="width:${pageScope.width}px;"/>
 <c:set var="_tooltip">
-	<fmt:message key="${label}"/>
+	<fmt:message key="${pageScope.label}"/>
 </c:set>
-<c:if test="${!hidden}">
-	<label for="${property}"><fmt:message key="${label}"/></label>
+<c:set var="id" value="${empty pageScope.id ? fn:replace(pageScope.property, '.', '_') : pageScope.id}"/>
+<c:if test="${!pageScope.hidden}">
+	<label for="${pageScope.property}"><fmt:message key="${pageScope.label}"/></label>
 </c:if>
 <sf:input
- 	path="${property}"
-  	disabled="${disabled}"
-  	id="_${property}"
+ 	path="${pageScope.property}"
+  	disabled="${pageScope.disabled}"
+  	id="${id}"
   	cssErrorClass="errorText"
-  	maxLength="${maxLength}"
+  	maxLength="${pageScope.maxLength}"
   	cssStyle="${!empty pageScope.width ? _width : 'width:auto;'}
-  			${ hidden ? 'display:none' : 'display:inline;'}"
+  			${pageScope.hidden ? 'display:none' : 'display:inline;'}"
   	title="${_tooltip}"
-  	onKeyDown="onKeyDown_${property}()"
+  	onKeyDown="onKeyDown_${pageScope.property}()"
 />
 <script>
 $(function() {
@@ -50,9 +51,9 @@ $(function() {
 	 
   });
   
-function onKeyDown_${property}(){
-	if($('#_${property}').attr('class') == 'errorText'){
-		$('#_${property}').removeClass('errorText');
+function onKeyDown_${pageScope.property}(){
+	if($('#${id}').attr('class') == 'errorText'){
+		$('#${id}').removeClass('errorText');
 	} 
 }
 </script>

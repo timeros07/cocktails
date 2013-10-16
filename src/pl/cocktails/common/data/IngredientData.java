@@ -26,7 +26,7 @@ public class IngredientData implements Serializable {
 	private ElementData element;
 	
 	@Persistent
-	private int count;
+	private Integer count;
 	
 	public IngredientData(){}
 	public IngredientData(ElementData element, int count){
@@ -34,10 +34,10 @@ public class IngredientData implements Serializable {
 		this.count = count;
 	}
 	
-	public int getCount() {
+	public Integer getCount() {
 		return count;
 	}
-	public void setCount(int count) {
+	public void setCount(Integer count) {
 		this.count = count;
 	}
 	public ElementData getElement(){

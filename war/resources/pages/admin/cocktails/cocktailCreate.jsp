@@ -95,43 +95,37 @@ var $grid;
 </script>
 
 <div>
-	<h2>Dodawanie Drinka</h2>
 	<sf:form method="POST" modelAttribute="cocktailData" >
+	<sf:errors path="*" cssClass="errorHeader"/>
 		<table>
 			<tr>
 				<td>
-					<sf:errors path="*" cssClass="errorHeader"/>
-				</td>
-			</tr>
-		
-			<tr>
-				<td>
-					<label for="name"><fmt:message key="labels.cocktail.name"/></label>
-					<sf:input  path="name" cssErrorClass="errorText"/>
+					<tags:text width="250" property="name" maxLength="50" disabled="${detailsMode}" label="labels.ingredient.name"/>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<label for="description"><fmt:message key="labels.cocktail.description"/></label>
-					<sf:textarea rows="3" path="description" disabled="${detailsMode}" cssErrorClass="errorTextArea"/>	
+					<tags:textarea width="250" property="description" maxLength="150" disabled="${detailsMode}" label="labels.ingredient.description"/>
 				</td>
 			</tr>
 			
 			<tr class="buttons">
 			<c:if test="${createMode}">
 				<td>
-					<input type="submit" value="Add"/>
+					<input class="submitButton" type="submit" value="<fmt:message key='buttons.action.create'/>" />
+					<input class="submitButton" type="button" value="<fmt:message key='buttons.action.cancel'/>" onclick="window.location='cocktails'"/>
 				</td>
 			</c:if>
 			<c:if test="${detailsMode}">
 				<td>
-					<input type="button" onclick="window.location='cocktailModify?id=${cocktailData.id}'" value="Modify"/>
-					<input type="button" onclick="removeItem(${cocktailData.id});" value="Remove"/>
+					<input type="button" onclick="window.location='cocktailModify?id=${cocktailData.id}'" value="<fmt:message key='buttons.action.modify'/>"/>
+					<input type="button" onclick="removeItem(${cocktailData.id});" value="<fmt:message key='buttons.action.remove'/>"/>
 				</td>
 			</c:if>
 			<c:if test="${modifyMode}">
 				<td>
-					<input type="submit" value="Save"/>
+					<input type="submit" value="<fmt:message key='buttons.action.save'/>"/>
+					<input class="submitButton" type="button" value="<fmt:message key='buttons.action.cancel'/>" onclick="window.location='cocktails'"/>
 				</td>
 			</c:if>
 			</tr>
@@ -146,19 +140,17 @@ var $grid;
 		<table>
 			<tr>
 				<td>
-					<label for="element"><fmt:message key="labels.cocktail.ingredient.element"/></label>
-					<sf:select path="element.id" items="${elements}"/>
+					<tags:combo width="150" disabled="${detailsMode}" property="element.id" collection="${elements}" label="labels.cocktail.ingredient.element" />
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<label for="count"><fmt:message key="labels.cocktail.ingredient.count"/></label>
-					<sf:input path="count" />
+					<tags:text width="100" property="count" maxLength="3" disabled="${detailsMode}" label="labels.cocktail.ingredient.count"/>
 				</td>
 			</tr>
 			<tr class="buttons">
 				<td>
-					<input type="button" onclick="addIngredient();" value="<fmt:message key='buttons.action.add'/>"/>
+					<input class="submitButton" type="button" onclick="addIngredient();" value="<fmt:message key='buttons.action.add'/>"/>
 				</td>
 			</tr>
 		</table>

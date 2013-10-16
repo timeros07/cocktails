@@ -3,11 +3,14 @@ package pl.cocktails.common.data;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.jdo.JDOObjectNotFoundException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import org.springframework.stereotype.Repository;
 
+import pl.cocktails.admin.Errors;
+import pl.cocktails.admin.SystemException;
 import pl.cocktails.common.DataStoreManager;
 
 @Repository
@@ -50,7 +53,10 @@ public class ElementDAOImpl implements ElementDAO {
 		PersistenceManager manager = DataStoreManager.getManager().createPersistenceManager();
 		try{
 			return manager.getObjectById(ElementData.class, id);
-		}finally{
+		}catch(JDOObjectNotFoundException ex){
+			throw new SystemException(Errors.ELEMENT_NOT_FOUND, "Element with id: " + id + " not found");
+		}
+		finally{
 			manager.close();
 		}
 	}
@@ -62,6 +68,9 @@ public class ElementDAOImpl implements ElementDAO {
 			oldElement.setName(element.getName());
 			oldElement.setDescription(element.getDescription());
 			oldElement.setType(element.getType());
+		
+		}catch(JDOObjectNotFoundException ex){
+			throw new SystemException(Errors.ELEMENT_NOT_FOUND, "Element with id: " + element.getId() + " not found");
 		}finally{
 			manager.close();
 		}
@@ -70,9 +79,14 @@ public class ElementDAOImpl implements ElementDAO {
 
 	public void remove(Long id) {
 		PersistenceManager manager = DataStoreManager.getManager().createPersistenceManager();
-		ElementData element = manager.getObjectById(ElementData.class, id);
-		if(element != null){
+		try{
+			ElementData element = manager.getObjectById(ElementData.class, id);
 			manager.deletePersistent(element);
+			
+		}catch(JDOObjectNotFoundException ex){
+			throw new SystemException(Errors.ELEMENT_NOT_FOUND, "Element with id: " + id + " not found");
+		}finally{
+			manager.close();
 		}
 	}
 	

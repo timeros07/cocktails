@@ -4,9 +4,12 @@ public class SystemException extends RuntimeException {
 	
 	private static final long serialVersionUID = -2951534339484771757L;
 	private String message;
+	private int errorCode;
 	
-	public SystemException(String message){
+	public SystemException(){super();}
+	public SystemException(int errorCode, String message){
 		super();
+		this.errorCode = errorCode;
 		this.message = message;
 	}
 
@@ -14,9 +17,8 @@ public class SystemException extends RuntimeException {
 		return message;
 	}
 
-	public void setMessage(String message) {
-		this.message = message;
+	public int getErrorCode() {
+		return errorCode;
 	}
-	
 
 }

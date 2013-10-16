@@ -1,7 +1,6 @@
 <%@page pageEncoding="utf-8" %>
 <%@include file="/resources/pages/admin/layout/tags.jsp" %>
-<div id="myGrid" style="width: 500px; height: 300px; margin:50px;"></div>
-	<!-- to avoid all these imports you can just include jquery-ui-plugins-0.0.12.js -->		
+<!-- to avoid all these imports you can just include jquery-ui-plugins-0.0.12.js -->		
 	<script src="/resources/scripts/jquery-ui-plugins/js/lib/jquery.event.drag-2.0.min.js"></script>
 	<script src="/resources/scripts/jquery-ui-plugins/js/lib/jquery.event.drop-2.0.min.js"></script>
 
@@ -12,6 +11,10 @@
 	<script src="/resources/scripts/jquery-ui-plugins/js/jquery-ui-plugins-core.js"></script>	
 	<script src="/resources/scripts/jquery-ui-plugins/js/jquery-ui-plugins-grid.js"></script>
 	<script src="/resources/scripts/jquery-ui-plugins/js/jquery-ui-plugins-textinput.js"></script>
+<div class="pageActions">
+		<input class="pageAction" type="button" onclick="window.location='cocktailCreate'" value="<fmt:message key='buttons.action.create'/>" />
+</div>
+<div id="myGrid" style="width: 500px; height: 300px; margin:50px;"></div>
 	<script>		
 		
 		var cols = [ 

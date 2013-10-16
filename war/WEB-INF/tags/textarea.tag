@@ -12,24 +12,24 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 
 
-<c:set var="_width" value="width:${width}px;"/>
-<c:if test="${!hidden}">
-	<label for="${property}"><fmt:message key="${label}"/></label>
+<c:set var="_width" value="width:${pageScope.width}px;"/>
+<c:if test="${!pageScope.hidden}">
+	<label for="${pageScope.property}"><fmt:message key="${pageScope.label}"/></label>
 </c:if>
 <sf:textarea
- 	path="${property}"
-  	disabled="${disabled}"
-  	id="_${property}"
+ 	path="${pageScope.property}"
+  	disabled="${pageScope.disabled}"
+  	id="_${pageScope.property}"
   	cssErrorClass="errorTextArea"
-  	maxLength="${maxLength}"
+  	maxLength="${pageScope.maxLength}"
   	cssStyle="${!empty pageScope.width ? _width : 'width:auto;'}
-  			${ hidden ? 'display:none;' : 'display:inline;'}
+  			${ pageScope.hidden ? 'display:none;' : 'display:inline;'}
   			resize:none;vertical-align: middle;"
   	rows="5"
-	onKeyDown="onKeyDown_${property}()"
+	onKeyDown="onKeyDown_${pageScope.property}()"
 />
 <script>
-function onKeyDown_${property}(){
+function onKeyDown_${pageScope.property}(){
 	if($('#_${property}').attr('class') == 'errorTextArea'){
 		$('#_${property}').removeClass('errorTextArea');
 	} 

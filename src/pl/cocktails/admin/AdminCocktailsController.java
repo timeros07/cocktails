@@ -123,14 +123,17 @@ public class AdminCocktailsController {
 	}
 	
 	@RequestMapping(value="/addIngredient", method=RequestMethod.POST)
-	public @ResponseBody String addIngredient(@Validated IngredientData ingredient, BindingResult bindingResult) {
+	public @ResponseBody JSONResponse addIngredient(@Validated IngredientData ingredient, BindingResult bindingResult) {
+		AdminIngredientValidator validator = new AdminIngredientValidator();
+		validator.validate(ingredient, bindingResult);
 		if(bindingResult.hasErrors()){
-			return "failure";
+			return new JSONResponse(false, bindingResult.getAllErrors());
 		}
 		ingredient.setElement(cocktailService.getElement(ingredient.getElement().getId()));
 		ingredient.setKey(KeyFactory.createKey(IngredientData.class.getSimpleName(), (-1)*(ingredients.size()+1)));
 		ingredients.add(ingredient);
-		return "success";
+		ingredient = new IngredientData();
+		return new JSONResponse(true, JSONResponse.OPERATION_SUCCESS);
 	}
 	
 	@RequestMapping(value="/getIngredients", method=RequestMethod.POST)

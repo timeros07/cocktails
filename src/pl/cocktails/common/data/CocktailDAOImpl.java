@@ -63,8 +63,6 @@ public class CocktailDAOImpl implements CocktailDAO{
 		q.setOrdering("name");
 		try{
 			List<CocktailData> cocktails = (List<CocktailData>)q.execute();
-			if(cocktails.isEmpty())
-				return null;
 			return cocktails;
 		}
 		catch(Exception e){

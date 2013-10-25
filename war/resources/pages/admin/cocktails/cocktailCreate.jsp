@@ -10,7 +10,40 @@
 	<script src="/resources/scripts/jquery-ui-plugins/js/jquery-ui-plugins-core.js"></script>	
 	<script src="/resources/scripts/jquery-ui-plugins/js/jquery-ui-plugins-grid.js"></script>
 	<script src="/resources/scripts/jquery-ui-plugins/js/jquery-ui-plugins-textinput.js"></script>
-
+	<style>
+		#messageBox{
+			top:0;
+			right:0;
+			position: absolute;
+			width: 100%;
+			text-align:center;
+			
+		}
+		#messageBoxInner{
+			width: 300px;
+			height: 60px;
+			background-color: rgb(188, 236, 188);
+			display: inline-block;
+			background-image: url('/resources/images/icons/ok.png');
+			background-repeat: no-repeat;
+			background-position: 10px center;
+			color: rgb(45, 162, 45);
+			font-size: 1.5em;
+			border: 1px solid rgb(45, 162, 45);
+			font-family: "Lucida Grande";
+			border-radius: 6px;
+			font-weight: lighter;
+		}
+		#messageBoxInner h4{
+			margin-left: 25px;
+		}
+	</style>
+	<div id="messageBox">
+		<div id="messageBoxInner">
+			<h4>Operacja wykonana pomyślnie</h4>
+		</div>
+	</div>
+	
 <c:set var="mode"><tiles:insertAttribute name="mode" /></c:set>
 <c:set var="detailsMode" value="${mode == 'D'}"/>
 <c:set var="modifyMode" value="${mode == 'M'}"/>
@@ -80,17 +113,13 @@ var $grid;
 		$('#count').val(ingredient.count);
 		$('select[name="element.id"]').val(ingredient.elementId);
 	}
-	
+	function callback() {
+		setTimeout(function() {
+        $( "#messageBox" ).slideUp('slow');
+      }, 2000 );
+    };
 	function ajaxTest(){
-		jQuery.ajax({
-			type: 'POST',
-			url: 'getIngredients',
-			contentType: 'application/json',
-			mimeType: 'application/json',
-			success: function(res){
-				console.log(res);
-			}
-		});
+		$( "#messageBox" ).slideDown('slow', callback );
 	}
 </script>
 

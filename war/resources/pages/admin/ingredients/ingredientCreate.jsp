@@ -14,8 +14,9 @@
 	function removeItem(id){
 		jQuery.ajax({
 			type: 'POST',
-			url: 'ingredientRemove',
+			url: 'ingredientDetails',
 			data: {
+				'job': 'REMOVE',
 				'id' : id
 			},
 			success: function(res){
@@ -70,7 +71,7 @@ function confirm(question){
 			<c:if test="${detailsMode}">
 				<td>
 					<input class="submitButton" type="button" onclick="window.location='ingredientModify?id=${elementData.id}'" value="<fmt:message key='buttons.action.modify'/>"/>
-					<input class="submitButton" type="button" onclick="confirm();" value="<fmt:message key='buttons.action.remove'/>"/>
+					<tags:simple-handler questionTitle="confirm.remove.title" question="question.remove" params="id: ${elementData.id}" url="ingredientDetails" label="buttons.action.remove" job="REMOVE" />
 				</td>
 			</c:if>
 			<c:if test="${modifyMode}">

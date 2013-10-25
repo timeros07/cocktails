@@ -16,10 +16,9 @@ public class AdminCocktailValidator implements Validator {
 	@Override
 	public void validate(Object target, Errors errors) {
 		CocktailData cocktail = (CocktailData)target;
-		
-			
-		ValidationUtils.rejectIfEmpty(errors, "name", "errors.empty", new Object[]{"nazwa"});
-		ValidationUtils.rejectIfEmpty(errors, "description", "errors.empty", new String[]{"opis"});
+				
+		ValidationUtils.rejectIfEmpty(errors, "name", "errors.empty", new Object[]{MessageUtils.getMessage("labels.cocktail.name")});
+		ValidationUtils.rejectIfEmpty(errors, "description", "errors.empty", new String[]{MessageUtils.getMessage("labels.cocktail.description")});
 		
 		if(cocktail.getIngredients().isEmpty()){
 			errors.reject("errors.cocktail.ingredients.empty");

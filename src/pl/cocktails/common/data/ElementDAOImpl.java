@@ -31,14 +31,7 @@ public class ElementDAOImpl implements ElementDAO {
 		Query q = manager.newQuery(ElementData.class);
 		q.setOrdering("name");
 		try{
-			List<ElementData> elementsResults = (List<ElementData>)q.execute();
-			if(elementsResults.isEmpty())
-				return null;
-			
-			List<ElementData> elements = new ArrayList<ElementData>();
-			for(ElementData element : elementsResults){
-				elements.add(element);
-			}
+			List<ElementData> elements = (List<ElementData>)q.execute();
 			return elements;
 		}
 		catch(Exception e){

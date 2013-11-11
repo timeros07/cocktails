@@ -61,6 +61,7 @@ public class ElementDAOImpl implements ElementDAO {
 			oldElement.setName(element.getName());
 			oldElement.setDescription(element.getDescription());
 			oldElement.setType(element.getType());
+			oldElement.setBlobKey(element.getBlobKey());
 		
 		}catch(JDOObjectNotFoundException ex){
 			throw new SystemException(Errors.ELEMENT_NOT_FOUND, "Element with id: " + element.getId() + " not found");

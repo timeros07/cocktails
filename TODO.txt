@@ -1,23 +1,14 @@
 
 
+poprawiæ panel do uploadu(zrobic tag), modyfikacja obrazka, progress bar
+
+lepiej przemyslec forme
+
 jest b³¹d: usuwam sk³adnik ktory jest w drinku, nastepnie wchodze w detale drinka,gdzie nazwa skladnika nie jest wyswietlana, zapisuje, tworzy sie pusty skladnik bez nazwy opisu
 
 -napisac komponent rozszerzajacy slick grid
 trzeba sicagnac nowe zrodla js bo te sa chyba juz nie wspierane
 
-napisac tagi simple handler i submit handler
-
-
-OBSLUGA BLEDOW
-- bez ajaxa: zadania typu save add. generyczna obsluga springa
-- ajax: zadana typy add obsluga recznei bledow, zwrot jsonem i wyswietlenie bledu, mozna jedynie napisac jakies pomocnicze funkcje, tagi.
-
-
--zrobic cruda dla drinkow i sk³adników
-dokonczyc ingredients
-
-
--upload obrazków mozliwy jest tylko stary sposób z servletem, spr czy mozna usunac fileupload, io commons i gmultipart
 -dodaæ obs³ugê b³êdu 404
 -dodaæ wygl¹d strony 404
 
@@ -28,12 +19,9 @@ dokonczyc ingredients
 -logowanie przez google
 -logowanie przez fb
 
--zrobic taga do confirm
+ przemyslec tranzakcje
 
--wyjatki na bazie obsluzyc dodac swoje
-obsluga wyjatkow na poziomie service, przemyslec tranzakcje
-przechwytywacz wyjatkow ktory wyswietla window z bledem
 
--usuwanie i modyfikacja skladnikow drinku
+-modyfikacja skladnikow drinku
 
 linki socials: http://www.promocyjni.pl/

@@ -10,75 +10,48 @@
 	<script src="/resources/scripts/jquery-ui-plugins/js/jquery-ui-plugins-core.js"></script>	
 	<script src="/resources/scripts/jquery-ui-plugins/js/jquery-ui-plugins-grid.js"></script>
 	<script src="/resources/scripts/jquery-ui-plugins/js/jquery-ui-plugins-textinput.js"></script>
-	<style>
-		#messageBox{
-			top:0;
-			right:0;
-			position: absolute;
-			width: 100%;
-			text-align:center;
-			
-		}
-		#messageBoxInner{
-			width: 300px;
-			height: 60px;
-			background-color: rgb(188, 236, 188);
-			display: inline-block;
-			background-image: url('/resources/images/icons/ok.png');
-			background-repeat: no-repeat;
-			background-position: 10px center;
-			color: rgb(45, 162, 45);
-			font-size: 1.5em;
-			border: 1px solid rgb(45, 162, 45);
-			font-family: "Lucida Grande";
-			border-radius: 6px;
-			font-weight: lighter;
-		}
-		#messageBoxInner h4{
-			margin-left: 25px;
-		}
-	</style>
-	<div id="messageBox">
-		<div id="messageBoxInner">
-			<h4>Operacja wykonana pomyślnie</h4>
-		</div>
-	</div>
-	
 <c:set var="mode"><tiles:insertAttribute name="mode" /></c:set>
 <c:set var="detailsMode" value="${mode == 'D'}"/>
 <c:set var="modifyMode" value="${mode == 'M'}"/>
 <c:set var="createMode" value="${mode == 'C'}"/>
 	
 <script>
-var $grid;
-	function removeItem(id){
-		jQuery.ajax({
+	function uploadImage(){
+	
+		var formData = new FormData($('#uploadForm')[0]);
+		$.ajax({
+		url: $('#uploadForm').attr('action'),  //server script to process data
 			type: 'POST',
-			url: 'cocktailRemove',
-			data: {
-				'id' : id
-			},
+			data: formData,
+			cache: false,
+			contentType: false,
+			processData: false,
 			success: function(res){
-				window.location = 'cocktails';
-			}
+				$('#image').attr('src', res.imageUrl);
+				$('#image').show();
+				$('#_blobKey').val(res.blobkey);
+			},
+			error: function(res){
+				alert("pojawił się nie oczekiwany błąd:" + res);
+			},
+			cache: false,
+			contentType: false,
+			processData: false
 		});
 	}
-	function addIngredient(){
-	var data= $('#addIngredientForm').serialize();
-		jQuery.ajax({
-			type: 'POST',
-			url: 'addIngredient',
-			data: data,
-			success: function(res){
-				loadIngredients();
-			}
-		});
+
+
+var $grid;
+	function clearAddIngredientPanel(){
+		$('#_count').val('');
+		$('#element_id').val('');
 	}
 	
 	function loadIngredients(){
 		jQuery.ajax({
 			type: 'POST',
-			url: 'getIngredients',
+			url: 'cocktailCreate',
+			data: {'job' : 'LOAD_INGREDIENTS'},
 			success: function(res){
 				var data = [];
 				for(i=0;i<res.length;i++){
@@ -91,21 +64,8 @@ var $grid;
 				}
 				$grid.setData(data);
 				$grid.render();
-			},
-			contentType: 'application/json'
-		});
-	}
-	
-	function removeIngredient(id){
-		
-			jQuery.ajax({
-			type: 'GET',
-			url: 'removeIngredient',
-			data: {'id' : id},
-			success: function(res){
-				loadIngredients();
-			},
-			contentType: 'application/json'
+				clearAddIngredientPanel();
+			}
 		});
 	}
 	
@@ -113,18 +73,10 @@ var $grid;
 		$('#count').val(ingredient.count);
 		$('select[name="element.id"]').val(ingredient.elementId);
 	}
-	function callback() {
-		setTimeout(function() {
-        $( "#messageBox" ).slideUp('slow');
-      }, 2000 );
-    };
-	function ajaxTest(){
-		$( "#messageBox" ).slideDown('slow', callback );
-	}
 </script>
 
 <div>
-	<sf:form method="POST" modelAttribute="cocktailData" >
+	<sf:form id="formularz" method="POST" modelAttribute="cocktailData" >
 	<sf:errors path="*" cssClass="errorHeader"/>
 		<table>
 			<tr>
@@ -137,30 +89,44 @@ var $grid;
 					<tags:textarea width="250" property="description" maxLength="150" disabled="${detailsMode}" label="labels.ingredient.description"/>
 				</td>
 			</tr>
-			
-			<tr class="buttons">
-			<c:if test="${createMode}">
-				<td>
-					<input class="submitButton" type="submit" value="<fmt:message key='buttons.action.create'/>" />
-					<input class="submitButton" type="button" value="<fmt:message key='buttons.action.cancel'/>" onclick="window.location='cocktails'"/>
-				</td>
+			<sf:hidden name="blobKey" id="_blobKey" path="blobKey"/>
+		</table>
+		</sf:form>
+		<table>
+			<c:if test="${createMode or modifyMode}">
+				<tr>
+					<td>
+						<span><fmt:message key="labels.cocktail.image"/></span>
+						<form id="uploadForm" action="${uploadUrl}" method="post" enctype="multipart/form-data">
+							<input type="file" name="uploadFile">
+							<input class="submitButton" type="button" onclick="uploadImage();" value="<fmt:message key='buttons.action.upload'/>"/>
+						</form>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<img style="display:none; max-height: 150px;max-width:250px;" id="image"/>
+					</td>
+				</tr>
 			</c:if>
 			<c:if test="${detailsMode}">
-				<td>
-					<input type="button" onclick="window.location='cocktailModify?id=${cocktailData.id}'" value="<fmt:message key='buttons.action.modify'/>"/>
-					<input type="button" onclick="removeItem(${cocktailData.id});" value="<fmt:message key='buttons.action.remove'/>"/>
-				</td>
+				<c:if test="${not empty cocktailData.blobKey}">
+				<tr>
+					<span><fmt:message key="labels.cocktail.image"/></span>
+					<td>
+						<img src="/serve?blob-key=${cocktailData.blobKey}" style="margin-left: 20px;max-height: 150px;max-width:250px;"/>
+					</td>
+				</tr>
+				</c:if>
+				<c:if test="${empty cocktailData.blobKey}">
+					<tr>
+						<td><span><fmt:message key="labels.cocktail.image"/></span>
+						<span><fmt:message key="labels.cocktail.image.noImage"/></span></td>
+					</tr>
+				</c:if>
 			</c:if>
-			<c:if test="${modifyMode}">
-				<td>
-					<input type="submit" value="<fmt:message key='buttons.action.save'/>"/>
-					<input class="submitButton" type="button" value="<fmt:message key='buttons.action.cancel'/>" onclick="window.location='cocktails'"/>
-				</td>
-			</c:if>
-			</tr>
 		</table>
 
-	</sf:form>
 	
 		<h3>Lista składników</h3>
 		<div id="myGrid" style="width: 500px; height: 100px; "></div>
@@ -169,7 +135,10 @@ var $grid;
 		<table>
 			<tr>
 				<td>
-					<tags:combo width="150" disabled="${detailsMode}" property="element.id" collection="${elements}" label="labels.cocktail.ingredient.element" />
+					<sf:select id="element_id" name="element.id" path="${element.id}" >
+						<sf:options items="${elements}"/>
+						<option value=""></option>
+					</sf:select>
 				</td>
 			</tr>
 			<tr>
@@ -179,18 +148,39 @@ var $grid;
 			</tr>
 			<tr class="buttons">
 				<td>
-					<input class="submitButton" type="button" onclick="addIngredient();" value="<fmt:message key='buttons.action.add'/>"/>
+					<tags:submit-handler customSuccess="loadIngredients();"  url="cocktailCreate" label="buttons.action.add" job="ADD_INGREDIENT" form="addIngredientForm" />
 				</td>
 			</tr>
 		</table>
 	</sf:form>
 	</c:if>
+	<table>
+	<tr class="buttons">
+		<c:if test="${createMode}">
+			<td>
+				<tags:submit-handler  url="cocktailCreate" label="buttons.action.create" job="CREATE" form="formularz" />
+				<input class="submitButton" type="button" value="<fmt:message key='buttons.action.cancel'/>" onclick="window.location='cocktails'"/>
+			</td>
+		</c:if>
+		<c:if test="${detailsMode}">
+			<td>
+				<input type="button" class="submitButton" onclick="window.location='cocktailModify?id=${cocktailData.id}'" value="<fmt:message key='buttons.action.modify'/>"/>
+				<tags:simple-handler questionTitle="confirm.remove.title" question="question.remove" params="id: ${cocktailData.id}" url="cocktailDetails" label="buttons.action.remove" job="REMOVE" />
+			</td>
+		</c:if>
+		<c:if test="${modifyMode}">
+			<td>
+				<tags:submit-handler  url="cocktailModify" label="buttons.action.save" job="SAVE" form="formularz" />
+				<input class="submitButton" type="button" value="<fmt:message key='buttons.action.cancel'/>" onclick="window.location='cocktails'"/>
+			</td>
+		</c:if>
+	</tr>
+	</table>
 	
-	<input type="button" onclick="ajaxTest();" value="ajaxTest"/>
 </div>
 <script>		
 		function removeFormatter(rowNum, cellNum, value, columnDef, row){
-			return '<img width="20px" src="/resources/images/icons/remove_button.png" onclick="removeIngredient(' + row.id + ')"/>';
+			return '<img style="cursor: pointer;" width="20px" src="/resources/images/icons/remove_button.png" onclick="removeIngredient(' + row.id + ')"/>';
 		}
 		
 		var cols = [ 

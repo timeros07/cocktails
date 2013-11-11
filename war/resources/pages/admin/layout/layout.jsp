@@ -40,6 +40,13 @@
 	</div>
 	
 	<div id="body" class="right_content">
+		<div id="successMessageBox">
+			<div id="successMessageBoxInner"></div>
+		</div>
+		<div id="errorMessageBox">
+			<div id="errorMessageBoxInner" onclick="$( '#errorMessageBox' ).slideUp('slow');"></div>
+		</div>
+	
 		<div><h3><fmt:message key="${title}"/></h3></div>
 		<tiles:insertAttribute name="body" />
 	</div>

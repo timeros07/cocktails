@@ -23,7 +23,7 @@
 <sf:input
  	path="${pageScope.property}"
   	disabled="${pageScope.disabled}"
-  	id="${id}"
+  	id="_${id}"
   	cssErrorClass="errorText"
   	maxLength="${pageScope.maxLength}"
   	cssStyle="${!empty pageScope.width ? _width : 'width:auto;'}
@@ -32,7 +32,7 @@
   	onKeyDown="onKeyDown_${pageScope.property}()"
 />
 <script>
-$(function() {
+/*$(function() {
 	 $('#_${property}').tooltip({
 	      position: {
 	        my: "center bottom-20",
@@ -49,11 +49,11 @@ $(function() {
 	    });
 	 
 	 
-  });
+  });*/
   
 function onKeyDown_${pageScope.property}(){
-	if($('#${id}').attr('class') == 'errorText'){
-		$('#${id}').removeClass('errorText');
+	if($('#_${id}').attr('class') == 'errorText'){
+		$('#_${id}').removeClass('errorText');
 	} 
 }
 </script>

@@ -41,7 +41,7 @@ public class CocktailData implements Serializable {
 	private String author;
 	
 	@Persistent
-	private String blobkey;
+	private String blobKey;
 	
 	@Persistent
 	private boolean status;
@@ -90,11 +90,11 @@ public class CocktailData implements Serializable {
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-	public String getBlobkey() {
-		return blobkey;
+	public String getBlobKey() {
+		return blobKey;
 	}
-	public void setBlobkey(String blobkey) {
-		this.blobkey = blobkey;
+	public void setBlobKey(String blobkey) {
+		this.blobKey = blobkey;
 	}
 	public boolean isStatus() {
 		return status;

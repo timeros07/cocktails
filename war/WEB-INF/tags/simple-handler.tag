@@ -67,7 +67,7 @@
 			},
 			success: function(res){
 				if(res.success){
-						showSuccessMsg(res.message);
+						showSuccessMsg(res.messages[0].message);
 					setTimeout(function(){
 						if(res.redirect != null){
 							window.location = res.redirect;

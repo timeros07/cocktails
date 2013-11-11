@@ -39,7 +39,7 @@
 	<!-- MESSAGES CONFIGURATION -->
 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource" >
 		<property name="basename">
-    		<value>messages</value>
+    		<value>pl.cocktails.common.messages.messages</value>
 		</property>
 	</bean>
 	

@@ -4,47 +4,30 @@
 <c:set var="detailsMode" value="${mode == 'D'}"/>
 <c:set var="modifyMode" value="${mode == 'M'}"/>
 <c:set var="createMode" value="${mode == 'C'}"/>
-<div id="dialog-confirm" style="height:auto; display:none;">
-  <p><span class="ui-icon ui-icon-alert" style="float: left; "></span><fmt:message key='question.remove'/></p>
-</div>
 <script>
-	var question = "<fmt:message key='question.remove'/>";
-	var title = "<fmt:message key='confirm.remove.title'/>";
+	function uploadImage(){
 	
-	function removeItem(id){
-		jQuery.ajax({
+		var formData = new FormData($('#uploadForm')[0]);
+		$.ajax({
+		url: $('#uploadForm').attr('action'),  //server script to process data
 			type: 'POST',
-			url: 'ingredientDetails',
-			data: {
-				'job': 'REMOVE',
-				'id' : id
-			},
+			data: formData,
+			cache: false,
+			contentType: false,
+			processData: false,
 			success: function(res){
-			window.location = 'ingredients';
-				//$( "#errorPopup" ).show( 'slide', options, 500, function(){} );
-			}
+				$('#image').attr('src', res.imageUrl);
+				$('#image').show();
+				$('#_blobKey').val(res.blobkey);
+			},
+			error: function(res){
+				alert("pojawił się nie oczekiwany błąd:" + res);
+			},
+			cache: false,
+			contentType: false,
+			processData: false
 		});
 	}
-function confirm(question){
-	$('#dialog-confirm').attr('title',title);
-	$('#dialog-confirm').show();
-	 $( "#dialog-confirm" ).dialog({
-      resizable: false,
-      height:140,
-      modal: true,
-      buttons: {
-        "Tak": function() {
-          $( this ).dialog( "close" );
-			removeItem(${elementData.id});
-		},
-        Cancel: function() {
-          $( this ).dialog( "close" );
-		   return false;
-        }
-      }
-    });
-	}
-	
 </script>
 
 <div>
@@ -61,10 +44,47 @@ function confirm(question){
 					<tags:textarea width="250" property="description" maxLength="150" disabled="${detailsMode}" label="labels.ingredient.description"/>
 				</td>
 			</tr>
+			<sf:hidden name="blobKey" id="_blobKey" path="blobKey"/>
+		</table>
+	</sf:form>
+		<table>
+			<c:if test="${createMode or modifyMode}">
+				<tr>
+					<td>
+						<span><fmt:message key="labels.ingredient.image"/></span>
+						<form id="uploadForm" action="${uploadUrl}" method="post" enctype="multipart/form-data">
+							<input type="file" name="uploadFile">
+							<input class="submitButton" type="button" onclick="uploadImage();" value="<fmt:message key='buttons.action.upload'/>"/>
+						</form>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<img style="display:none; max-height: 150px;max-width:250px;" id="image"/>
+					</td>
+				</tr>
+			</c:if>
+			<c:if test="${detailsMode}">
+				<c:if test="${not empty elementData.blobKey}">
+				<tr>
+					<span><fmt:message key="labels.ingreient.image"/></span>
+					<td>
+						<img src="/serve?blob-key=${elementData.blobKey}" style="margin-left: 20px;max-height: 150px;max-width:250px;"/>
+					</td>
+				</tr>
+				</c:if>
+				<c:if test="${empty elementData.blobKey}">
+					<tr>
+						<td><span><fmt:message key="labels.ingreient.image"/></span>
+						<span><fmt:message key="labels.ingreient.image.noImage"/></span></td>
+					</tr>
+				</c:if>
+			</c:if>
+		
 			<tr class="buttons">
 			<c:if test="${createMode}">
 				<td>
-					<input class="submitButton" type="submit" value="<fmt:message key='buttons.action.add'/>"/>
+					<tags:submit-handler  url="ingredientCreate" label="buttons.action.create" job="CREATE" form="formularz" />
 					<input class="submitButton" type="button" value="<fmt:message key='buttons.action.cancel'/>" onclick="window.location='ingredients'"/>
 				</td>
 			</c:if>
@@ -76,13 +96,13 @@ function confirm(question){
 			</c:if>
 			<c:if test="${modifyMode}">
 				<td>
-					<input class="submitButton" type="submit" value="<fmt:message key='buttons.action.save'/>"/>
+					<tags:submit-handler  url="ingredientModify" label="buttons.action.save" job="SAVE" form="formularz" />
 					<input class="submitButton" type="button" value="<fmt:message key='buttons.action.cancel'/>" onclick="window.location='ingredients'"/>
 				</td>
 			</c:if>
 			</tr>
 		</table>
 
-	</sf:form>
+
 	
 </div>

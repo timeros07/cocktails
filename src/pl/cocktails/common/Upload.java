@@ -16,6 +16,8 @@ import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFactory;
 import com.google.appengine.api.images.ServingUrlOptions;
+import com.google.appengine.labs.repackaged.org.json.JSONException;
+import com.google.appengine.labs.repackaged.org.json.JSONObject;
 
 public class Upload extends HttpServlet {
 
@@ -28,38 +30,28 @@ public class Upload extends HttpServlet {
 
     	String imageURL;
         Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(req);
-        List<BlobKey> blobKeys = blobs.get("ingredientFile");
+        List<BlobKey> blobKeys = blobs.get("uploadFile");
         BlobKey blobKey = blobKeys.get(0);
         
-        res.setContentType("text/html;charset=UTF-8");
+        JSONObject obj = new JSONObject();
+        
+        res.setContentType("application/json;charset=UTF-8");
         
         PrintWriter out = res.getWriter();
         try{
+        	ImagesService imageService = ImagesServiceFactory.getImagesService();
+        	ServingUrlOptions options = ServingUrlOptions.Builder.withBlobKey(blobKey);
+        	imageURL = imageService.getServingUrl(options);
+       	
+        	obj.put("success", "true");
+        	obj.put("blobkey", blobKey.getKeyString());
+        	obj.put("imageUrl", imageURL);
         	
-        		
-        	out.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-        	out.println("<fileInfo>");
-        	
-        	if(blobKey != null) {
-        		
-        		ImagesService imageService = ImagesServiceFactory.getImagesService();
-        		ServingUrlOptions options = ServingUrlOptions.Builder.withBlobKey(blobKey);
-        		imageURL = imageService.getServingUrl(options);
-        		
-        		out.println("<blobKey>");
-        		out.println(blobKey.getKeyString());
-        		out.println("</blobKey>");
-        	
-        		out.println("<imageURL>");
-        		out.println(imageURL);
-        		out.println("</imageURL>");
-        	}
-        	else {
-        		out.println("<blobKey>error</blobKey>");
-        	}
-        	
-        	out.println("</fileInfo>");
-        }
+        	out.print(obj);
+        	out.flush();
+        } catch (JSONException e) {
+			e.printStackTrace();
+		}
         finally{
         	out.close();
         }

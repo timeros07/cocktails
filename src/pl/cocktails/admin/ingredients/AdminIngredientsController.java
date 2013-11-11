@@ -1,17 +1,28 @@
-package pl.cocktails.admin;
+package pl.cocktails.admin.ingredients;
 
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.WebRequest;
 
+import com.google.appengine.api.blobstore.BlobKey;
+import com.google.appengine.api.blobstore.BlobstoreService;
+import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
+
+import pl.cocktails.admin.JSONResponse;
 import pl.cocktails.common.data.CocktailService;
 import pl.cocktails.common.data.ElementData;
 
@@ -23,17 +34,21 @@ public class AdminIngredientsController {
 	@Autowired
 	private CocktailService cocktailService;
 	
+	BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+	
 	/******IngredientCreate*****************************************/
 	
 	@RequestMapping(value="/ingredientCreate", method=RequestMethod.GET)
 	public String initCreateIngredientForm(Model model) {
-		model.addAttribute(new ElementData());
-		
+		element = new ElementData();
+		String uploadUrl = blobstoreService.createUploadUrl("/upload");
+		model.addAttribute("uploadUrl", uploadUrl);
+		model.addAttribute(element);
 		return "adminIngredientCreate";
 	}
 	
 	@RequestMapping(value="/ingredientCreate", method=RequestMethod.POST, params="job=CREATE")
-	public JSONResponse addIngredient(@Validated ElementData element, BindingResult bindingResult) {
+	public @ResponseBody JSONResponse addIngredient(@Validated ElementData element, BindingResult bindingResult) {
 		AdminElementValidator validator = new AdminElementValidator();
 		validator.validate(element, bindingResult);
 	
@@ -46,15 +61,26 @@ public class AdminIngredientsController {
 	
 	/******IngredientModify*****************************************/
 	
+	private ElementData element = new ElementData();
+	
+	@ModelAttribute
+	public void addAttributes(WebRequest request, Model model) {
+		model.addAttribute("elementData", element);
+	}
+	
 	@RequestMapping(value="/ingredientModify", method=RequestMethod.GET)
 	public String initModify(@RequestParam(required= true) Long id, Model model){
 		
-		model.addAttribute(cocktailService.getElement(id));
+		element = cocktailService.getElement(id);
+		model.addAttribute(element);
+		String uploadUrl = blobstoreService.createUploadUrl("/upload");
+		model.addAttribute("uploadUrl", uploadUrl);
+		
 		return "adminIngredientModify";
 	}
 	
 	@RequestMapping(value="/ingredientModify", method=RequestMethod.POST, params="job=SAVE")
-	public JSONResponse modifyIngredient(@Validated ElementData element, BindingResult bindingResult) {
+	public @ResponseBody JSONResponse modifyIngredient(@ModelAttribute ElementData element, BindingResult bindingResult) {
 		AdminElementValidator validator = new AdminElementValidator();
 		validator.validate(element, bindingResult);
 	

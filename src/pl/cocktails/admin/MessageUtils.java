@@ -12,7 +12,7 @@ public class MessageUtils {
 		 
 	        try {
 	            ResourceBundleMessageSource bean = new ResourceBundleMessageSource();
-	            bean.setBasename("messages");
+	            bean.setBasename("pl.cocktails.common.messages.messages");
 	            return bean.getMessage(key, args, Locale.getDefault());
 	        }
 	        catch (Exception e) {

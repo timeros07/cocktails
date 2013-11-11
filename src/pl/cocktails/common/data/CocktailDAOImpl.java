@@ -33,6 +33,7 @@ public class CocktailDAOImpl implements CocktailDAO{
 			oldCocktail.setDescription(cocktail.getDescription());
 			oldCocktail.setType(cocktail.getType());
 			oldCocktail.setIngredients(cocktail.getIngredients());
+			oldCocktail.setBlobKey(cocktail.getBlobKey());
 		}catch(JDOObjectNotFoundException ex){
 			throw new SystemException(Errors.COCKTAIL_NOT_FOUND, "Cocktail with id: " + cocktail.getId() + " not found");
 		}finally{

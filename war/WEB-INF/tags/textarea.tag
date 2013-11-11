@@ -30,6 +30,7 @@
 />
 <script>
 function onKeyDown_${pageScope.property}(){
+
 	if($('#_${property}').attr('class') == 'errorTextArea'){
 		$('#_${property}').removeClass('errorTextArea');
 	} 

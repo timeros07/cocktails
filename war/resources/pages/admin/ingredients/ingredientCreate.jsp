@@ -32,7 +32,6 @@
 
 <div>
 	<sf:form id="formularz" method="POST" modelAttribute="elementData" >
-		<sf:errors path="*" cssClass="errorHeader"/>
 		<table>
 			<tr>
 				<td>
@@ -67,7 +66,7 @@
 			<c:if test="${detailsMode}">
 				<c:if test="${not empty elementData.blobKey}">
 				<tr>
-					<span><fmt:message key="labels.ingreient.image"/></span>
+					<span><fmt:message key="labels.ingredient.image"/></span>
 					<td>
 						<img src="/serve?blob-key=${elementData.blobKey}" style="margin-left: 20px;max-height: 150px;max-width:250px;"/>
 					</td>
@@ -75,7 +74,7 @@
 				</c:if>
 				<c:if test="${empty elementData.blobKey}">
 					<tr>
-						<td><span><fmt:message key="labels.ingreient.image"/></span>
+						<td><span><fmt:message key="labels.ingredient.image"/></span>
 						<span><fmt:message key="labels.ingreient.image.noImage"/></span></td>
 					</tr>
 				</c:if>

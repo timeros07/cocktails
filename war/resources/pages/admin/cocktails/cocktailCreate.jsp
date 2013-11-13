@@ -77,7 +77,6 @@ var $grid;
 
 <div>
 	<sf:form id="formularz" method="POST" modelAttribute="cocktailData" >
-	<sf:errors path="*" cssClass="errorHeader"/>
 		<table>
 			<tr>
 				<td>

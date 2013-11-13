@@ -2,7 +2,7 @@
 
 poprawiæ panel do uploadu(zrobic tag), modyfikacja obrazka, progress bar
 
-lepiej przemyslec forme
+lepiej przemyslec forme aby ograniczyc liczbe bledow, uproscic implementacje
 
 jest b³¹d: usuwam sk³adnik ktory jest w drinku, nastepnie wchodze w detale drinka,gdzie nazwa skladnika nie jest wyswietlana, zapisuje, tworzy sie pusty skladnik bez nazwy opisu
 
@@ -13,11 +13,6 @@ trzeba sicagnac nowe zrodla js bo te sa chyba juz nie wspierane
 -dodaæ wygl¹d strony 404
 
 -polskie litery - do ka¿dego pliku jsp nale¿y dodaæ wpis page encoding utf8
-
--uprawnienia do panelu admina
--zrobiæ ³adny tag do uploadu plików
--logowanie przez google
--logowanie przez fb
 
  przemyslec tranzakcje
 

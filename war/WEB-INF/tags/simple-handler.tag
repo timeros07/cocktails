@@ -14,47 +14,12 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-	<style>
-		#messageBox{
-			top:0;
-			right:0;
-			position: absolute;
-			width: 100%;
-			text-align:center;
-			display:none;
-		}
-		#messageBoxInner{
-			width: 300px;
-			height: 60px;
-			background-color: rgb(188, 236, 188);
-			display: inline-block;
-			background-image: url('/resources/images/icons/ok.png');
-			background-repeat: no-repeat;
-			background-position: 10px center;
-			color: rgb(45, 162, 45);
-			font-size: 1.4em;
-			border: 1px solid rgb(45, 162, 45);
-			font-family: "Lucida Grande";
-			border-radius: 6px;
-			
-		}
-		#messageBoxInner h4{
-			margin-left: 25px;
-			font-weight: lighter;
-		}
-	</style>
-	<div id="messageBox">
-		<div id="messageBoxInner">
-
-		</div>
-	</div>
-
 <script>
 	var question = "<fmt:message key='${question}'/>";
 	var title = "<fmt:message key='${questionTitle}'/>";
 	
 	function handler(){
-		$('body').mask("Loading...");
+		$('body').mask("<fmt:message key='bodyMask.loading'/>");
 		jQuery.ajax({
 			type: 'POST',
 			url: '${pageScope.url}',
@@ -72,7 +37,25 @@
 						if(res.redirect != null){
 							window.location = res.redirect;
 						}
-					}, 2000);
+					}, 3000);
+				}else{
+					var message = '';
+					if(res.messages != undefined){
+						for(i in res.messages){
+							if(res.messages[i].field != null){
+								field = $('#_'+ res.messages[i].field);
+								if(field.is('textarea')){
+									field.addClass('errorTextArea');
+								}else if(field.is('input')){
+									field.addClass('errorText');
+								}
+							}
+							message = message + res.messages[i].message + '</br>';
+						}
+					}else{
+						message = "<fmt:message key='error.unexpected'/>";
+					}
+					showErrorMsg(message);
 				}
 				$('body').unmask();
 			},
@@ -103,9 +86,9 @@ function confirm(question){
 
 	function showSuccessMsg(message){
 		
-		$( "#messageBoxInner").html('<h4>' + message + '</h4>');
-		$( "#messageBox" ).slideDown('slow',function(){
-			setTimeout(function() {	$( "#messageBox" ).slideUp('slow'); }, 2000 );}
+		$( "#successMessageBoxInner").html('<h4>' + message + '</h4>');
+		$( "#successMessageBox" ).slideDown('slow',function(){
+			setTimeout(function() {	$( "#successMessageBox" ).slideUp('slow'); }, 2000 );}
 		);
 	}
 	

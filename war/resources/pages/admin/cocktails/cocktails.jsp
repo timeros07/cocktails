@@ -14,7 +14,7 @@
 <div class="pageActions">
 		<input class="pageAction" type="button" onclick="window.location='cocktailCreate'" value="<fmt:message key='buttons.action.create'/>" />
 </div>
-<div id="myGrid" style="width: 500px; height: 300px; margin:50px;"></div>
+<div id="myGrid" style="width: 500px; height: 300px; margin:20px;"></div>
 	<script>		
 		
 		var cols = [ 

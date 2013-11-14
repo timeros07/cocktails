@@ -1,4 +1,5 @@
 
+logowanie przez google
 
 poprawiæ panel do uploadu(zrobic tag), modyfikacja obrazka, progress bar
 

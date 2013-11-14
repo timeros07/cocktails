@@ -17,7 +17,7 @@
 	function ${pageScope.form}_handler(){
 		var form = jQuery('#${pageScope.form}');
 		var formData = form.serialize() + '&job=' + '${pageScope.job}';
-		$('body').mask("Wczytywanie...");
+		$('body').mask("<fmt:message key='bodyMask.loading'/>");
 		jQuery.ajax({
 			type: 'POST',
 			url: '${pageScope.url}',
@@ -49,9 +49,7 @@
 						message = "<fmt:message key='error.unexpected'/>";
 					}
 					
-					
 					showErrorMsg(message);
-
 				}
 				$('body').unmask();
 				${pageScope.customSuccess}

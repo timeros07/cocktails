@@ -3,6 +3,8 @@ logowanie przez google
 
 poprawiæ panel do uploadu(zrobic tag), modyfikacja obrazka, progress bar
 
+przy usuwaniu elementow usuwac rozniez obrazki
+
 lepiej przemyslec forme aby ograniczyc liczbe bledow, uproscic implementacje
 
 jest b³¹d: usuwam sk³adnik ktory jest w drinku, nastepnie wchodze w detale drinka,gdzie nazwa skladnika nie jest wyswietlana, zapisuje, tworzy sie pusty skladnik bez nazwy opisu
@@ -21,3 +23,6 @@ trzeba sicagnac nowe zrodla js bo te sa chyba juz nie wspierane
 -modyfikacja skladnikow drinku
 
 linki socials: http://www.promocyjni.pl/
+
+luk albo lak
+1100zl

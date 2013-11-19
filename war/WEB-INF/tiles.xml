@@ -24,12 +24,15 @@
    	</definition>
 
    	<definition name="adminHome" extends="adminLayout">
-   		<put-attribute name="title" value="Home"/>
+   		<put-attribute name="title" value="title.admin.home"/>
    		<put-attribute name="body" value="/resources/pages/admin/home.jsp"/>
    	</definition>
    	
-   	
-   	
+   	<definition name="adminApplicationInfo" extends="adminLayout">
+   		<put-attribute name="title" value="title.admin.applicationInfo"/>
+   		<put-attribute name="body" value="/resources/pages/admin/applicationInfo.jsp"/>
+   	</definition>
+   	   	
    	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Administration ingredients pages !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
    	
    	<definition name="adminIngredientCreateDef" template="/resources/pages/admin/ingredients/ingredientCreate.jsp">

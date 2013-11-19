@@ -114,5 +114,15 @@ public class AdminIngredientsController {
 		return "adminIngredients";
 	}
 	
-
+	/*@RequestMapping(value="/upload", method=RequestMethod.POST)
+	public String uploadImage(HttpServletRequest req, Model model){
+		 Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(req);
+	        List<BlobKey> blobKeys = blobs.get("uploadFile");
+	        BlobKey blobKey = blobKeys.get(0);
+	        
+		List<ElementData> elements = cocktailService.findElements();
+		model.addAttribute("ingredients", elements);
+		return "adminIngredients";
+	}*/
+	
 }

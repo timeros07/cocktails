@@ -41,17 +41,7 @@
 				}else{
 					var message = '';
 					if(res.messages != undefined){
-						for(i in res.messages){
-							if(res.messages[i].field != null){
-								field = $('#_'+ res.messages[i].field);
-								if(field.is('textarea')){
-									field.addClass('errorTextArea');
-								}else if(field.is('input')){
-									field.addClass('errorText');
-								}
-							}
-							message = message + res.messages[i].message + '</br>';
-						}
+						message = res.messages[0].message;
 					}else{
 						message = "<fmt:message key='error.unexpected'/>";
 					}
@@ -83,15 +73,6 @@ function confirm(question){
       }
     });
 	}
-
-	function showSuccessMsg(message){
-		
-		$( "#successMessageBoxInner").html('<h4>' + message + '</h4>');
-		$( "#successMessageBox" ).slideDown('slow',function(){
-			setTimeout(function() {	$( "#successMessageBox" ).slideUp('slow'); }, 2000 );}
-		);
-	}
-	
 	
 </script>
 

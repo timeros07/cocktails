@@ -31,6 +31,22 @@
 	
 </head>
 <body>
+	<script>
+		function showSuccessMsg(message){
+			
+			$( "#successMessageBoxInner").html('<h4>' + message + '</h4>');
+			$( "#successMessageBox" ).slideDown('slow',function(){
+				setTimeout(function() {	$( "#successMessageBox" ).slideUp('slow'); }, 2000 );}
+			);
+		}
+		
+		function showErrorMsg(message){
+			
+			$( "#errorMessageBoxInner").html('<h4>' + message + '</h4>');
+			$( "#errorMessageBox" ).slideDown('slow');
+		}
+	</script>
+
 	<div id="top">
 		<tiles:insertAttribute name="header" />
 	</div>

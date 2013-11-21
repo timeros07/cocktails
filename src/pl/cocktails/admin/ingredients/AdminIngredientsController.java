@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,8 +20,12 @@ import org.springframework.web.context.request.WebRequest;
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
+import com.google.appengine.api.images.ImagesService;
+import com.google.appengine.api.images.ImagesServiceFactory;
+import com.google.appengine.api.images.ServingUrlOptions;
 
 import pl.cocktails.admin.JSONResponse;
+import pl.cocktails.admin.JSONUploadMessage;
 import pl.cocktails.common.data.CocktailService;
 import pl.cocktails.common.data.ElementData;
 
@@ -41,7 +44,7 @@ public class AdminIngredientsController {
 	@RequestMapping(value="/ingredientCreate", method=RequestMethod.GET)
 	public String initCreateIngredientForm(Model model) {
 		element = new ElementData();
-		String uploadUrl = blobstoreService.createUploadUrl("/upload");
+		String uploadUrl = blobstoreService.createUploadUrl("/admin/ingredientUpload");
 		model.addAttribute("uploadUrl", uploadUrl);
 		model.addAttribute(element);
 		return "adminIngredientCreate";
@@ -73,7 +76,7 @@ public class AdminIngredientsController {
 		
 		element = cocktailService.getElement(id);
 		model.addAttribute(element);
-		String uploadUrl = blobstoreService.createUploadUrl("/upload");
+		String uploadUrl = blobstoreService.createUploadUrl("/admin/ingredientUpload");
 		model.addAttribute("uploadUrl", uploadUrl);
 		
 		return "adminIngredientModify";
@@ -114,15 +117,17 @@ public class AdminIngredientsController {
 		return "adminIngredients";
 	}
 	
-	/*@RequestMapping(value="/upload", method=RequestMethod.POST)
-	public String uploadImage(HttpServletRequest req, Model model){
-		 Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(req);
-	        List<BlobKey> blobKeys = blobs.get("uploadFile");
-	        BlobKey blobKey = blobKeys.get(0);
-	        
-		List<ElementData> elements = cocktailService.findElements();
-		model.addAttribute("ingredients", elements);
-		return "adminIngredients";
-	}*/
+	@RequestMapping(value="/ingredientUpload", method=RequestMethod.POST)
+	public @ResponseBody JSONUploadMessage uploadImage(HttpServletRequest req, Model model){
+		Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(req);
+	    List<BlobKey> blobKeys = blobs.get("uploadFile");
+	    BlobKey blobKey = blobKeys.get(0);
+	    
+	    ImagesService imageService = ImagesServiceFactory.getImagesService();
+    	ServingUrlOptions options = ServingUrlOptions.Builder.withBlobKey(blobKey);
+    	String imageURL = imageService.getServingUrl(options);
+	    
+		return new JSONUploadMessage(true,JSONUploadMessage.UPLOAD_SUCCESS, blobKey.getKeyString(), imageURL);
+	}
 	
 }

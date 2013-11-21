@@ -16,31 +16,6 @@
 <c:set var="createMode" value="${mode == 'C'}"/>
 	
 <script>
-	function uploadImage(){
-	
-		var formData = new FormData($('#uploadForm')[0]);
-		$.ajax({
-		url: $('#uploadForm').attr('action'),  //server script to process data
-			type: 'POST',
-			data: formData,
-			cache: false,
-			contentType: false,
-			processData: false,
-			success: function(res){
-				$('#image').attr('src', res.imageUrl);
-				$('#image').show();
-				$('#_blobKey').val(res.blobkey);
-			},
-			error: function(res){
-				alert("pojawił się nie oczekiwany błąd:" + res);
-			},
-			cache: false,
-			contentType: false,
-			processData: false
-		});
-	}
-
-
 var $grid;
 	function clearAddIngredientPanel(){
 		$('#_count').val('');
@@ -93,20 +68,7 @@ var $grid;
 		</sf:form>
 		<table>
 			<c:if test="${createMode or modifyMode}">
-				<tr>
-					<td>
-						<span><fmt:message key="labels.cocktail.image"/></span>
-						<form id="uploadForm" action="${uploadUrl}" method="post" enctype="multipart/form-data">
-							<input type="file" name="uploadFile">
-							<input class="submitButton" type="button" onclick="uploadImage();" value="<fmt:message key='buttons.action.upload'/>"/>
-						</form>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<img style="display:none; max-height: 150px;max-width:250px;" id="image"/>
-					</td>
-				</tr>
+				<tags:upload-panel label="labels.cocktail.image" uploadUrl="${uploadUrl}" id="uploadImg" />
 			</c:if>
 			<c:if test="${detailsMode}">
 				<c:if test="${not empty cocktailData.blobKey}">

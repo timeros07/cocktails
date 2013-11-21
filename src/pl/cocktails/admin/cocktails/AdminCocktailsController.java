@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,11 +19,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
+import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.google.appengine.api.datastore.KeyFactory;
+import com.google.appengine.api.images.ImagesService;
+import com.google.appengine.api.images.ImagesServiceFactory;
+import com.google.appengine.api.images.ServingUrlOptions;
 
 import pl.cocktails.admin.JSONResponse;
+import pl.cocktails.admin.JSONUploadMessage;
 import pl.cocktails.common.data.CocktailData;
 import pl.cocktails.common.data.CocktailService;
 import pl.cocktails.common.data.ElementData;
@@ -61,7 +68,7 @@ public class AdminCocktailsController {
 	public String initCreateCocktailForm(Model model) {
 		model.addAttribute(new CocktailData());
 		
-		String uploadUrl = blobstoreService.createUploadUrl("/upload");
+		String uploadUrl = blobstoreService.createUploadUrl("/admin/cocktailUpload");
 		model.addAttribute("uploadUrl", uploadUrl);
 		ingredients = new ArrayList<IngredientData>();
 	
@@ -109,7 +116,7 @@ public class AdminCocktailsController {
 	@RequestMapping(value="/cocktailModify", method=RequestMethod.GET)
 	public String initModify(@RequestParam(required= true) Long id, Model model){
 		
-		String uploadUrl = blobstoreService.createUploadUrl("/upload");
+		String uploadUrl = blobstoreService.createUploadUrl("/admin/cocktailUpload");
 		model.addAttribute("uploadUrl", uploadUrl);
 		cocktailData = cocktailService.getCocktail(id);
 		model.addAttribute(cocktailData);
@@ -168,6 +175,19 @@ public class AdminCocktailsController {
 		List<CocktailData> cocktails = cocktailService.findCocktails();
 		model.addAttribute("cocktails", cocktails);
 		return "adminCocktails";
+	}
+	
+	@RequestMapping(value="/cocktailUpload", method=RequestMethod.POST)
+	public @ResponseBody JSONUploadMessage uploadImage(HttpServletRequest req, Model model){
+		Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(req);
+	    List<BlobKey> blobKeys = blobs.get("uploadFile");
+	    BlobKey blobKey = blobKeys.get(0);
+	    
+	    ImagesService imageService = ImagesServiceFactory.getImagesService();
+    	ServingUrlOptions options = ServingUrlOptions.Builder.withBlobKey(blobKey);
+    	String imageURL = imageService.getServingUrl(options);
+	    
+		return new JSONUploadMessage(true,JSONUploadMessage.UPLOAD_SUCCESS, blobKey.getKeyString(), imageURL);
 	}
 	
 

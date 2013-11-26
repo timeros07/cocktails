@@ -1,4 +1,4 @@
-package pl.cocktails.common.data;
+package pl.cocktails.admin.services;
 
 public interface ApplicationService {
 	

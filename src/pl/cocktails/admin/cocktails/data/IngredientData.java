@@ -1,4 +1,4 @@
-package pl.cocktails.common.data;
+package pl.cocktails.admin.cocktails.data;
 
 
 import java.io.Serializable;
@@ -7,6 +7,8 @@ import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
+
+import pl.cocktails.admin.ingredients.data.ElementData;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.datanucleus.annotations.Unowned;

@@ -1,9 +1,13 @@
 
 logowanie przez google
 
-poprawiæ panel do uploadu(zrobic tag), modyfikacja obrazka, progress bar
+zrobic tag to select combobox
+
+poprawiæ panel do uploadu, modyfikacja obrazka, progress bar
 
 przy usuwaniu elementow usuwac rozniez obrazki
+
+lepsza obsluga wyjatkow/transakcji
 
 lepiej przemyslec forme aby ograniczyc liczbe bledow, uproscic implementacje
 
@@ -24,5 +28,5 @@ trzeba sicagnac nowe zrodla js bo te sa chyba juz nie wspierane
 
 linki socials: http://www.promocyjni.pl/
 
-luk albo lak
+luks 
 1100zl

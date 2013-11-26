@@ -1,4 +1,4 @@
-package pl.cocktails.common.data;
+package pl.cocktails.admin.cocktails.data;
 
 import java.io.Serializable;
 import java.util.ArrayList;

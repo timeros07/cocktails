@@ -1,4 +1,4 @@
-package pl.cocktails.common.data;
+package pl.cocktails.common.dao.impl;
 
 import java.util.List;
 
@@ -10,7 +10,10 @@ import org.springframework.stereotype.Repository;
 
 import pl.cocktails.admin.Errors;
 import pl.cocktails.admin.SystemException;
+import pl.cocktails.admin.cocktails.data.CocktailData;
+import pl.cocktails.admin.cocktails.data.IngredientData;
 import pl.cocktails.common.DataStoreManager;
+import pl.cocktails.common.dao.CocktailDAO;
 
 @Repository
 public class CocktailDAOImpl implements CocktailDAO{

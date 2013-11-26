@@ -1,6 +1,9 @@
-package pl.cocktails.common.data;
+package pl.cocktails.admin.services;
 
 import java.util.List;
+
+import pl.cocktails.admin.cocktails.data.CocktailData;
+import pl.cocktails.admin.ingredients.data.ElementData;
 
 public interface CocktailService {
 	

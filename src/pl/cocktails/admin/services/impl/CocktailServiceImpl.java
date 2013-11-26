@@ -1,10 +1,16 @@
-package pl.cocktails.common.data;
+package pl.cocktails.admin.services.impl;
 
 import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import pl.cocktails.admin.cocktails.data.CocktailData;
+import pl.cocktails.admin.ingredients.data.ElementData;
+import pl.cocktails.admin.services.CocktailService;
+import pl.cocktails.common.dao.CocktailDAO;
+import pl.cocktails.common.dao.ElementDAO;
 
 
 @Service

@@ -5,7 +5,7 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import pl.cocktails.admin.MessageUtils;
-import pl.cocktails.common.data.ElementData;
+import pl.cocktails.admin.ingredients.data.ElementData;
 
 
 

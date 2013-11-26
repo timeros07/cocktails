@@ -1,4 +1,4 @@
-package pl.cocktails.common.data;
+package pl.cocktails.admin.services.impl;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -7,6 +7,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import pl.cocktails.admin.cocktails.data.CocktailData;
+import pl.cocktails.admin.ingredients.data.ElementData;
+import pl.cocktails.admin.services.ApplicationService;
+import pl.cocktails.admin.services.CocktailService;
 
 import com.google.appengine.api.blobstore.BlobInfo;
 import com.google.appengine.api.blobstore.BlobInfoFactory;

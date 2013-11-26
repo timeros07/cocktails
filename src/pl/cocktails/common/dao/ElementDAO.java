@@ -1,6 +1,8 @@
-package pl.cocktails.common.data;
+package pl.cocktails.common.dao;
 
 import java.util.List;
+
+import pl.cocktails.admin.ingredients.data.ElementData;
 
 
 public interface ElementDAO {

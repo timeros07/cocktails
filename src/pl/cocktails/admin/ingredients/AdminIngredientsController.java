@@ -26,8 +26,8 @@ import com.google.appengine.api.images.ServingUrlOptions;
 
 import pl.cocktails.admin.JSONResponse;
 import pl.cocktails.admin.JSONUploadMessage;
-import pl.cocktails.common.data.CocktailService;
-import pl.cocktails.common.data.ElementData;
+import pl.cocktails.admin.services.CocktailService;
+import pl.cocktails.admin.ingredients.data.ElementData;
 
 @Controller
 @RequestMapping("/admin")

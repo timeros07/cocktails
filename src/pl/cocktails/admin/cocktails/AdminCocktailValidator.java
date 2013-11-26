@@ -5,7 +5,7 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import pl.cocktails.admin.MessageUtils;
-import pl.cocktails.common.data.CocktailData;
+import pl.cocktails.admin.cocktails.data.CocktailData;
 
 public class AdminCocktailValidator implements Validator {
 	

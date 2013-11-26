@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import pl.cocktails.common.data.ApplicationService;
+import pl.cocktails.admin.services.ApplicationService;
 
 @Controller
 @RequestMapping("/admin")

@@ -1,4 +1,4 @@
-package pl.cocktails.common.data;
+package pl.cocktails.admin.ingredients.data;
 
 import java.io.Serializable;
 

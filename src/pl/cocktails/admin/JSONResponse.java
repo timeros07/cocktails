@@ -33,6 +33,12 @@ public class JSONResponse implements Serializable {
 		this.messages.add(new JSONMessage(MessageUtils.getMessage(messageKey)));
 	}
 	
+	public JSONResponse(Boolean success, String messageKey, Object ... args){
+		this.success = success;
+		this.messages = new ArrayList<JSONMessage>();
+		this.messages.add(new JSONMessage(MessageUtils.getMessage(messageKey, args)));
+	}
+	
 	public JSONResponse(Boolean success, String messageKey, String redirect){
 		this.success = success;
 		this.messages = new ArrayList<JSONMessage>();

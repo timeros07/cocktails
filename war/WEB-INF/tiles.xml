@@ -104,24 +104,24 @@
    	
    	
    	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  Member pages !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  -->
-   	<definition name="layout" template="/resources/pages/main/layout/layout.jsp">
+   	<definition name="layout" template="/resources/pages/portal/layout/layout.jsp">
    		<put-attribute name="title" value=""/>
-   		<put-attribute name="header" value="/resources/pages/main/layout/header.jsp"/>
-   		<put-attribute name="menu" value="/resources/pages/main/layout/menu.jsp"/>
+   		<put-attribute name="header" value="/resources/pages/portal/layout/header.jsp"/>
+   		<put-attribute name="menu" value="/resources/pages/portal/layout/menu.jsp"/>
    		<put-attribute name="body" value=""/>
-   		<put-attribute name="footer" value="/resources/pages/main/layout/footer.jsp"/>
+   		<put-attribute name="footer" value="/resources/pages/portal/layout/footer.jsp"/>
    	</definition>
 
    	<definition name="home" extends="layout">
    		<put-attribute name="title" value="Home"/>
-   		<put-attribute name="body" value="/resources/pages/main/home.jsp"/>
+   		<put-attribute name="body" value="/resources/pages/portal/home.jsp"/>
    	</definition>
    	
    	
    	
    	   	<definition name="test" extends="layout">
    		<put-attribute name="title" value="Test"/>
-   		<put-attribute name="body" value="/resources/pages/main/test.jsp"/>
+   		<put-attribute name="body" value="/resources/pages/portal/test.jsp"/>
    	</definition>
 
 </tiles-definitions>

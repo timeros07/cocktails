@@ -25,12 +25,13 @@ import com.google.appengine.api.datastore.DatastoreServiceFactory;
 public class ApplicationServiceImpl implements ApplicationService {
 
 	BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+	
 	DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 	
 	@Autowired
 	CocktailService cocktailService;
 	
-	public void removeOrphanBlobs() {
+	public Integer removeOrphanBlobs() {
 		Iterator<BlobInfo> iterator = null;
 		List<BlobInfo> blobsToCheck = new LinkedList<BlobInfo>(); 
 		BlobInfoFactory blobInfoFactory = new BlobInfoFactory(datastore);
@@ -64,6 +65,8 @@ public class ApplicationServiceImpl implements ApplicationService {
 		for(BlobKey key : keysToRemove){
 			blobstoreService.delete(key);
 		}
+		
+		return keysToRemove.size();
 
 	}
 

@@ -191,6 +191,6 @@ table .buttons{
 	font-family: "Lucida Grande";
 	border-radius: 6px;
 }
-#errorMessageBoxInner h4{
+#errorMessageBoxInner, #successMessageBoxInner h4{
 	margin-left: 35px;
 }

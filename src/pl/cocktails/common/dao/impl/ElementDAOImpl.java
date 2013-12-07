@@ -1,6 +1,5 @@
 package pl.cocktails.common.dao.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.JDOObjectNotFoundException;
@@ -8,6 +7,13 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import org.springframework.stereotype.Repository;
+
+import com.google.appengine.api.blobstore.BlobInfoFactory;
+import com.google.appengine.api.blobstore.BlobKey;
+import com.google.appengine.api.blobstore.BlobstoreService;
+import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
 
 import pl.cocktails.admin.Errors;
 import pl.cocktails.admin.SystemException;
@@ -17,6 +23,8 @@ import pl.cocktails.common.dao.ElementDAO;
 
 @Repository
 public class ElementDAOImpl implements ElementDAO {
+	
+	BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
 	
 	public void create(ElementData element){
 		PersistenceManager manager = DataStoreManager.getManager().createPersistenceManager();
@@ -77,6 +85,10 @@ public class ElementDAOImpl implements ElementDAO {
 		PersistenceManager manager = DataStoreManager.getManager().createPersistenceManager();
 		try{
 			ElementData element = manager.getObjectById(ElementData.class, id);
+			if(element.getBlobKey() != null && element.getBlobKey() != ""){
+				BlobKey key = new BlobKey(element.getBlobKey());
+				blobstoreService.delete(key);
+			}
 			manager.deletePersistent(element);
 			
 		}catch(JDOObjectNotFoundException ex){

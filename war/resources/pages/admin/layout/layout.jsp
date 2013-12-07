@@ -15,8 +15,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link href="/resources/css/default.css" rel="stylesheet" type="text/css" />
-    <link href="/resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+    <link href="/resources/css/admin/default.css" rel="stylesheet" type="text/css" />
+    <link href="/resources/css/admin/cssLayout.css" rel="stylesheet" type="text/css" />
 	<title><fmt:message key="${title}"/></title>
 	
 	<link rel="stylesheet" href="/resources/css/ui-lightness/jquery-ui-1.9.2.custom.css">

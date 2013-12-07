@@ -22,8 +22,8 @@ public class AdminApplicationInfoController {
 	
 	@RequestMapping(value="/applicationInfo", method=RequestMethod.POST,  params="job=REMOVE_BLOBS")
 	public @ResponseBody JSONResponse removeOrphanBlobs(){
-		applicationService.removeOrphanBlobs();
-		return new JSONResponse(true, JSONResponse.OPERATION_SUCCESS);
+		Integer removedCount = applicationService.removeOrphanBlobs();
+		return new JSONResponse(true, "labels.applicationInfo.orphanBlobs.removedCount", new Object[]{removedCount});
 	}
 
 }

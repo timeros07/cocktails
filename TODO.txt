@@ -5,7 +5,6 @@ zrobic tag to select combobox
 
 poprawiæ panel do uploadu, modyfikacja obrazka, progress bar
 
-przy usuwaniu elementow usuwac rozniez obrazki
 
 lepsza obsluga wyjatkow/transakcji
 

@@ -7,8 +7,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link href="../resources/css/default.css" rel="stylesheet" type="text/css" />
-    <link href="../resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+    <link href="../resources/css/portal/default.css" rel="stylesheet" type="text/css" />
+    <link href="../resources/css/portal/cssLayout.css" rel="stylesheet" type="text/css" />
 	<title><tiles:insertAttribute name="title" ignore="true" /></title>
 </head>
 <body>
@@ -20,7 +20,7 @@
 		<tiles:insertAttribute name="menu" />
 	</div>
 	
-	<div id="body">
+	<div id="body" class="center_content">
 		<tiles:insertAttribute name="body" />
 	</div>
 

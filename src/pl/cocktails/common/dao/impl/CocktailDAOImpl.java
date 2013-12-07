@@ -8,6 +8,10 @@ import javax.jdo.Query;
 
 import org.springframework.stereotype.Repository;
 
+import com.google.appengine.api.blobstore.BlobKey;
+import com.google.appengine.api.blobstore.BlobstoreService;
+import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
+
 import pl.cocktails.admin.Errors;
 import pl.cocktails.admin.SystemException;
 import pl.cocktails.admin.cocktails.data.CocktailData;
@@ -18,6 +22,8 @@ import pl.cocktails.common.dao.CocktailDAO;
 @Repository
 public class CocktailDAOImpl implements CocktailDAO{
 
+	BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+	
 	public void create(CocktailData cocktail) {
 		PersistenceManager manager = DataStoreManager.getManager().createPersistenceManager();
 		try{
@@ -81,6 +87,10 @@ public class CocktailDAOImpl implements CocktailDAO{
 		PersistenceManager manager = DataStoreManager.getManager().createPersistenceManager();
 		try{
 			CocktailData cocktail = manager.getObjectById(CocktailData.class, id);
+			if(cocktail.getBlobKey() != null && cocktail.getBlobKey() != ""){
+				BlobKey key = new BlobKey(cocktail.getBlobKey());
+				blobstoreService.delete(key);
+			}
 			manager.deletePersistent(cocktail);
 		}catch(JDOObjectNotFoundException ex){
 			throw new SystemException(Errors.COCKTAIL_NOT_FOUND, "Cocktail with id: " + id + " not found");

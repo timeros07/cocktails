@@ -7,6 +7,8 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import pl.cocktails.common.Blobkey;
+
 
 @PersistenceCapable
 public class ElementData implements Serializable{
@@ -25,6 +27,7 @@ public class ElementData implements Serializable{
 	
 	private int type;
 	
+	@Blobkey(getterName = "getBlobKey")
 	@Persistent	
 	private String blobKey;
 	

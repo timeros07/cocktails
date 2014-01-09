@@ -1,14 +1,13 @@
 package pl.cocktails.common.dao;
 
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
 import pl.cocktails.admin.ingredients.data.ElementData;
 
+@Repository
+public class ElementDAO extends AbstractDAO<ElementData> {
 
-public interface ElementDAO {
-	public List<ElementData> getAll();
-	public void create(ElementData element);
-	public ElementData getElementById(Long id); 
-	public void modify(ElementData element);
-	public void remove(Long id);
+	private ElementDAO() {
+		super(ElementData.class);
+	}
 }

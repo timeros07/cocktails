@@ -78,5 +78,9 @@
 		</property>
 		<property name="defaultContentType" value="text/html"/>
 	</bean>-->
+	
+	<mvc:interceptors>
+    <bean class="pl.cocktails.common.AccountHandlerInterceptor" autowire="constructor" />
+	</mvc:interceptors>
  
 </beans>

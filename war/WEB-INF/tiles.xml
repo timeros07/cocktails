@@ -117,9 +117,12 @@
    		<put-attribute name="body" value="/resources/pages/portal/home.jsp"/>
    	</definition>
    	
+   	<definition name="cocktails" extends="layout">
+   		<put-attribute name="title" value="title.cocktails.list"/>
+   		<put-attribute name="body" value="/resources/pages/portal/cocktails.jsp"/>
+   	</definition>
    	
-   	
-   	   	<definition name="test" extends="layout">
+   	<definition name="test" extends="layout">
    		<put-attribute name="title" value="Test"/>
    		<put-attribute name="body" value="/resources/pages/portal/test.jsp"/>
    	</definition>

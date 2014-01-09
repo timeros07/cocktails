@@ -30,6 +30,7 @@
   			${pageScope.hidden ? 'display:none' : 'display:inline;'}"
   	title="${_tooltip}"
   	onKeyDown="onKeyDown_${pageScope.property}()"
+  	cssClass="form-control"
 />
 <script>
 /*$(function() {

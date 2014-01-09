@@ -51,24 +51,25 @@ var $grid;
 </script>
 
 <div>
-	<sf:form id="formularz" method="POST" modelAttribute="cocktailData" >
-		<table>
+	<sf:form id="formularz" style="width: 500px" method="POST" modelAttribute="cocktailData" >
+		<table class="table table-no-border">
 			<tr>
 				<td>
-					<tags:text width="250" property="name" maxLength="50" disabled="${detailsMode}" label="labels.ingredient.name"/>
+					<tags:text width="350" property="name" maxLength="50" disabled="${detailsMode}" label="labels.ingredient.name"/>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<tags:textarea width="250" property="description" maxLength="150" disabled="${detailsMode}" label="labels.ingredient.description"/>
+					<tags:textarea width="350" property="description" maxLength="150" disabled="${detailsMode}" label="labels.ingredient.description"/>
 				</td>
 			</tr>
 			<sf:hidden name="blobKey" id="_blobKey" path="blobKey"/>
-		</table>
-		</sf:form>
-		<table>
 			<c:if test="${createMode or modifyMode}">
-				<tags:upload-panel label="labels.cocktail.image" uploadUrl="${uploadUrl}" id="uploadImg" />
+			<tr>
+				<td>
+					<tags:upload-panel width="200" form="formularz" label="labels.cocktail.image" successPath="/admin/cocktailUpload" id="uploadImg" />
+				</td>
+			</tr>
 			</c:if>
 			<c:if test="${detailsMode}">
 				<c:if test="${not empty cocktailData.blobKey}">
@@ -86,57 +87,52 @@ var $grid;
 					</tr>
 				</c:if>
 			</c:if>
-		</table>
+			</table>
+		</sf:form>
 
 	
-		<h3>Lista składników</h3>
+		<h3>Składniki</h3>
 		<div id="myGrid" style="width: 500px; height: 100px; "></div>
 	<c:if test="${createMode or modifyMode}" >	
-	<sf:form id="addIngredientForm" method="POST" modelAttribute="ingredient" >
-		<table>
+	<sf:form id="addIngredientForm" method="POST" modelAttribute="ingredient" style="width: 500px">
+		<table class="table table-no-border">
 			<tr>
 				<td>
-					<sf:select id="element_id" name="element.id" path="${element.id}" >
+					<label for="element.id"><fmt:message key="labels.cocktail.ingredient.element"/></label>
+					<sf:select style="margin-right:80px; display:inline; width: 150px" class="form-control" id="element_id" name="element.id" path="${element.id}" >
 						<sf:options items="${elements}"/>
 						<option value=""></option>
 					</sf:select>
-				</td>
-			</tr>
-			<tr>
-				<td>
 					<tags:text width="100" property="count" maxLength="3" disabled="${detailsMode}" label="labels.cocktail.ingredient.count"/>
 				</td>
 			</tr>
-			<tr class="buttons">
-				<td>
-					<tags:submit-handler customSuccess="loadIngredients();"  url="cocktailCreate" label="buttons.action.add" job="ADD_INGREDIENT" form="addIngredientForm" />
-				</td>
-			</tr>
-		</table>
+					</table>
+			<div class="buttons">
+				<tags:submit-handler customSuccess="loadIngredients();"  url="cocktailCreate" label="buttons.action.add" job="ADD_INGREDIENT" form="addIngredientForm" />
+			</div>
+
 	</sf:form>
 	</c:if>
-	<table>
-	<tr class="buttons">
+	<div class="buttons">
 		<c:if test="${createMode}">
-			<td>
-				<tags:submit-handler  url="cocktailCreate" label="buttons.action.create" job="CREATE" form="formularz" />
-				<input class="submitButton" type="button" value="<fmt:message key='buttons.action.cancel'/>" onclick="window.location='cocktails'"/>
-			</td>
+			<tags:submit-handler  url="cocktailCreate" label="buttons.action.create" job="CREATE" form="formularz" />
+			<button class="btn btn-default btn-sm" type="button" onclick="window.location='cocktails'">
+				<fmt:message key='buttons.action.cancel'/>
+			</button>
 		</c:if>
 		<c:if test="${detailsMode}">
-			<td>
-				<input type="button" class="submitButton" onclick="window.location='cocktailModify?id=${cocktailData.id}'" value="<fmt:message key='buttons.action.modify'/>"/>
-				<tags:simple-handler questionTitle="confirm.remove.title" question="question.remove" params="id: ${cocktailData.id}" url="cocktailDetails" label="buttons.action.remove" job="REMOVE" />
-			</td>
+			<button type="button" class="btn btn-default btn-sm" onclick="window.location='cocktailModify?id=${cocktailData.id}'" >
+				<fmt:message key='buttons.action.modify'/>
+			</button>
+			<tags:remove-handler params="id: ${cocktailData.id}" url="cocktailDetails" label="buttons.action.remove" />
 		</c:if>
 		<c:if test="${modifyMode}">
-			<td>
-				<tags:submit-handler  url="cocktailModify" label="buttons.action.save" job="SAVE" form="formularz" />
-				<input class="submitButton" type="button" value="<fmt:message key='buttons.action.cancel'/>" onclick="window.location='cocktails'"/>
-			</td>
+			<tags:submit-handler  url="cocktailModify" label="buttons.action.save" job="SAVE" form="formularz" />
+			<button class="btn btn-default btn-sm" type="button" onclick="window.location='cocktails'">
+				<fmt:message key='buttons.action.cancel'/>
+			</button>
 		</c:if>
-	</tr>
-	</table>
+	</div>
 	
 </div>
 <script>		

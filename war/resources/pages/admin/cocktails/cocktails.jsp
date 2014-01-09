@@ -12,7 +12,7 @@
 	<script src="/resources/scripts/jquery-ui-plugins/js/jquery-ui-plugins-grid.js"></script>
 	<script src="/resources/scripts/jquery-ui-plugins/js/jquery-ui-plugins-textinput.js"></script>
 <div class="pageActions">
-		<input class="pageAction" type="button" onclick="window.location='cocktailCreate'" value="<fmt:message key='buttons.action.create'/>" />
+		<button class="btn btn-primary btn-sm" type="button" onclick="window.location='cocktailCreate'" ><fmt:message key='buttons.action.create'/></button>
 </div>
 <div id="myGrid" style="width: 500px; height: 300px; margin:20px;"></div>
 	<script>		

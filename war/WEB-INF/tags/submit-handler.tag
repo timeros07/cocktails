@@ -48,10 +48,10 @@
 					}else{
 						message = "<fmt:message key='error.unexpected'/>";
 					}
-					
+					$('body').unmask();
 					showErrorMsg(message);
 				}
-				$('body').unmask();
+
 				${pageScope.customSuccess}
 				
 			},
@@ -62,8 +62,7 @@
 	}
 </script>
 
-<input class="submitButton" type="button" 
-	onclick="${pageScope.form}_handler();"
-	value="<fmt:message key='${pageScope.label}'/>"
-/>
+<button class="btn btn-primary btn-sm" type="button" onclick="${pageScope.form}_handler();">
+	<fmt:message key='${pageScope.label}'/>
+</button>
 

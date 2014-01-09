@@ -40,12 +40,11 @@ public class ElementDAOImpl implements ElementDAO {
 		PersistenceManager manager = DataStoreManager.getManager().createPersistenceManager();
 		Query q = manager.newQuery(ElementData.class);
 		q.setOrdering("name");
+		//q.setFilter("name.startsWith('')");
+		//q.declareParameters("String code");
 		try{
 			List<ElementData> elements = (List<ElementData>)q.execute();
 			return elements;
-		}
-		catch(Exception e){
-			return null;
 		}
 		finally{
 			manager.close();
@@ -85,7 +84,7 @@ public class ElementDAOImpl implements ElementDAO {
 		PersistenceManager manager = DataStoreManager.getManager().createPersistenceManager();
 		try{
 			ElementData element = manager.getObjectById(ElementData.class, id);
-			if(element.getBlobKey() != null && element.getBlobKey() != ""){
+			if(element.getBlobKey() != null && !element.getBlobKey().equals("")){
 				BlobKey key = new BlobKey(element.getBlobKey());
 				blobstoreService.delete(key);
 			}

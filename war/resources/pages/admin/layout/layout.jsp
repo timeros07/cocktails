@@ -15,8 +15,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link href="/resources/css/admin/default.css" rel="stylesheet" type="text/css" />
-    <link href="/resources/css/admin/cssLayout.css" rel="stylesheet" type="text/css" />
+    <link href="/resources/css/common/stylesAll.css" rel="stylesheet" type="text/css" />
+    <link href="/resources/css/common/cssLayout.css" rel="stylesheet" type="text/css" />
 	<title><fmt:message key="${title}"/></title>
 	
 	<link rel="stylesheet" href="/resources/css/ui-lightness/jquery-ui-1.9.2.custom.css">
@@ -27,6 +27,9 @@
 	<script type="text/javascript" src="/resources/scripts/jquery-ui-plugins/js/jquery-ui-plugins-0.0.16.js"></script>  
 	<script type="text/javascript" src="/resources/scripts/jquery-loadmask/jquery.loadmask.min.js"></script>  
 
+		<!-- Bootstrap files-->
+	<link rel="stylesheet" href="/resources/themes/bootstrap/css/bootstrap.css" type="text/css"/>
+	<script type="text/javascript" src="/resources/themes/bootstrap/js/bootstrap.js"></script>
 	
 	
 </head>
@@ -34,42 +37,44 @@
 	<script>
 		function showSuccessMsg(message){
 			
-			$( "#successMessageBoxInner").html('<h4>' + message + '</h4>');
+			$( "#successMessageBox").html('<div class="alert alert-success alert-dismissable">'
+										+ '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'
+										+ '<span>' + message + '</span></div>');
 			$( "#successMessageBox" ).slideDown('slow',function(){
-				setTimeout(function() {	$( "#successMessageBox" ).slideUp('slow'); }, 2000 );}
+				setTimeout(function() {	$( "#successMessageBox" ).slideUp('slow', function(){$('body').unmask();}); }, 1000 );}
 			);
 		}
 		
 		function showErrorMsg(message){
-			
-			$( "#errorMessageBoxInner").html('<h4>' + message + '</h4>');
+			console.log(message);
+			$( "#errorMessageBox").html('<div class="alert alert-danger alert-dismissable">'
+										+ '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'
+											+ '<strong>Błąd</strong></br>'
+											+ '<span>' + message + '</span></div>');
 			$( "#errorMessageBox" ).slideDown('slow');
 		}
 	</script>
-
-	<div id="top">
-		<tiles:insertAttribute name="header" />
-	</div>
-	
-	<div id="menu">
-		<tiles:insertAttribute name="menu" />
-	</div>
-	
-	<div id="body" class="right_content">
-		<div id="successMessageBox">
-			<div id="successMessageBoxInner"></div>
+	<div class="container">
+		<div id="top">
+			<tiles:insertAttribute name="header" />
 		</div>
-		<div id="errorMessageBox">
-			<div id="errorMessageBoxInner" onclick="$( '#errorMessageBox' ).slideUp('slow');"></div>
+		
+		<div id="menu">
+			<tiles:insertAttribute name="menu" />
 		</div>
-	
-		<div><h3><fmt:message key="${title}"/></h3></div>
-		<tiles:insertAttribute name="body" />
-	</div>
+		
+		<div id="body" class="center_content">
+		
+			<div id="successMessageBox"></div>
+			<div id="errorMessageBox" style="display:none"></div>
+		
+			<div><h2 class="title"><fmt:message key="${title}"/></h2></div>
+			<tiles:insertAttribute name="body" />
+		</div>
 
-	<div id="footer">
-		<tiles:insertAttribute name="footer" />
+		<div id="footer">
+			<tiles:insertAttribute name="footer" />
+		</div>
 	</div>
-
 </body>
 </html>

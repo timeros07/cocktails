@@ -51,7 +51,7 @@ public class AdminIngredientsController {
 	}
 	
 	@RequestMapping(value="/ingredientCreate", method=RequestMethod.POST, params="job=CREATE")
-	public @ResponseBody JSONResponse addIngredient(@Validated ElementData element, BindingResult bindingResult) {
+	public @ResponseBody JSONResponse addIngredient(@Validated ElementData element, BindingResult bindingResult, HttpServletRequest req) {
 		AdminElementValidator validator = new AdminElementValidator();
 		validator.validate(element, bindingResult);
 	

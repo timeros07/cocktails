@@ -1,9 +1,12 @@
+#layout{
+	
+}
+
 #top {
     position: relative;
     background-color: #036fab;
     color: white;
     padding: 5px;
-    margin: 0px 0px 10px 0px;
 }
 
 #bottom {
@@ -14,9 +17,7 @@
 }
 
 #menu{
-    background-color: #ece3a5;
-    height: 50px;
-	text-align: center;
+	text-align:	center;
 }
 
 #footer{
@@ -25,8 +26,8 @@
 
 .center_content {
     position: relative;
-    background-color: #dddddd;
     padding: 5px;
+    background: url('/resources/images/website_bg.gif');
 }
 
 .left_content {
@@ -52,12 +53,12 @@
   font-weight : bold;
   text-decoration : underline;
 }
-
 #menu ul li {
 	list-style-type: none;
 	float: left;
 }
-#menu ul {
-	display: inline-block;
+
+#top h2{
+	display: inline;
 }
 

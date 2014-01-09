@@ -15,16 +15,16 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <script>
-	var question = "<fmt:message key='${question}'/>";
-	var title = "<fmt:message key='${questionTitle}'/>";
+	var question = "<fmt:message key='question.remove'/>";
+	var title = "<fmt:message key='question.remove.title'/>";
 	
-	function handler(){
+	function remove_handler(){
 		$('body').mask("<fmt:message key='bodyMask.loading'/>");
 		jQuery.ajax({
 			type: 'POST',
 			url: '${pageScope.url}',
 			data: {
-				'job': '${pageScope.job}'
+				'job': 'REMOVE'
 				<c:if test="${pageScope.params != null}">,</c:if>
 				<c:if test="${pageScope.params != null}">
 					${pageScope.params}
@@ -48,32 +48,15 @@
 					showErrorMsg(message);
 				}
 				$('body').unmask();
+				$('#removeModal').modal('hide');
 			},
 			failure: function(){
 				$('body').unmask();
+				$('#removeModal').modal('hide');
 			}
 		});
 	}
-function confirm(question){
-	$('#dialog-confirm').attr('title',title);
-	$('#dialog-confirm').show();
-	 $( "#dialog-confirm" ).dialog({
-      resizable: false,
-      height:140,
-      modal: true,
-      buttons: {
-        "Tak": function() {
-          $( this ).dialog( "close" );
-			handler();
-		},
-        Cancel: function() {
-          $( this ).dialog( "close" );
-		   return false;
-        }
-      }
-    });
-	}
-	
+
 </script>
 
 <c:if test="${! empty pageScope.question}">
@@ -81,8 +64,28 @@ function confirm(question){
 	  <p><span class="ui-icon ui-icon-alert" style="float: left; "></span><fmt:message key='${pageScope.question}'/></p>
 	</div>
 </c:if>
-
-<button class="btn btn-default btn-sm" type="button" onclick="${! empty pageScope.question ? 'confirm();' : 'handler();'}">
-	<fmt:message key='${pageScope.label}'/>
+<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#removeModal">
+  <fmt:message key='${pageScope.label}'/>
 </button>
+
+<!-- Modal -->
+<div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="removeModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="removeModalLabel"><fmt:message key='question.remove.title'/></h4>
+      </div>
+      <div class="modal-body">
+        <fmt:message key='question.remove'/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key='question.remove.cancel'/></button>
+        <button type="button" class="btn btn-primary" onclick="remove_handler();"><fmt:message key='question.remove.confirm'/></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 

@@ -27,6 +27,7 @@
   			resize:none;vertical-align: middle;"
   	rows="5"
 	onKeyDown="onKeyDown_${pageScope.property}()"
+	cssClass="form-control" 
 />
 <script>
 function onKeyDown_${pageScope.property}(){

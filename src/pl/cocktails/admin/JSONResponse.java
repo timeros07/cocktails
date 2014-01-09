@@ -39,10 +39,10 @@ public class JSONResponse implements Serializable {
 		this.messages.add(new JSONMessage(MessageUtils.getMessage(messageKey, args)));
 	}
 	
-	public JSONResponse(Boolean success, String messageKey, String redirect){
+	public JSONResponse(Boolean success, String messageKey,  String redirect, Object ... args){
 		this.success = success;
 		this.messages = new ArrayList<JSONMessage>();
-		this.messages.add(new JSONMessage(MessageUtils.getMessage(messageKey)));
+		this.messages.add(new JSONMessage(MessageUtils.getMessage(messageKey, args)));
 		this.redirect = redirect;
 	}
 	
@@ -59,6 +59,12 @@ public class JSONResponse implements Serializable {
 		}
 	}
 
+	public JSONResponse(Boolean success, Exception exception){
+		this.success = success;
+		this.messages = new ArrayList<JSONMessage>();
+		this.messages.add(new JSONMessage(exception.getMessage()));
+	}
+	
 	public Boolean getSuccess(){
 		return this.success;
 	}

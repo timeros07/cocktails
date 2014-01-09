@@ -1,50 +1,36 @@
 <%@page pageEncoding="utf-8" %>
 <%@include file="/resources/pages/admin/layout/tags.jsp" %>
 
-		<link rel="stylesheet" href="/resources/scripts/jquery-ui-plugins/css/slick-grid.css" type="text/css" />
-	<link rel="stylesheet" href="/resources/scripts/jquery-ui-plugins/css/jquery-ui-plugins-grid.css" type="text/css" />	
-
-	<!-- to avoid all these imports you can just include jquery-ui-plugins-0.0.12.js -->		
-	<script src="/resources/scripts/jquery-ui-plugins/js/lib/jquery.event.drag-2.0.min.js"></script>
-	<script src="/resources/scripts/jquery-ui-plugins/js/lib/jquery.event.drop-2.0.min.js"></script>
-
-	<script src="/resources/scripts/jquery-ui-plugins/js/lib/date.min.js"></script>
-	<script src="/resources/scripts/jquery-ui-plugins/js/lib/slick.core.js"></script>
-	<script src="/resources/scripts/jquery-ui-plugins/js/lib/slick.grid.js"></script>
-	<script src="/resources/scripts/jquery-ui-plugins/js/lib/slick.dataview.js"></script>
-	<script src="/resources/scripts/jquery-ui-plugins/js/jquery-ui-plugins-core.js"></script>	
-	<script src="/resources/scripts/jquery-ui-plugins/js/jquery-ui-plugins-grid.js"></script>
-	<script src="/resources/scripts/jquery-ui-plugins/js/jquery-ui-plugins-textinput.js"></script>
-
-	<div class="pageActions">
-		<input class="pageAction" type="button" onclick="window.location='ingredientCreate'" value="<fmt:message key='buttons.action.create'/>" />
-	</div>
-<div id="myGrid" style="width: 500px; height: 300px; margin:20px;"></div>
-
-	<script>		
-		function urlFormatter(rowNum, cellNum, value, columnDef, row){
-			return '<a href="ingredientDetails?id=' + row.id + '">' + value + '</a>'
-		}
-		var cols = [
-			{id : 'name',name : 'Name',	field : 'name',	filter: 'contains',	formatter: urlFormatter}, 		
-			{id : 'description',name : 'Description', field : 'description', filter: 'contains', formatter: urlFormatter}
-		];		
-
-			var data = [];
-			<c:forEach items="${ingredients}" var="ingredient" varStatus="loop">
-			data[${loop.index}] = {
-				id : '${ingredient.id}',
-				name : '${ingredient.name}',
-				description : '${ingredient.description}'
-			}
-        </c:forEach>;
-			
-			var $grid = $('#myGrid').grid({
-				'data': data,
-				'columns': cols,
-				'forceFitColumns': true,
-				'enableColumnReorder': false,
-				'enableCellNavigation' : true
-			});	
+<div class="pageActions">
+	<button class="btn btn-primary btn-sm" type="button" onclick="window.location='ingredientCreate'" ><fmt:message key='buttons.action.create'/></button>
+</div>
+<table class="table table-striped table-bordered table-hover">
+  <thead>
+    <tr>
+		<th width="200px"><fmt:message key="labels.ingredient.name"/></th>
+		<th width="400px"><fmt:message key="labels.ingredient.description"/></th>
+		<th width="200px"><fmt:message key="labels.ingredient.image"/></th>
+	</tr>
+  </thead>
+  <tbody data-link="row" class="rowlink">
+	<c:forEach items="${ingredients}" var="ingredient" varStatus="loop">
+	<tr height="110px" >
+		<td>
+			<a href="ingredientDetails?id=${ingredient.id}"><c:out value="${ingredient.name}"/></a>
+		</td>
+		<td><c:out value="${ingredient.description}"/></td>
+		<td>
+			<c:choose>
+				<c:when test="${not empty ingredient.blobKey}">
+					<img class="img-thumbnail" src="/serve?blob-key=${ingredient.blobKey}" style="max-height: 100px;max-width:100px;"/>
+				</c:when>
+				 <c:otherwise>
+				 	<img src="/resources/images/icons/unkown.png" style="max-height: 100px;max-width:100px;"/>
+				 </c:otherwise>
+			</c:choose>
+		</td>
+	</tr>
+	</c:forEach>
+  </tbody>
+</table>
 	
-	</script>

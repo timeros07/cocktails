@@ -1,26 +1,32 @@
+-zmienic mechanizm wstrzykiwania persistence managera aby tworzyl sie tylko raz(sprawdzic jak jest teraz)
 
-logowanie przez google
+-zrobic klase abstractdao i dodac tam implementacje podstawowych funkcjonalnosci w tym search criteria(dziala tylko startswith)
 
-zrobic tag to select combobox
+-zrobic klase search criteria
 
-poprawiæ panel do uploadu, modyfikacja obrazka, progress bar
+-paging
 
+-wyszukiwanie po kryteriach
 
-lepsza obsluga wyjatkow/transakcji
+-zrobic tag to select combobox
 
-lepiej przemyslec forme aby ograniczyc liczbe bledow, uproscic implementacje
+-lepsza obsluga wyjatkow/transakcji
 
-jest b³¹d: usuwam sk³adnik ktory jest w drinku, nastepnie wchodze w detale drinka,gdzie nazwa skladnika nie jest wyswietlana, zapisuje, tworzy sie pusty skladnik bez nazwy opisu
+-jest b³¹d: usuwam sk³adnik ktory jest w drinku, nastepnie wchodze w detale drinka,gdzie nazwa skladnika nie jest wyswietlana, zapisuje, tworzy sie pusty skladnik bez nazwy opisu
 
--napisac komponent rozszerzajacy slick grid
-trzeba sicagnac nowe zrodla js bo te sa chyba juz nie wspierane
+-komponent grid
 
 -dodaæ obs³ugê b³êdu 404
 -dodaæ wygl¹d strony 404
 
+-poprawic submit-handler aby podswietlal invalid input
+
+-poprawic layout formularzy
+
+
+fixed
 -polskie litery - do ka¿dego pliku jsp nale¿y dodaæ wpis page encoding utf8
 
- przemyslec tranzakcje
 
 
 -modyfikacja skladnikow drinku

@@ -1,14 +1,17 @@
 package pl.cocktails.common;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import pl.cocktails.portal.accounts.UserContext;
-import pl.cocktails.portal.accounts.UserData;
+import pl.cocktails.data.UserData;
+import pl.cocktails.services.AccountService;
 
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
@@ -17,6 +20,9 @@ import com.google.appengine.api.users.UserServiceFactory;
 public class AccountHandlerInterceptor extends HandlerInterceptorAdapter {
 	
 	private UserService userService;
+	
+	@Autowired
+	private AccountService accountService;
 	
 	public static final String USER_CONTEXT = "UserContext";
 	
@@ -38,6 +44,13 @@ public class AccountHandlerInterceptor extends HandlerInterceptorAdapter {
 				userData.setEmail(user.getEmail());
 				UserContext context = new UserContext(userData, userService.createLogoutURL("/home"));
 				modelAndView.getModelMap().addAttribute(USER_CONTEXT, context);
+				
+				Boolean exisits = accountService.checkIfUserExists(user.getEmail());
+				if(!exisits){
+					userData.setFirstLoginDate(new Date());
+					userData.setStatus(UserData.Status.ACTIVE);
+					accountService.createUser(userData);
+				}
 			}
 		}
 	}

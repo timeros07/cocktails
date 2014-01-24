@@ -4,6 +4,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+<fmt:setLocale value="en_US"  />
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -12,11 +13,17 @@
 	<script src="/resources/scripts/jquery-1.8.3.js"></script>
 	<script src="/resources/scripts/jquery-ui-1.9.2.custom.js"></script>
 	<script type="text/javascript" src="/resources/scripts/jquery-ui-plugins/js/jquery-ui-plugins-0.0.16.js"></script>  
-	<script type="text/javascript" src="/resources/scripts/jquery-loadmask/jquery.loadmask.min.js"></script> 
 	
-		<!-- Bootstrap files-->
+	<!-- Load mask files files-->
+	<link rel="stylesheet" href="/resources/scripts/jquery-loadmask/jquery.loadmask.css" type="text/css"/>
+	<script type="text/javascript" src="/resources/scripts/jquery-loadmask/jquery.loadmask.min.js"></script> 	
+	
+	<!-- Bootstrap files-->
 	<link rel="stylesheet" href="/resources/themes/bootstrap/css/bootstrap.css" type="text/css"/>
 	<script type="text/javascript" src="/resources/themes/bootstrap/js/bootstrap.js"></script>
+	
+	<!-- star rating-->
+	<script type="text/javascript" src="/resources/themes/star-rating/jquery.raty.js"></script>
 	
 	<title><tiles:insertAttribute name="title" ignore="true" /></title>
 </head>

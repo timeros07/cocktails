@@ -19,6 +19,7 @@
 		<li name="home"><a href="/home"><fmt:message key="labels.menu.portal.link.home"/></a></li>
 		<li name="cocktails"><a href="/cocktails"><fmt:message key="labels.menu.portal.link.cocktails"/></a></li>
 		<li name="ingredients"><a href="#"><fmt:message key="labels.menu.portal.link.ingredients"/></a></li>
+		<li name="ranking"><a href="#"><fmt:message key="labels.menu.portal.link.ranking"/></a></li>
 		<c:choose>
 			<c:when test="${empty UserContext.user}">
 				<li class="navbar-right">

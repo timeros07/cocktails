@@ -24,10 +24,13 @@
 	<link rel="stylesheet" href="/resources/scripts/jquery-loadmask/jquery.loadmask.css" type="text/css"/>
 	<script src="/resources/scripts/jquery-1.8.3.js"></script>
 	<script src="/resources/scripts/jquery-ui-1.9.2.custom.js"></script>
-	<script type="text/javascript" src="/resources/scripts/jquery-ui-plugins/js/jquery-ui-plugins-0.0.16.js"></script>  
+	<script type="text/javascript" src="/resources/scripts/jquery-ui-plugins/js/jquery-ui-plugins-0.0.16.js"></script> 
+
+	<!-- Load mask files files-->
+	<link rel="stylesheet" href="/resources/scripts/jquery-loadmask/jquery.loadmask.css" type="text/css"/>
 	<script type="text/javascript" src="/resources/scripts/jquery-loadmask/jquery.loadmask.min.js"></script>  
 
-		<!-- Bootstrap files-->
+	<!-- Bootstrap files-->
 	<link rel="stylesheet" href="/resources/themes/bootstrap/css/bootstrap.css" type="text/css"/>
 	<script type="text/javascript" src="/resources/themes/bootstrap/js/bootstrap.js"></script>
 	

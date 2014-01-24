@@ -1,5 +1,15 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@page pageEncoding="utf-8" %>
+
+
+
+
+<div class="jumbotron" >
+	<h2>Witaj</h2>
+	<p>Na stronie <strong>Cocktails</strong> znajdziesz ponad 500 przepisów, gromadzonych tu od kilku lat roku. Zapraszam do wspólnego eksperymentowania z drinkami, koktajlami, kawą, nalewkami i innymi napojami.</p>
+</div>
+
+
   <div id="carousel-example-generic" style="max-width:900px" class="carousel slide center-block" data-ride="carousel">
   <!-- Indicators -->
   <ol class="carousel-indicators">
@@ -11,28 +21,15 @@
   <!-- Wrapper for slides -->
   <div class="carousel-inner">
     <div class="item active">
-      <img src="/resources/images/slide-bg.png"  alt="Google">
-      <div class="carousel-caption">
-      	<h3>Po pierwsze załóż konto na Google</h3>
-      	<p>asd asd asd sa sdd a asdasd asd</p>
-      </div>
+      <img src="/resources/images/1.jpg"  alt="Google">
     </div>
 	
-	    <div class="item">
-      <img src="/resources/images/slide-bg.png"  alt="Google">
-      <div class="carousel-caption">
-      	<h3>Po drugie Zaloguj się na naszym serwisie </h3>
-      	<p>Pozwoli ci to na poznanie mnóstwa ciekawych informacji ze świata drinków</p>
-      </div>
+	 <div class="item">
+      <img src="/resources/images/2.jpg"  alt="Google">
     </div>
     
      <div class="item">
-      <img src="/resources/images/slide-bg.png"  alt="Google">
-      <div class="carousel-caption">
-      	<h3>Po trzecie korzystaj z serwisu</h3>
-      	<p>Przeglądaj drinki</p>
-      	<p>Dodawaj własne kompozycje</p>
-      </div>
+      <img src="/resources/images/3.jpg"  alt="Google">
     </div>
 	
   </div>
@@ -45,13 +42,5 @@
     <span class="glyphicon glyphicon-chevron-right"></span>
   </a>
 </div>
-
-
-
-<div class="jumbotron" >
-	<h2>Witaj</h2>
-	<p>jesteś na stronie o tematyce różnego rodzaju drinków</p>
-</div>
-
 
 

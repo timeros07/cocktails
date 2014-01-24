@@ -103,6 +103,13 @@
    	</definition>
    	
    	
+   	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Administration users pages !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+   	<definition name="adminUsers" extends="adminLayout">
+   		<put-attribute name="title" value="title.users.list"/>
+   		<put-attribute name="body" value="/resources/pages/admin/users/users.jsp"/>
+   	</definition>
+   	
+   	
    	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  Member pages !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  -->
    	<definition name="layout" template="/resources/pages/portal/layout/layout.jsp">
    		<put-attribute name="title" value=""/>
@@ -120,6 +127,11 @@
    	<definition name="cocktails" extends="layout">
    		<put-attribute name="title" value="title.cocktails.list"/>
    		<put-attribute name="body" value="/resources/pages/portal/cocktails.jsp"/>
+   	</definition>
+   	
+   	<definition name="cocktailDetails" extends="layout">
+   		<put-attribute name="title" value="title.cocktails.details"/>
+   		<put-attribute name="body" value="/resources/pages/portal/cocktailDetails.jsp"/>
    	</definition>
    	
    	<definition name="test" extends="layout">

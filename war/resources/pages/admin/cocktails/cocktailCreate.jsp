@@ -51,7 +51,7 @@ var $grid;
 </script>
 
 <div>
-	<sf:form id="formularz" style="width: 500px" method="POST" modelAttribute="cocktailData" >
+	<sf:form id="formularz" style="width: 600px" method="POST" modelAttribute="cocktailData" >
 		<table class="table table-no-border">
 			<tr>
 				<td>

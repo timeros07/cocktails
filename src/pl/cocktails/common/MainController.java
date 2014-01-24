@@ -18,7 +18,6 @@ import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMeth
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 
-import pl.cocktails.admin.JSONResponse;
 
 @Controller
 public class MainController {

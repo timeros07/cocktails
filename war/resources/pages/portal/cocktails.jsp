@@ -1,6 +1,6 @@
 <%@include file="/resources/pages/admin/layout/tags.jsp" %>
 <%@page pageEncoding="utf-8" %>
-<table class="table table-hover" >
+<table class="table table-striped table-bordered table-hover">
 	<thead>
 		<tr>
 			<th><fmt:message key="labels.cocktail.name"/></th>
@@ -8,7 +8,7 @@
 			<th><fmt:message key="labels.cocktail.image"/></th>
 		</tr>
 	</thead>
-	<tbody>
+	<tbody data-link="row" class="rowlink">
 	 <c:forEach var="cocktail" items="${cocktails}">
 	 	<tr onclick="window.location = 'cocktailDetails?id=${cocktail.id}'">
 	 		<td>${cocktail.name}</td>

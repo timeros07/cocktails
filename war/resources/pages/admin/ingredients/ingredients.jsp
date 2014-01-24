@@ -10,6 +10,7 @@
 		<th width="200px"><fmt:message key="labels.ingredient.name"/></th>
 		<th width="400px"><fmt:message key="labels.ingredient.description"/></th>
 		<th width="200px"><fmt:message key="labels.ingredient.image"/></th>
+		<th width="100px"><fmt:message key="labels.ingredient.action"/></th>
 	</tr>
   </thead>
   <tbody data-link="row" class="rowlink">
@@ -28,6 +29,9 @@
 				 	<img src="/resources/images/icons/unkown.png" style="max-height: 100px;max-width:100px;"/>
 				 </c:otherwise>
 			</c:choose>
+		</td>
+		<td>
+		<button class="btn btn-primary btn-sm" type="button" ><fmt:message key='buttons.action.activate'/></button>
 		</td>
 	</tr>
 	</c:forEach>

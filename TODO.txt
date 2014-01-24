@@ -1,12 +1,14 @@
+-ocenianie przekazywanie user id na jsp,
+do prezentacji dodac tiles i wielojezycznosc
+
+-strona detali drinka
+
 -zmienic mechanizm wstrzykiwania persistence managera aby tworzyl sie tylko raz(sprawdzic jak jest teraz)
 
--zrobic klase abstractdao i dodac tam implementacje podstawowych funkcjonalnosci w tym search criteria(dziala tylko startswith)
 
--zrobic klase search criteria
+-zrobic klase search criteria(dziala tylko startswith)
 
 -paging
-
--wyszukiwanie po kryteriach
 
 -zrobic tag to select combobox
 
@@ -16,10 +18,14 @@
 
 -komponent grid
 
+-zrobic zarzadzanie uzytkownikami, przy kazdym logowaniu patrzymy czy jest w systemie
+
 -dodaæ obs³ugê b³êdu 404
 -dodaæ wygl¹d strony 404
 
 -poprawic submit-handler aby podswietlal invalid input
+
+-optymalizacja accounthandlerinterceptor
 
 -poprawic layout formularzy
 

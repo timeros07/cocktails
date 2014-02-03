@@ -43,12 +43,12 @@ public class CocktailsController {
 	}
 	
 	@RequestMapping(value="/cocktailDetails", method=RequestMethod.POST, params="job=RATE")
-	public @ResponseBody JSONResponse rateCocktail(@Validated Integer rate, Model model) {
+	public @ResponseBody JSONResponse rateCocktail(Integer rate, Long userId, Model model) {
 		
 		CocktailRateData cocktailRate = new CocktailRateData();
 		cocktailRate.setCocktailId(cocktail.getId());
 		cocktailRate.setRank(rate);
-		//cocktailRate.setUserId();
+		cocktailRate.setUserId(userId);
 		cocktailService.rankCocktail(cocktailRate);
 		return new JSONResponse(true, JSONResponse.OPERATION_SUCCESS);
 	}

@@ -15,13 +15,12 @@ public class Serve extends HttpServlet {
 	
 	private BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
 
-public void doGet(HttpServletRequest req, HttpServletResponse res)
-    throws IOException {
-        BlobKey blobKey = new BlobKey(req.getParameter("blob-key"));
-        try{
-        	blobstoreService.serve(blobKey, res);
-        }catch(IOException ioe){
-        	ioe.printStackTrace();
-        }
+	public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		BlobKey blobKey = new BlobKey(req.getParameter("blob-key"));
+	    try{
+	    	blobstoreService.serve(blobKey, res);
+	    }catch(IOException ioe){
+	    	ioe.printStackTrace();
+	    }
     }
 }

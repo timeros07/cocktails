@@ -25,14 +25,14 @@
 				<li class="navbar-right">
 					<button onclick="window.location='${UserContext.loginUrl}'" type="button" class="btn btn-default navbar-btn">
 						<img src="/resources/images/icons/google-blue-icon.png" width="25px"/>
-						<fmt:message key="labels.header.portal.login"/>
+						<fmt:message key="labels.login"/>
 					</button>
 				</li>
 			</c:when>	
 			<c:otherwise>
 				<li class="navbar-right">
 					<button onclick="window.location='${UserContext.logoutUrl}'" type="button" class="btn btn-default navbar-btn">
-						<fmt:message key="labels.header.portal.logout"/>
+						<fmt:message key="labels.logout"/>
 					</button>
 				</li>
 				<p class="navbar-text navbar-right">Zalogowany jako ${UserContext.user.email}</p>

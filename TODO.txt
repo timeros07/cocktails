@@ -3,12 +3,18 @@ do prezentacji dodac tiles i wielojezycznosc
 
 -strona detali drinka
 
+-ilosc skladnika aby umozliwic (jednostke np ml) i ulamki
+
+-wielojezycnosci default locale zmiana locale
+
 -zmienic mechanizm wstrzykiwania persistence managera aby tworzyl sie tylko raz(sprawdzic jak jest teraz)
 
 
 -zrobic klase search criteria(dziala tylko startswith)
 
 -paging
+
+-przemyslec jak zapisywac statusy(slowniki?)
 
 -zrobic tag to select combobox
 
@@ -38,6 +44,14 @@ fixed
 -modyfikacja skladnikow drinku
 
 linki socials: http://www.promocyjni.pl/
+
+rozszerzenia boostrrapa
+
+-https://github.com/jhollingworth/bootstrap-wysihtml5/
+-http://wb.agilecoders.de/demo/js#typeahead suggestbox
+-http://davidstutz.github.io/bootstrap-multiselect/#examples
+-http://addyosmani.github.io/jquery-ui-bootstrap jq grid autocomplete
+
 
 luks 
 1100zl

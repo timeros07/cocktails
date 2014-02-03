@@ -1,51 +1,12 @@
 <%@include file="/resources/pages/admin/layout/tags.jsp" %>
 <%@page pageEncoding="utf-8" %>
-<script>
-
-$( document ).ready(function() {
-	$('.star').raty({
-	    cancelOff     : 'resources/themes/star-rating/images/cancel-off.png',
-	    cancelOn      : 'resources/themes/star-rating/images/cancel-on.png',
-	    starHalf      : 'resources/themes/star-rating/images/star-half.png',
-	    starOff       : 'resources/themes/star-rating/images/star-off.png',
-	    starOn        : 'resources/themes/star-rating/images/star-on.png',
-	    hints         : ['trucizna', 'szkoda pić', 'ujdzie', 'dobry', 'arcydzieło!!!'],
-	    cancel : true,
-		half   : false,
-		size   : 44,
-		target : '#hint',
-		 targetKeep : true,
-		click: function(score, evt) {
-			$('.star').mask();
-			jQuery.ajax({
-					type: 'POST',
-					url: 'cocktailDetails',
-					data: {'job' : 'RATE', 'rate' : score},
-					success: function(res){
-						 $('.star').unmask();
-					},
-					failure: function(){
-						$('.star').unmask();
-					}
-					
-				});
-			  }
-		});
-});
-
-	
-</script>
-
 <div>
 	<sf:form id="formularz" style="width: 600px" method="POST" modelAttribute="cocktailData" >
 		<table class="table table-no-border">
 			<c:if test="${!empty UserContext.user}">
 				<tr>
 					<td>
-						
-						<label>Próbowałem, moja ocena to:</label>
-						<div style="display:inline" class="star"></div>
-						 <div id="hint"></div>
+						<tags:rating label="labels.cocktail.rating" url="cocktailDetails" job="RATE"></tags:rating>	
 					</td>
 				</tr>
 			</c:if>

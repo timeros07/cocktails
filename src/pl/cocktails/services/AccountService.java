@@ -6,7 +6,7 @@ import pl.cocktails.data.UserData;
 
 public interface AccountService {
 	
-	public Boolean checkIfUserExists(String email);
+	public UserData getUserByEmail(String email);
 	
 	public void createUser(UserData user);
 	

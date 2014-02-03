@@ -26,6 +26,8 @@ public class AccountHandlerInterceptor extends HandlerInterceptorAdapter {
 	
 	public static final String USER_CONTEXT = "UserContext";
 	
+	private UserContext context;
+	
 	public AccountHandlerInterceptor(){
 		userService = UserServiceFactory.getUserService();
 	}
@@ -36,23 +38,23 @@ public class AccountHandlerInterceptor extends HandlerInterceptorAdapter {
 		if(request.getMethod().equals(HttpMethod.GET.name()) && !"XMLHttpRequest".equals(request.getHeader("X-Requested-With"))){
 			User user = userService.getCurrentUser();
 			if(user == null){
-				UserContext context = new UserContext(userService.createLoginURL("/home"));
-				modelAndView.getModelMap().addAttribute(USER_CONTEXT, context);
+				context = new UserContext(userService.createLoginURL("/home"));
 			}else{
-				UserData userData = new UserData();
-				userData.setLogin(user.getNickname());
-				userData.setEmail(user.getEmail());
-				UserContext context = new UserContext(userData, userService.createLogoutURL("/home"));
-				modelAndView.getModelMap().addAttribute(USER_CONTEXT, context);
-				
-				Boolean exisits = accountService.checkIfUserExists(user.getEmail());
-				if(!exisits){
-					userData.setFirstLoginDate(new Date());
-					userData.setStatus(UserData.Status.ACTIVE);
-					accountService.createUser(userData);
+				if(context == null){
+					UserData exisitingUser = accountService.getUserByEmail(user.getEmail());
+					context = new UserContext(exisitingUser, userService.createLogoutURL("/home"));
+					
+					if(exisitingUser == null){
+						UserData userData = new UserData();
+						userData.setFirstLoginDate(new Date());
+						userData.setLogin(user.getNickname());
+						userData.setEmail(user.getEmail());
+						userData.setStatus(UserData.Status.ACTIVE);
+						accountService.createUser(userData);
+					}
 				}
 			}
+			modelAndView.getModelMap().addAttribute(USER_CONTEXT, context);
 		}
 	}
-
 }

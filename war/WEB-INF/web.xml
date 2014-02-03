@@ -40,6 +40,11 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
     <servlet-name>Serve</servlet-name>
     <servlet-class>pl.cocktails.common.Serve</servlet-class>
   </servlet>
+  
+  <servlet>
+    <servlet-name>SwitchLanguage</servlet-name>
+    <servlet-class>pl.cocktails.common.SwitchLanguageServlet</servlet-class>
+  </servlet>
  
   <servlet-mapping>
     <servlet-name>Upload</servlet-name>
@@ -49,6 +54,11 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
   <servlet-mapping>
     <servlet-name>Serve</servlet-name>
     <url-pattern>/serve</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>SwitchLanguage</servlet-name>
+    <url-pattern>/switchLanguage</url-pattern>
   </servlet-mapping>
   
   	<!-- Only admins can browse sites begin with /admin/* -->

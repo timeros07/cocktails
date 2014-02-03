@@ -15,8 +15,8 @@ public class AccountServiceImpl implements AccountService{
 	@Autowired 
 	private UserDAO userDAO;
 	
-	public Boolean checkIfUserExists(String email) {
-		return userDAO.checkIfUserExists(email);
+	public UserData getUserByEmail(String email) {
+		return userDAO.getUserByEmail(email);
 	}
 
 	@Override

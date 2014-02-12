@@ -17,44 +17,28 @@
 	<fmt:message key="${pageScope.label}"/>
 </c:set>
 <c:set var="id" value="${empty pageScope.id ? fn:replace(pageScope.property, '.', '_') : pageScope.id}"/>
-<c:if test="${!pageScope.hidden}">
-	<label for="${pageScope.property}"><fmt:message key="${pageScope.label}"/></label>
-</c:if>
-<sf:input
- 	path="${pageScope.property}"
-  	disabled="${pageScope.disabled}"
-  	id="_${id}"
-  	cssErrorClass="errorText"
-  	maxLength="${pageScope.maxLength}"
-  	cssStyle="${!empty pageScope.width ? _width : 'width:auto;'}
-  			${pageScope.hidden ? 'display:none' : 'display:inline;'}"
-  	title="${_tooltip}"
-  	onKeyDown="onKeyDown_${pageScope.property}()"
-  	cssClass="form-control"
-/>
+<div id="container_${property}" class="form-group">
+	<c:if test="${!pageScope.hidden}">
+		<label for="${pageScope.property}" class="control-label"><fmt:message key="${pageScope.label}"/></label>
+	</c:if>
+	<sf:input
+	 	path="${pageScope.property}"
+	  	disabled="${pageScope.disabled}"
+	  	id="_${id}"
+	  	maxLength="${pageScope.maxLength}"
+	  	cssStyle="${!empty pageScope.width ? _width : 'width:auto;'}
+	  			${pageScope.hidden ? 'display:none' : 'display:inline;'}"
+	  	title="${_tooltip}"
+	  	onKeyDown="onKeyDown_${pageScope.property}()"
+	  	cssClass="form-control"
+	/>
+</div>
+
 <script>
-/*$(function() {
-	 $('#_${property}').tooltip({
-	      position: {
-	        my: "center bottom-20",
-	        at: "center top",
-	        using: function( position, feedback ) {
-	          $( this ).css( position );
-	          $( "<div>" )
-	            .addClass( "arrow" )
-	            .addClass( feedback.vertical )
-	            .addClass( feedback.horizontal )
-	            .appendTo( this );
-	        }
-	      }
-	    });
-	 
-	 
-  });*/
   
 function onKeyDown_${pageScope.property}(){
-	if($('#_${id}').attr('class') == 'errorText'){
-		$('#_${id}').removeClass('errorText');
+	if($('#container_${property}').hasClass('has-error')){
+		$('#container_${property}').removeClass('has-error');
 	} 
 }
 </script>

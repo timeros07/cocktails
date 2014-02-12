@@ -1,7 +1,20 @@
 <%@include file="/resources/pages/admin/layout/tags.jsp" %>
 <%@page pageEncoding="utf-8" %>
+<script type="text/javascript">
+	jQuery(document).ready(function($){
+    // Get current url
+    // Select an a element that has the matching href and apply a class of 'active'. Also prepend a - to the content of the link
+    var url = window.location.href;
+	url = url.substr(url.lastIndexOf('/')+1);
+	if($('li[name="'+url+'"]').length == 0){
+		$('li[name="home"]').addClass('active');
+	}else{
+		$('li[name="'+url+'"]').addClass('active');
+	}
+});
+</script>
 <nav class="navbar navbar-default" role="navigation">
-	<ul class="nav nav-tabs nav-stacked nav-pills">
+	<ul class="nav nav-tabs nav-pills">
 		<li name="cocktails"><a href="/admin/cocktails"><fmt:message key="labels.menu.admin.link.cocktails"/></a></li>
 		<li name="ingredients"><a href="/admin/ingredients"><fmt:message key="labels.menu.admin.link.ingredients"/></a></li>
 		<li name="users"><a href="/admin/users"><fmt:message key="labels.menu.admin.link.users"/></a></li>

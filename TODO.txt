@@ -1,11 +1,10 @@
 -ocenianie przekazywanie user id na jsp,
-do prezentacji dodac tiles i wielojezycznosc
+
+kategorie skladnikow, drinkow
 
 -strona detali drinka
 
 -ilosc skladnika aby umozliwic (jednostke np ml) i ulamki
-
--wielojezycnosci default locale zmiana locale
 
 -zmienic mechanizm wstrzykiwania persistence managera aby tworzyl sie tylko raz(sprawdzic jak jest teraz)
 
@@ -34,6 +33,18 @@ do prezentacji dodac tiles i wielojezycznosc
 -optymalizacja accounthandlerinterceptor
 
 -poprawic layout formularzy
+
+
+Trzeba ka¿dy inpu opakowac w diva z classa form-controll aby podswietlaly siê pola po walidacji oczywiœcie trzeba to obsluzyc
+
+Formularze mo¿na wrzuciæ do panelow mo¿e bêd¹ ladniejsze style
+
+Listy tez mo¿na do panelow.
+
+¯eby lanie zjezdzal komunikat walidacyjny za ka¿dym razem trzeba by zrobiæ ¿eby siê nie zamykal tylko odjezdzal.
+
+
+
 
 
 fixed

@@ -40,6 +40,8 @@ public class AdminIngredientsController {
 	
 	BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
 	
+	private ElementData element;
+	
 	/******IngredientCreate*****************************************/
 	
 	@RequestMapping(value="/ingredientCreate", method=RequestMethod.GET)
@@ -64,8 +66,6 @@ public class AdminIngredientsController {
 	}
 	
 	/******IngredientModify*****************************************/
-	
-	private ElementData element = new ElementData();
 	
 	@ModelAttribute
 	public void addAttributes(WebRequest request, Model model) {

@@ -13,27 +13,27 @@
 
 
 <c:set var="_width" value="width:${pageScope.width}px;"/>
-<c:if test="${!pageScope.hidden}">
-	<label for="${pageScope.property}"><fmt:message key="${pageScope.label}"/></label>
-</c:if>
-<sf:textarea
- 	path="${pageScope.property}"
-  	disabled="${pageScope.disabled}"
-  	id="_${pageScope.property}"
-  	cssErrorClass="errorTextArea"
-  	maxLength="${pageScope.maxLength}"
-  	cssStyle="${!empty pageScope.width ? _width : 'width:auto;'}
-  			${ pageScope.hidden ? 'display:none;' : 'display:inline;'}
-  			resize:none;vertical-align: middle;"
-  	rows="5"
-	onKeyDown="onKeyDown_${pageScope.property}()"
-	cssClass="form-control" 
-/>
+<div id="container_${property}" class="form-group">
+	<c:if test="${!pageScope.hidden}">
+		<label for="${pageScope.property}" class="control-label"><fmt:message key="${pageScope.label}"/></label>
+	</c:if>
+	<sf:textarea
+	 	path="${pageScope.property}"
+	  	disabled="${pageScope.disabled}"
+	  	id="_${pageScope.property}"
+	  	maxLength="${pageScope.maxLength}"
+	  	cssStyle="${!empty pageScope.width ? _width : 'width:auto;'}
+	  			${ pageScope.hidden ? 'display:none;' : 'display:inline;'}
+	  			resize:none;vertical-align: middle;"
+	  	rows="5"
+		onKeyDown="onKeyDown_${pageScope.property}()"
+		cssClass="form-control" 
+	/>
+</div>
 <script>
 function onKeyDown_${pageScope.property}(){
-
-	if($('#_${property}').attr('class') == 'errorTextArea'){
-		$('#_${property}').removeClass('errorTextArea');
+	if($('#container_${property}').hasClass('has-error')){
+		$('#container_${property}').removeClass('has-error');
 	} 
 }
 </script>

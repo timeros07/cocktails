@@ -34,6 +34,9 @@
 	<link rel="stylesheet" href="/resources/themes/bootstrap/css/bootstrap.css" type="text/css"/>
 	<script type="text/javascript" src="/resources/themes/bootstrap/js/bootstrap.js"></script>
 	
+	<!-- multi select-->
+	<script type="text/javascript" src="/resources/components/multiselect/bootstrap-multiselect.js"></script>
+	<link rel="stylesheet" href="/resources/components/multiselect/bootstrap-multiselect.css" type="text/css"/>
 	
 </head>
 <body>
@@ -49,7 +52,6 @@
 		}
 		
 		function showErrorMsg(message){
-			console.log(message);
 			$( "#errorMessageBox").html('<div class="alert alert-danger alert-dismissable">'
 										+ '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'
 											+ '<strong>Błąd</strong></br>'

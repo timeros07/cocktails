@@ -25,6 +25,10 @@
 	<!-- star rating-->
 	<script type="text/javascript" src="/resources/themes/star-rating/jquery.raty.js"></script>
 	
+		<!-- multi select-->
+	<script type="text/javascript" src="/resources/components/multiselect/bootstrap-multiselect.js"></script>
+	<link rel="stylesheet" href="/resources/components/multiselect/bootstrap-multiselect.css" type="text/css"/>
+	
 	<title><tiles:insertAttribute name="title" ignore="true" /></title>
 </head>
 <body>

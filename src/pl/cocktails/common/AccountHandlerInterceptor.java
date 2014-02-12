@@ -40,7 +40,7 @@ public class AccountHandlerInterceptor extends HandlerInterceptorAdapter {
 			if(user == null){
 				context = new UserContext(userService.createLoginURL("/home"));
 			}else{
-				if(context == null){
+				if(context == null || context.getUser() == null){
 					UserData exisitingUser = accountService.getUserByEmail(user.getEmail());
 					context = new UserContext(exisitingUser, userService.createLogoutURL("/home"));
 					

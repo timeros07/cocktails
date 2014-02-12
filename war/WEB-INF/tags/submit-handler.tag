@@ -36,12 +36,8 @@
 					if(res.messages != undefined){
 						for(i in res.messages){
 							if(res.messages[i].field != null){
-								field = $('#_'+ res.messages[i].field);
-								if(field.is('textarea')){
-									field.addClass('errorTextArea');
-								}else if(field.is('input')){
-									field.addClass('errorText');
-								}
+								field = $('#container_'+ res.messages[i].field);
+								field.addClass('has-error');
 							}
 							message = message + res.messages[i].message + '</br>';
 						}

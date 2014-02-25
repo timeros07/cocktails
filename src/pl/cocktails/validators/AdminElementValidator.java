@@ -18,8 +18,9 @@ public class AdminElementValidator implements Validator{
 
 	@Override
 	public void validate(Object target, Errors errors) {
-		ValidationUtils.rejectIfEmpty(errors, "name", "errors.empty", new Object[]{MessageUtils.getMessage("labels.ingredient.name")});
-		ValidationUtils.rejectIfEmpty(errors, "description", "errors.empty", new String[]{MessageUtils.getMessage("labels.ingredient.description")});
+		ValidationUtils.rejectIfEmpty(errors, "name", "errors.empty", new Object[]{MessageUtils.getMessage("labels.name")});
+		ValidationUtils.rejectIfEmpty(errors, "description", "errors.empty", new String[]{MessageUtils.getMessage("labels.description")});
+		ValidationUtils.rejectIfEmpty(errors, "status", "errors.empty", new String[]{MessageUtils.getMessage("labels.status")});
 	}
 
 }

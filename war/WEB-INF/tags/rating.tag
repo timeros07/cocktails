@@ -11,8 +11,10 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<label><fmt:message key="${pageScope.label}"/>&nbsp</label><span id="hint"></span>
-<div style="display:inline" id="star"></div>
+<div id="container_${property}" class="form-group">
+	<label class="col-sm-5 control-label"><fmt:message key="${pageScope.label}"/>&nbsp</label><label style="float: right;margin-right: 100px;" id="hint"></label>
+	<div style="display:inline" id="star"></div>
+</div>
 
 <script>
 

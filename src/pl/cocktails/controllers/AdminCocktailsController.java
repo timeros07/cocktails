@@ -62,14 +62,10 @@ public class AdminCocktailsController {
 		model.addAttribute("elements", elementsMap);
 		model.addAttribute("cocktailData", cocktailData);
 		
-		List<ElementData> statuses = cocktailService.findElements();
 		Map<String, String> statusesMap = new HashMap<String, String>();
-		statusesMap.put("Aktywny", "Aktywny");
-		statusesMap.put("Niektywny", "Nieaktywny");
-
-		
-		model.addAttribute(statuses);
-		
+		statusesMap.put("I", "Nieaktywny");
+		statusesMap.put("A", "Aktywny");
+		model.addAttribute("statuses", statusesMap);
 	}
 	
 	/******CocktialCreate*****************************************/

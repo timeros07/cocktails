@@ -1,13 +1,13 @@
 <%@page pageEncoding="utf-8" %>
 <%@include file="/resources/pages/admin/layout/tags.jsp" %>
 <div class="pageActions">
-		<button class="btn btn-primary btn-sm" type="button" onclick="window.location='cocktailCreate'" ><fmt:message key='buttons.action.create'/></button>
+		<button class="btn btn-primary btn-sm" type="button" onclick="window.location='cocktailCreate'" ><span class="glyphicon glyphicon-plus"></span>&nbsp;<fmt:message key='buttons.action.create'/></button>
 </div>
 <table class="table table-striped table-bordered table-hover">
   <thead>
     <tr>
-		<th width="200px"><fmt:message key="labels.cocktail.name"/></th>
-		<th width="400px"><fmt:message key="labels.cocktail.description"/></th>
+		<th width="200px"><fmt:message key="labels.name"/></th>
+		<th width="400px"><fmt:message key="labels.description"/></th>
 		<th width="200px"><fmt:message key="labels.cocktail.image"/></th>
 	</tr>
   </thead>

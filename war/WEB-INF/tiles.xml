@@ -63,8 +63,42 @@
    	</definition>
    	
    	<definition name="adminIngredients" extends="adminLayout">
-   		<put-attribute name="title" value="title.ingredients.list"/>
+   		<put-attribute name="title" value="title.ingredients"/>
    		<put-attribute name="body" value="/resources/pages/admin/ingredients/ingredients.jsp"/>
+   	</definition>
+   	
+   	   	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Administration ingredient categories pages !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+   	
+   	<definition name="adminIngredientCategoryCreateDef" template="/resources/pages/admin/ingredientCategories/ingredientCategoryCreate.jsp">
+   		<put-attribute name="mode" value="C"/>
+   	</definition>
+   	
+   	<definition name="adminIngredientCategoryDetailsDef" template="/resources/pages/admin/ingredientCategories/ingredientCategoryCreate.jsp">
+   		<put-attribute name="mode" value="D"/>
+   	</definition>
+   	
+   	<definition name="adminIngredientCategoryModifyDef" template="/resources/pages/admin/ingredientCategories/ingredientCategoryCreate.jsp">
+   		<put-attribute name="mode" value="M"/>
+   	</definition>
+   	
+   	<definition name="adminIngredientCategoryCreate" extends="adminLayout">
+   		<put-attribute name="title" value="title.ingredientCategory.create"/>
+   		<put-attribute name="body" value="adminIngredientCategoryCreateDef"/>
+   	</definition>
+   	
+   	<definition name="adminIngredientCategoryDetails" extends="adminLayout">
+   		<put-attribute name="title" value="title.ingredientCategory.details"/>
+   		<put-attribute name="body" value="adminIngredientCategoryDetailsDef"/>
+   	</definition>
+   	
+   	<definition name="adminIngredientCategoryModify" extends="adminLayout">
+   		<put-attribute name="title" value="title.ingredientCategory.modify"/>
+   		<put-attribute name="body" value="adminIngredientCategoryModifyDef"/>
+   	</definition>
+   	
+   	<definition name="adminIngredientCategories" extends="adminLayout">
+   		<put-attribute name="title" value="title.ingredientCategories"/>
+   		<put-attribute name="body" value="/resources/pages/admin/ingredientCategories/ingredientCategories.jsp"/>
    	</definition>
    	
    	
@@ -116,12 +150,22 @@
    		<put-attribute name="header" value="/resources/pages/portal/layout/header.jsp"/>
    		<put-attribute name="menu" value="/resources/pages/portal/layout/menu.jsp"/>
    		<put-attribute name="body" value=""/>
-   		<put-attribute name="footer" value="/resources/pages/portal/layout/footer.jsp"/>
+   		<put-attribute name="footer" value="/resources/pages/admin/layout/footer.jsp"/>
    	</definition>
 
    	<definition name="home" extends="layout">
-   		<put-attribute name="title" value="Home"/>
+   		<put-attribute name="title" value="title.home"/>
    		<put-attribute name="body" value="/resources/pages/portal/home.jsp"/>
+   	</definition>
+   	
+ 	<definition name="contact" extends="layout">
+   		<put-attribute name="title" value="title.contact"/>
+   		<put-attribute name="body" value="/resources/pages/portal/contact.jsp"/>
+   	</definition>
+   	
+   	<definition name="about" extends="layout">
+   		<put-attribute name="title" value="title.about"/>
+   		<put-attribute name="body" value="/resources/pages/portal/about.jsp"/>
    	</definition>
    	
    	<definition name="cocktails" extends="layout">
@@ -130,7 +174,7 @@
    	</definition>
    	
    	<definition name="cocktailDetails" extends="layout">
-   		<put-attribute name="title" value="title.cocktails.details"/>
+   		<put-attribute name="title" value="title.cocktail.details"/>
    		<put-attribute name="body" value="/resources/pages/portal/cocktailDetails.jsp"/>
    	</definition>
    	

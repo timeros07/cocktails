@@ -1,5 +1,7 @@
 package pl.cocktails.controllers;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,6 +28,7 @@ import com.google.appengine.api.images.ServingUrlOptions;
 
 import pl.cocktails.common.JSONResponse;
 import pl.cocktails.common.JSONUploadMessage;
+import pl.cocktails.data.ElementCategoryData;
 import pl.cocktails.data.ElementData;
 import pl.cocktails.services.CocktailService;
 import pl.cocktails.validators.AdminElementValidator;
@@ -41,12 +44,14 @@ public class AdminIngredientsController {
 	BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
 	
 	private ElementData element;
+	private List<ElementCategoryData> categories = new ArrayList<ElementCategoryData>();
 	
 	/******IngredientCreate*****************************************/
 	
 	@RequestMapping(value="/ingredientCreate", method=RequestMethod.GET)
 	public String initCreateIngredientForm(Model model) {
 		element = new ElementData();
+		categories = cocktailService.findElementCategories();
 		String uploadUrl = blobstoreService.createUploadUrl("/admin/ingredientUpload");
 		model.addAttribute("uploadUrl", uploadUrl);
 		model.addAttribute(element);
@@ -70,6 +75,18 @@ public class AdminIngredientsController {
 	@ModelAttribute
 	public void addAttributes(WebRequest request, Model model) {
 		model.addAttribute("elementData", element);
+		
+		Map<String, String> statusesMap = new HashMap<String, String>();
+		statusesMap.put("I", "Nieaktywny");
+		statusesMap.put("A", "Aktywny");
+		model.addAttribute("statuses", statusesMap);
+		
+		Map<Long, String> categoriesMap = new HashMap<Long, String>();
+		for(ElementCategoryData category : categories){
+			categoriesMap.put(category.getId(), category.getName());
+		}
+		
+		model.addAttribute("categories", categoriesMap);
 	}
 	
 	@RequestMapping(value="/ingredientModify", method=RequestMethod.GET)

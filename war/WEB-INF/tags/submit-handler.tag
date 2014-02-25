@@ -58,7 +58,7 @@
 	}
 </script>
 
-<button class="btn btn-primary btn-sm" type="button" onclick="${pageScope.form}_handler();">
+<button class="btn btn-primary btn" type="button" onclick="${pageScope.form}_handler();">
 	<fmt:message key='${pageScope.label}'/>
 </button>
 

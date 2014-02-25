@@ -2,6 +2,10 @@
 
 kategorie skladnikow, drinkow
 
+znak required *
+cos z wstylu slownikow w kontekscie aplikacji dla kategorii statusow
+
+-ladne zwijanie i rozwijanie wiadomosci success i error
 -strona detali drinka
 
 -ilosc skladnika aby umozliwic (jednostke np ml) i ulamki

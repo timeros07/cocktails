@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 
 import pl.cocktails.data.CocktailData;
 import pl.cocktails.data.CocktailRateData;
+import pl.cocktails.data.ElementCategoryData;
 import pl.cocktails.data.ElementData;
 import pl.cocktails.data.dao.CocktailDAO;
 import pl.cocktails.data.dao.CocktailRateDAO;
+import pl.cocktails.data.dao.ElementCategoryDAO;
 import pl.cocktails.data.dao.ElementDAO;
 import pl.cocktails.services.CocktailService;
 
@@ -20,6 +22,9 @@ public class CocktailServiceImpl implements CocktailService{
 
 	@Autowired
 	ElementDAO elementDAO;
+	
+	@Autowired
+	ElementCategoryDAO elementCategoryDAO;
 	
 	@Autowired
 	CocktailDAO cocktailDAO;
@@ -67,10 +72,39 @@ public class CocktailServiceImpl implements CocktailService{
 		cocktailDAO.removeItem(id);
 	}
 
+	@Override
+	public void createElementCategory(ElementCategoryData category) {
+		elementCategoryDAO.createItem(category);
+	}
+
+	@Override
+	public ElementCategoryData getElementCategory(Long id) {
+		return elementCategoryDAO.getItem(id);
+	}
+
+	@Override
+	public List<ElementCategoryData> findElementCategories() {
+		return elementCategoryDAO.getItems();
+	}
+
+	@Override
+	public void modifyElementCategory(ElementCategoryData category) {
+		elementCategoryDAO.modifyItem(category);
+	}
+
+	@Override
+	public void removeElementCategory(Long id) {
+		elementCategoryDAO.removeItem(id);
+	}
+	
 	public void rankCocktail(CocktailRateData rate) {
 		cocktailRateDAO.createItem(rate);
 	}
-	
+
+	@Override
+	public Integer getUserRating(Long userId, Long cocktailId) {
+		return cocktailRateDAO.getUserRating(userId, cocktailId);
+	}
 	
 
 }

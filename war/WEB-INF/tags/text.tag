@@ -19,19 +19,20 @@
 <c:set var="id" value="${empty pageScope.id ? fn:replace(pageScope.property, '.', '_') : pageScope.id}"/>
 <div id="container_${property}" class="form-group">
 	<c:if test="${!pageScope.hidden}">
-		<label for="${pageScope.property}" class="control-label"><fmt:message key="${pageScope.label}"/></label>
+		<label for="${pageScope.property}" class="col-sm-4 control-label"><fmt:message key="${pageScope.label}"/></label>
 	</c:if>
-	<sf:input
-	 	path="${pageScope.property}"
-	  	disabled="${pageScope.disabled}"
-	  	id="_${id}"
-	  	maxLength="${pageScope.maxLength}"
-	  	cssStyle="${!empty pageScope.width ? _width : 'width:auto;'}
-	  			${pageScope.hidden ? 'display:none' : 'display:inline;'}"
-	  	title="${_tooltip}"
-	  	onKeyDown="onKeyDown_${pageScope.property}()"
-	  	cssClass="form-control"
-	/>
+	<div class="col-sm-8">
+		<sf:input
+		 	path="${pageScope.property}"
+		  	disabled="${pageScope.disabled}"
+		  	id="_${id}"
+		  	maxLength="${pageScope.maxLength}"
+		  	title="${_tooltip}"
+		  	onKeyDown="onKeyDown_${pageScope.property}()"
+		  	cssClass="form-control"
+		  	type="text"
+		/>
+	</div>
 </div>
 
 <script>

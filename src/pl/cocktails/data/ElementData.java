@@ -7,6 +7,8 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import com.google.appengine.datanucleus.annotations.Unowned;
+
 import pl.cocktails.common.Blobkey;
 
 
@@ -16,8 +18,8 @@ public class ElementData implements Serializable{
 	private static final long serialVersionUID = -187399049842911717L;
 
 	public interface Status{
-		public static final String ACTIVE = "Aktywny";
-		public static final String INACTIVE = "Nieaktywny";
+		public static final String ACTIVE = "A";
+		public static final String INACTIVE = "I";
 	}
 	
 	@PrimaryKey
@@ -30,35 +32,31 @@ public class ElementData implements Serializable{
 	@Persistent
 	private String description;
 	
-	private int type;
-	
 	@Blobkey(getterName = "getBlobKey")
 	@Persistent	
 	private String blobKey;
 	
 	@Persistent
-	private String imageURL;
-	
-	@Persistent
-	private int number;
-	
-	@Persistent
 	private String status;
 	
+	@Persistent
+	@Unowned
+	private ElementCategoryData category;
+	
+	public ElementCategoryData getCategory() {
+		return category;
+	}
+
+	public void setCategory(ElementCategoryData category) {
+		this.category = category;
+	}
+
 	public String getStatus() {
 		return status;
 	}
 
 	public void setStatus(String status) {
 		this.status = status;
-	}
-
-	public int getNumber() {
-		return number;
-	}
-
-	public void setNumber(int number) {
-		this.number = number;
 	}
 
 	public ElementData(){}
@@ -68,17 +66,6 @@ public class ElementData implements Serializable{
 		this.description = description;
 	}
 
-	public String getImageURL() {
-		if(imageURL == null){
-			imageURL = "";
-		}
-		return imageURL.trim();
-	}
-
-	public void setImageURL(String imageURL) {
-		this.imageURL = imageURL;
-	}
-	
 	public Long getId() {
 		return this.id;
 	}
@@ -90,12 +77,6 @@ public class ElementData implements Serializable{
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public int getType() {
-		return type;
-	}
-	public void setType(int type) {
-		this.type = type;
 	}
 	public String getDescription() {
 		return description;

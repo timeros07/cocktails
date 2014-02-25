@@ -17,8 +17,8 @@ public class CocktailData implements Serializable {
 	private static final long serialVersionUID = -3388400727300450298L;
 
 	public interface Status{
-		public static final String ACTIVE = "Aktywny";
-		public static final String INACTIVE = "Nieaktywny";
+		public static final String ACTIVE = "A";
+		public static final String INACTIVE = "I";
 	}
 	
 	@PrimaryKey

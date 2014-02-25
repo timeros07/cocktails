@@ -77,7 +77,7 @@ function confirm(question){
 </script>
 
 <c:if test="${! empty pageScope.question}">
-	<div id="dialog-confirm" style="height:auto; display:none;">
+	<div id="dialog-confirm" style="height:auto; display:none; text-align:left">
 	  <p><span class="ui-icon ui-icon-alert" style="float: left; "></span><fmt:message key='${pageScope.question}'/></p>
 	</div>
 </c:if>

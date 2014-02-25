@@ -16,10 +16,10 @@
 
 <nav class="navbar navbar-default" role="navigation">
 	<ul class="nav nav-tabs nav-pills">
-		<li name="home"><a href="/home"><fmt:message key="labels.menu.portal.link.home"/></a></li>
-		<li name="cocktails"><a href="/cocktails"><fmt:message key="labels.menu.portal.link.cocktails"/></a></li>
-		<li name="ingredients"><a href="#"><fmt:message key="labels.menu.portal.link.ingredients"/></a></li>
-		<li name="ranking"><a href="#"><fmt:message key="labels.menu.portal.link.ranking"/></a></li>
+		<li name="home"><a href="/home"><fmt:message key="title.home"/></a></li>
+		<li name="cocktails"><a href="/cocktails"><fmt:message key="title.cocktails"/></a></li>
+		<li name="ingredients"><a href="#"><fmt:message key="title.ingredients"/></a></li>
+		<li name="ranking"><a href="#"><fmt:message key="title.ranking"/></a></li>
 		<c:choose>
 			<c:when test="${empty UserContext.user}">
 				<li class="navbar-right">
@@ -30,12 +30,12 @@
 				</li>
 			</c:when>	
 			<c:otherwise>
-				<li class="navbar-right">
-					<button onclick="window.location='${UserContext.logoutUrl}'" type="button" class="btn btn-default navbar-btn">
-						<fmt:message key="labels.logout"/>
-					</button>
-				</li>
-				<p class="navbar-text navbar-right">Zalogowany jako ${UserContext.user.email}</p>
+				<li class="dropdown navbar-right">
+			    	<a href="#" class="dropdown-toggle" data-toggle="dropdown">${UserContext.user.email}<b class="caret"></b></a>
+			    	<ul class="dropdown-menu">
+			     		<li><a onclick="window.location='${UserContext.logoutUrl}'" href="#"><span class="glyphicon glyphicon-log-out"></span>&nbsp;<fmt:message key="labels.logout"/></a></li>
+			        </ul>
+		    	</li>
 			</c:otherwise>
 		</c:choose>
 		

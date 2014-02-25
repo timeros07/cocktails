@@ -16,18 +16,16 @@
     margin: 10px 0px 0px 0px;
 }
 
-#menu{
-	text-align:	center;
-}
-
 #footer{
 	text-align: center;
+	margin-top:	100px;
+	text-transform: uppercase;
 }
 
 .center_content {
     position: relative;
     padding: 5px;
-    background: url('/resources/images/website_bg.gif');
+    /*background: url('/resources/images/website_bg.gif');*/
 }
 
 .left_content {
@@ -52,10 +50,6 @@
   color: black;
   font-weight : bold;
   text-decoration : underline;
-}
-#menu ul li {
-	list-style-type: none;
-	float: left;
 }
 
 #top h2{

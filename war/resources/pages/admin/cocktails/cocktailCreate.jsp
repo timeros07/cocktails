@@ -2,7 +2,6 @@
 <%@page pageEncoding="utf-8" %>
 <script src="/resources/scripts/jquery-ui-plugins/js/lib/jquery.event.drag-2.0.min.js"></script>
 	<script src="/resources/scripts/jquery-ui-plugins/js/lib/jquery.event.drop-2.0.min.js"></script>
-
 	<script src="/resources/scripts/jquery-ui-plugins/js/lib/date.min.js"></script>
 	<script src="/resources/scripts/jquery-ui-plugins/js/lib/slick.core.js"></script>
 	<script src="/resources/scripts/jquery-ui-plugins/js/lib/slick.grid.js"></script>
@@ -50,91 +49,58 @@ var $grid;
 	}
 </script>
 
-<div>
-	<sf:form id="formularz" style="width: 600px" method="POST" modelAttribute="cocktailData" >
-		<table class="table table-no-border">
-			<tr>
-				<td>
-					<tags:text width="350" property="name" maxLength="50" disabled="${detailsMode}" label="labels.ingredient.name"/>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<tags:textarea width="350" property="description" maxLength="150" disabled="${detailsMode}" label="labels.ingredient.description"/>
-				</td>
-			</tr>
-			<sf:hidden name="blobKey" id="_blobKey" path="blobKey"/>
-			<c:if test="${createMode or modifyMode}">
-			<tr>
-				<td>
-					<tags:upload-panel width="200" form="formularz" label="labels.cocktail.image" successPath="/admin/cocktailUpload" id="uploadImg" />
-				</td>
-			</tr>
-			</c:if>
-			<c:if test="${detailsMode}">
-				<c:if test="${not empty cocktailData.blobKey}">
-				<tr>
-					<span><fmt:message key="labels.cocktail.image"/></span>
-					<td>
-						<img src="/serve?blob-key=${cocktailData.blobKey}" style="margin-left: 20px;max-height: 150px;max-width:250px;"/>
-					</td>
-				</tr>
-				</c:if>
-				<c:if test="${empty cocktailData.blobKey}">
-					<tr>
-						<td><span><fmt:message key="labels.cocktail.image"/></span>
-						<span><fmt:message key="labels.cocktail.image.noImage"/></span></td>
-					</tr>
-				</c:if>
-			</c:if>
-			</table>
-		</sf:form>
+<div class="row">
+<sf:form id="formularz" method="POST" modelAttribute="cocktailData" >
+	<div class="col-md-8 row">
+		<div class="panel panel-default">
+			<div class="panel-heading"><fmt:message key="labels.generalInformation"/></div>
+			<div class="panel-body form-horizontal">
+	  			<tags:text property="name" maxLength="50" disabled="${detailsMode}" label="labels.name"/>
+	  			<tags:textarea label="labels.description" property="description" maxLength="200" disabled="${detailsMode}"/>
+	  			<tags:select width="200" label="labels.status" disabled="${detailsMode}" property="status" items="${statuses}"/>
+			</div>
+		</div>
+	</div>
+	<tags:upload-panel form="formularz" label="labels.ingredient.image" successPath="/admin/ingredientUpload" property="blobKey" propertyValue="${cocktailData.blobKey}" disabled="${detailsMode}"/>
+</sf:form>
 
-	
-		<h3>Składniki</h3>
-		<div id="myGrid" style="width: 500px; height: 100px; "></div>
-	<c:if test="${createMode or modifyMode}" >	
-	<sf:form id="addIngredientForm" method="POST" modelAttribute="ingredient" style="width: 500px">
-		<table class="table table-no-border">
-			<tr>
-				<td>
-					<label for="element.id"><fmt:message key="labels.cocktail.ingredient.element"/></label>
-					<sf:select style="margin-right:80px; display:inline; width: 150px" class="form-control" id="element_id" name="element.id" path="${element.id}" >
-						<sf:options items="${elements}"/>
-						<option value=""></option>
-					</sf:select>
-					<tags:text width="100" property="count" maxLength="3" disabled="${detailsMode}" label="labels.cocktail.ingredient.count"/>
-				</td>
-			</tr>
-					</table>
-			<div class="buttons">
+<sf:form id="addIngredientForm" method="POST" modelAttribute="ingredient" >
+	<div class="col-md-8 row">
+		<div class="panel panel-default">
+			<div class="panel-heading"><fmt:message key="title.ingredients"/></div>
+			<div class="panel-body form-horizontal">
+				<div id="myGrid" style="width: 500px; height: 100px; "></div>
+			
+				<tags:select width="200" label="labels.cocktail.ingredient.element" disabled="${detailsMode}" property="element.id" items="${elements}" id="element_id"/>
+				<tags:text width="100" property="count" maxLength="3" disabled="${detailsMode}" label="labels.cocktail.ingredient.count" />
 				<tags:submit-handler customSuccess="loadIngredients();"  url="cocktailCreate" label="buttons.action.add" job="ADD_INGREDIENT" form="addIngredientForm" />
 			</div>
-
-	</sf:form>
-	</c:if>
+		</div>
+	</div>
+</sf:form>
+</div>
 	<div class="buttons">
 		<c:if test="${createMode}">
 			<tags:submit-handler  url="cocktailCreate" label="buttons.action.create" job="CREATE" form="formularz" />
-			<button class="btn btn-default btn-sm" type="button" onclick="window.location='cocktails'">
+			<button class="btn btn-default btn" type="button" onclick="window.location='cocktails'">
 				<fmt:message key='buttons.action.cancel'/>
 			</button>
 		</c:if>
 		<c:if test="${detailsMode}">
-			<button type="button" class="btn btn-default btn-sm" onclick="window.location='cocktailModify?id=${cocktailData.id}'" >
+			<button type="button" class="btn btn-default btn" onclick="window.location='cocktailModify?id=${cocktailData.id}'" >
 				<fmt:message key='buttons.action.modify'/>
 			</button>
 			<tags:remove-handler params="id: ${cocktailData.id}" url="cocktailDetails" label="buttons.action.remove" />
 		</c:if>
 		<c:if test="${modifyMode}">
 			<tags:submit-handler  url="cocktailModify" label="buttons.action.save" job="SAVE" form="formularz" />
-			<button class="btn btn-default btn-sm" type="button" onclick="window.location='cocktails'">
+			<button class="btn btn-default btn" type="button" onclick="window.location='cocktails'">
 				<fmt:message key='buttons.action.cancel'/>
 			</button>
 		</c:if>
 	</div>
 	
-</div>
+
 <script>		
 		function removeFormatter(rowNum, cellNum, value, columnDef, row){
 			return '<img style="cursor: pointer;" width="20px" src="/resources/images/icons/remove_button.png" onclick="removeIngredient(' + row.id + ')"/>';

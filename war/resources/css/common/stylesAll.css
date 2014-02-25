@@ -34,8 +34,8 @@ a:link:hover, a:visited:hover  {
 	margin-left:50px;
 }
  .buttons{
-	text-align: left;
-	margin-top:	20px;
+	text-align: right;
+	margin-top:	100px;
 }
 .errorHeader{
 	display: inline-block;

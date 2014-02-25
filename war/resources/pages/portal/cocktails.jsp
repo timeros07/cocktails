@@ -1,10 +1,23 @@
 <%@include file="/resources/pages/admin/layout/tags.jsp" %>
 <%@page pageEncoding="utf-8" %>
+
+<sf:select class="multiselect form-control"  path="searchCriteria.id" multiple="true">
+	<sf:options items="${elements}"/>
+</sf:select>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('.multiselect').multiselect({
+    	enableFiltering: true
+    });
+  });
+</script>
+
 <table class="table table-striped table-bordered table-hover">
 	<thead>
 		<tr>
-			<th><fmt:message key="labels.cocktail.name"/></th>
-			<th><fmt:message key="labels.cocktail.description"/></th>
+			<th><fmt:message key="labels.name"/></th>
+			<th><fmt:message key="labels.description"/></th>
 			<th><fmt:message key="labels.cocktail.image"/></th>
 		</tr>
 	</thead>

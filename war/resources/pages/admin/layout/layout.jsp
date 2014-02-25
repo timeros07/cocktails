@@ -72,7 +72,6 @@
 		
 			<div id="successMessageBox"></div>
 			<div id="errorMessageBox" style="display:none"></div>
-		
 			<div><h2 class="title"><fmt:message key="${title}"/></h2></div>
 			<tiles:insertAttribute name="body" />
 		</div>

@@ -64,13 +64,13 @@
 	  <p><span class="ui-icon ui-icon-alert" style="float: left; "></span><fmt:message key='${pageScope.question}'/></p>
 	</div>
 </c:if>
-<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#removeModal">
+<button class="btn btn-danger btn" data-toggle="modal" data-target="#removeModal">
   <fmt:message key='${pageScope.label}'/>
 </button>
 
 <!-- Modal -->
 <div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="removeModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog" style="text-align: left;">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>

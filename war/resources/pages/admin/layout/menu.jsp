@@ -1,22 +1,27 @@
 <%@include file="/resources/pages/admin/layout/tags.jsp" %>
 <%@page pageEncoding="utf-8" %>
-<script type="text/javascript">
-	jQuery(document).ready(function($){
-    // Get current url
-    // Select an a element that has the matching href and apply a class of 'active'. Also prepend a - to the content of the link
-    var url = window.location.href;
-	url = url.substr(url.lastIndexOf('/')+1);
-	if($('li[name="'+url+'"]').length == 0){
-		$('li[name="home"]').addClass('active');
-	}else{
-		$('li[name="'+url+'"]').addClass('active');
-	}
-});
-</script>
 <nav class="navbar navbar-default" role="navigation">
 	<ul class="nav nav-tabs nav-pills">
-		<li name="cocktails"><a href="/admin/cocktails"><fmt:message key="labels.menu.admin.link.cocktails"/></a></li>
-		<li name="ingredients"><a href="/admin/ingredients"><fmt:message key="labels.menu.admin.link.ingredients"/></a></li>
+		<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><fmt:message key="title.cocktails"/><b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="/admin/cocktails"><span class="glyphicon glyphicon-list"></span>&nbsp;<fmt:message key="title.cocktails.list"/></a></li>
+            <li><a href="/admin/cocktailCreate"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;<fmt:message key="title.cocktail.add"/></a></li>
+            <li class="divider"></li>
+            <li><a href="/admin/cocktailCategories"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;<fmt:message key="title.cocktailCategories.list"/></a></li>
+            <li><a href="/admin/cocktailCategoryCreate"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;<fmt:message key="title.cocktailCategory.add"/></a></li>
+          </ul>
+        </li>
+		<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><fmt:message key="title.ingredients"/><b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="/admin/ingredients"><span class="glyphicon glyphicon-list"></span>&nbsp;<fmt:message key="title.ingredients.list"/></a></li>
+            <li><a href="/admin/ingredientCreate"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;<fmt:message key="title.ingredient.add"/></a></li>
+            <li class="divider"></li>
+            <li><a href="/admin/ingredientCategories"><span class="glyphicon glyphicon-list"></span>&nbsp;<fmt:message key="title.ingredientCategories.list"/></a></li>
+            <li><a href="/admin/ingredientCategoryCreate"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;<fmt:message key="title.ingredientCategory.add"/></a></li>
+          </ul>
+        </li>
 		<li name="users"><a href="/admin/users"><fmt:message key="labels.menu.admin.link.users"/></a></li>
 		<li name="applicationInfo"><a href="/admin/applicationInfo"><fmt:message key="labels.menu.admin.link.applicationInfo"/></a></li>
 		<c:choose>
@@ -24,12 +29,12 @@
 				<li><button onclick="window.location='${UserContext.loginUrl}'" type="button" class="btn btn-default navbar-btn"><fmt:message key="labels.login"/></button></li>
 			</c:when>	
 			<c:otherwise>
-				<li class="navbar-right">
-					<button onclick="window.location='${UserContext.logoutUrl}'" type="button" class="btn btn-default navbar-btn">
-						<fmt:message key="labels.logout"/>
-					</button>
-				</li>
-				<p class="navbar-text navbar-right"><fmt:message key="labels.loggedAs"/> ${UserContext.user.email}</p>
+				<li class="dropdown navbar-right">
+			    	<a href="#" class="dropdown-toggle" data-toggle="dropdown">${UserContext.user.email}<b class="caret"></b></a>
+			    	<ul class="dropdown-menu">
+			     		<li><a onclick="window.location='${UserContext.logoutUrl}'" href="#"><span class="glyphicon glyphicon-log-out"></span>&nbsp;<fmt:message key="labels.logout"/></a></li>
+			        </ul>
+		    	</li>
 			</c:otherwise>
 		</c:choose>
 	</ul>

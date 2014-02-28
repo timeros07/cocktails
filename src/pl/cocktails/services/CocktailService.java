@@ -2,6 +2,7 @@ package pl.cocktails.services;
 
 import java.util.List;
 
+import pl.cocktails.data.AverageRatingData;
 import pl.cocktails.data.CocktailData;
 import pl.cocktails.data.CocktailRateData;
 import pl.cocktails.data.ElementCategoryData;
@@ -48,4 +49,6 @@ public interface CocktailService {
 	public void rankCocktail(CocktailRateData rate);
 	
 	public Integer getUserRating(Long userId, Long cocktailId);
+	
+	public AverageRatingData getCocktailRatings(Long cocktailId);
 }

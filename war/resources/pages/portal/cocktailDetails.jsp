@@ -6,8 +6,17 @@
 			<div class="panel panel-default">
 				<div class="panel-heading"><fmt:message key="labels.generalInformation"/></div>
 				<div class="panel-body form-horizontal">
+					<div class="form-group">
+						<label class="col-sm-5 control-label">
+							<fmt:message key="labels.cocktail.averageRating"/>&nbsp
+						</label>
+						<span class="label label-primary" style="font-size: 1.3em;">
+							${cocktailRatings.ratings}/5
+						</span>
+						&nbsp<span style="font-size: 0.8em;"><fmt:message key="labels.cocktail.numberOfVotes"/>${cocktailRatings.numberOfVotes}</span>
+					</div>
 					<c:if test="${!empty UserContext.user}">
-						<tags:rating label="labels.cocktail.rating" url="cocktailDetails" job="RATE"></tags:rating>	
+						<tags:rating label="labels.cocktail.userRating" url="cocktailDetails" job="RATE" value="${userRate}"/>	
 					</c:if>
 			  		<tags:text property="name" maxLength="50" disabled="true" label="labels.name"/>
 			  		<tags:textarea label="labels.description" property="description" maxLength="200" disabled="true"/>
@@ -20,7 +29,7 @@
 
 <div class="col-md-10 row">
 	<div class="panel panel-default">
-	<div class="panel-heading">Składniki</div>
+	<div class="panel-heading"><fmt:message key="title.ingredients"/></div>
 		<table class="table">
 			<thead>
 				<tr>

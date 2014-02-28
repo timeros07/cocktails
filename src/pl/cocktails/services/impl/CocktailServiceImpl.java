@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import pl.cocktails.data.AverageRatingData;
 import pl.cocktails.data.CocktailData;
 import pl.cocktails.data.CocktailRateData;
 import pl.cocktails.data.ElementCategoryData;
@@ -98,13 +99,30 @@ public class CocktailServiceImpl implements CocktailService{
 	}
 	
 	public void rankCocktail(CocktailRateData rate) {
-		cocktailRateDAO.createItem(rate);
+		CocktailRateData oldRate = cocktailRateDAO.getUserRating(rate.getUserId(), rate.getCocktailId());
+		if(oldRate == null){
+			cocktailRateDAO.createItem(rate);
+		}else{
+			rate.setId(oldRate.getId());
+			cocktailRateDAO.modifyItem(rate);
+		}
 	}
 
 	@Override
 	public Integer getUserRating(Long userId, Long cocktailId) {
-		return cocktailRateDAO.getUserRating(userId, cocktailId);
+		if(cocktailRateDAO.getUserRating(userId, cocktailId) != null){
+			return cocktailRateDAO.getUserRating(userId, cocktailId).getRank();
+		}
+		return null;
 	}
+
+	@Override
+	public AverageRatingData getCocktailRatings(Long cocktailId) {
+		Double ratings = cocktailRateDAO.getCocktailRatings(cocktailId);
+		Long numberOfVotes = cocktailRateDAO.getCocktailRatingsNoOfVotes(cocktailId);
+		return new AverageRatingData(ratings, numberOfVotes);
+	}
+
 	
 
 }

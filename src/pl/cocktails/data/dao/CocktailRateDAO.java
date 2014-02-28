@@ -17,7 +17,7 @@ public class CocktailRateDAO extends AbstractDAO<CocktailRateData> {
 		super(CocktailRateData.class);
 	}
 	
-	public Integer getUserRating(Long userId, Long cocktailId) {
+	public CocktailRateData getUserRating(Long userId, Long cocktailId) {
 		PersistenceManager manager = DataStoreManager.getManager().createPersistenceManager();
 		Query q = manager.newQuery(getDataClass());
 		q.setFilter("userId == specifiedUserId && cocktailId == specifiedCocktailId");
@@ -27,8 +27,36 @@ public class CocktailRateDAO extends AbstractDAO<CocktailRateData> {
 			if(ratings.isEmpty()){
 				return null;
 			}else{
-				return ratings.get(0).getRank();
+				return ratings.get(0);
 			}
+		}
+		finally{
+			manager.close();
+		}
+	}
+	
+	public Double getCocktailRatings(Long cocktailId){
+		PersistenceManager manager = DataStoreManager.getManager().createPersistenceManager();
+		Query q = manager.newQuery(getDataClass());
+		q.setFilter("cocktailId == specifiedCocktailId");
+		q.declareParameters("String specifiedCocktailId");
+		q.setResult("avg(rank)");
+		try{
+			Double ratings = (Double)q.execute(cocktailId);
+			return Math.round(ratings*10.0)/10.0;
+		}
+		finally{
+			manager.close();
+		}
+	}
+	public Long getCocktailRatingsNoOfVotes(Long cocktailId){
+		PersistenceManager manager = DataStoreManager.getManager().createPersistenceManager();
+		Query q = manager.newQuery(getDataClass());
+		q.setFilter("cocktailId == specifiedCocktailId");
+		q.declareParameters("String specifiedCocktailId");
+		q.setResult("count(rank)");
+		try{
+			return (Long)q.execute(cocktailId);
 		}
 		finally{
 			manager.close();

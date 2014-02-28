@@ -33,8 +33,7 @@ public class AccountHandlerInterceptor extends HandlerInterceptorAdapter {
 	}
 	
 	@Override
-	public void postHandle(final HttpServletRequest request, final HttpServletResponse response, final Object handler,
-			final ModelAndView modelAndView) throws Exception {
+	public boolean preHandle(final HttpServletRequest request, final HttpServletResponse response, final Object handler) throws Exception {
 		if(request.getMethod().equals(HttpMethod.GET.name()) && !"XMLHttpRequest".equals(request.getHeader("X-Requested-With"))){
 			User user = userService.getCurrentUser();
 			if(user == null){
@@ -54,7 +53,9 @@ public class AccountHandlerInterceptor extends HandlerInterceptorAdapter {
 					}
 				}
 			}
-			modelAndView.getModelMap().addAttribute(USER_CONTEXT, context);
+			//modelAndView.getModelMap().addAttribute(USER_CONTEXT, context);
+			request.getSession().setAttribute(USER_CONTEXT, context);
 		}
+		return true;
 	}
 }

@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
+import pl.cocktails.common.AccountHandlerInterceptor;
 import pl.cocktails.common.JSONResponse;
+import pl.cocktails.common.UserContext;
+import pl.cocktails.data.AverageRatingData;
 import pl.cocktails.data.CocktailData;
 import pl.cocktails.data.CocktailRateData;
 import pl.cocktails.data.ElementData;
@@ -57,10 +62,17 @@ public class CocktailsController {
 	}
 	
 	@RequestMapping(value="/cocktailDetails", method=RequestMethod.GET)
-	public String showCocktail(@RequestParam(required= true) Long id, Model model){
+	public String showCocktail(@RequestParam(required= true) Long id, Model model, HttpServletRequest req){
 		cocktail = cocktailService.getCocktail(id);
-		//Integer rank = cocktailService.getUserRating(userId, cocktailId);
+		UserContext context = (UserContext)req.getSession().getAttribute(AccountHandlerInterceptor.USER_CONTEXT);
 		
+		AverageRatingData ratings = cocktailService.getCocktailRatings(id);
+		model.addAttribute("cocktailRatings",ratings);
+		
+		if(context != null && context.getUser() != null){
+			Integer userRank = cocktailService.getUserRating(context.getUser().getId(), id);
+			model.addAttribute("userRate",userRank);
+		}
 		model.addAttribute(cocktail);
 		return "cocktailDetails";
 	}

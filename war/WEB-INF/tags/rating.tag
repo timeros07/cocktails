@@ -55,8 +55,7 @@ $( document ).ready(function() {
 					url: '${pageScope.url}',
 					data: {
 						'job' : '${pageScope.job}',
-						'rate' : score,
-						'userId': '${UserContext.user.id}'
+						'rate' : score
 					},
 					success: function(res){
 						 $('#${pageScope.id}').unmask();

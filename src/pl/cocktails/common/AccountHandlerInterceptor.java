@@ -17,6 +17,7 @@ import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 
+@Deprecated
 public class AccountHandlerInterceptor extends HandlerInterceptorAdapter {
 	
 	private UserService userService;
@@ -34,28 +35,6 @@ public class AccountHandlerInterceptor extends HandlerInterceptorAdapter {
 	
 	@Override
 	public boolean preHandle(final HttpServletRequest request, final HttpServletResponse response, final Object handler) throws Exception {
-		if(request.getMethod().equals(HttpMethod.GET.name()) && !"XMLHttpRequest".equals(request.getHeader("X-Requested-With"))){
-			User user = userService.getCurrentUser();
-			if(user == null){
-				context = new UserContext(userService.createLoginURL("/home"));
-			}else{
-				if(context == null || context.getUser() == null){
-					UserData exisitingUser = accountService.getUserByEmail(user.getEmail());
-					context = new UserContext(exisitingUser, userService.createLogoutURL("/home"));
-					
-					if(exisitingUser == null){
-						UserData userData = new UserData();
-						userData.setFirstLoginDate(new Date());
-						userData.setLogin(user.getNickname());
-						userData.setEmail(user.getEmail());
-						userData.setStatus(UserData.Status.ACTIVE);
-						accountService.createUser(userData);
-					}
-				}
-			}
-			//modelAndView.getModelMap().addAttribute(USER_CONTEXT, context);
-			request.getSession().setAttribute(USER_CONTEXT, context);
-		}
 		return true;
 	}
 }

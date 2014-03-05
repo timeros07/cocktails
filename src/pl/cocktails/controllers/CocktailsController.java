@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.request.WebRequest;
 
 import pl.cocktails.common.AccountHandlerInterceptor;
@@ -62,9 +63,8 @@ public class CocktailsController {
 	}
 	
 	@RequestMapping(value="/cocktailDetails", method=RequestMethod.GET)
-	public String showCocktail(@RequestParam(required= true) Long id, Model model, HttpServletRequest req){
+	public String showCocktail(@RequestParam(required= true) Long id, Model model, @ModelAttribute(CommonController.USER_CONTEXT) UserContext context){
 		cocktail = cocktailService.getCocktail(id);
-		UserContext context = (UserContext)req.getSession().getAttribute(AccountHandlerInterceptor.USER_CONTEXT);
 		
 		AverageRatingData ratings = cocktailService.getCocktailRatings(id);
 		model.addAttribute("cocktailRatings",ratings);
@@ -78,12 +78,12 @@ public class CocktailsController {
 	}
 	
 	@RequestMapping(value="/cocktailDetails", method=RequestMethod.POST, params="job=RATE")
-	public @ResponseBody JSONResponse rateCocktail(Integer rate, Long userId, Model model) {
+	public @ResponseBody JSONResponse rateCocktail(Integer rate, Model model, @ModelAttribute(CommonController.USER_CONTEXT) UserContext context) {
 		
 		CocktailRateData cocktailRate = new CocktailRateData();
 		cocktailRate.setCocktailId(cocktail.getId());
 		cocktailRate.setRank(rate);
-		cocktailRate.setUserId(userId);
+		cocktailRate.setUserId(context.getUser().getId());
 		cocktailService.rankCocktail(cocktailRate);
 		return new JSONResponse(true, JSONResponse.OPERATION_SUCCESS);
 	}

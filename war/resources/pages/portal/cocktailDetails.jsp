@@ -26,7 +26,6 @@
 		</div>
 		<tags:upload-panel form="formularz" label="labels.ingredient.image" successPath="/admin/ingredientUpload" property="blobKey" propertyValue="${cocktailData.blobKey}" disabled="true"/>
 	</sf:form>
-
 <div class="col-md-10 row">
 	<div class="panel panel-default">
 	<div class="panel-heading"><fmt:message key="title.ingredients"/></div>

@@ -18,6 +18,7 @@ import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 
 import pl.cocktails.common.Blobkey;
 import pl.cocktails.common.DataStoreManager;
+import pl.cocktails.data.CocktailData;
 
 
 public class AbstractDAO<TYPE> {
@@ -42,28 +43,15 @@ public class AbstractDAO<TYPE> {
 		return dataClassName;
 	}
 	
-	public void createItem(TYPE item){
-		PersistenceManager manager = DataStoreManager.getManager().createPersistenceManager();
-		try{
-			manager.makePersistent(item);
-		}finally{
-			manager.close();
-		}
+	public void createItem(PersistenceManager manager, TYPE item){
+		manager.makePersistent(item);
 	}
 	
-	public void modifyItem(TYPE item){
-		PersistenceManager manager = DataStoreManager.getManager().createPersistenceManager();
-		try{
-			manager.makePersistent(item);
-		
-		}finally{
-			manager.close();
-		}
+	public void modifyItem(PersistenceManager manager, TYPE item){
+		manager.makePersistent(item);
 	}
 	
-	public TYPE getItem(Long id){
-		PersistenceManager manager = DataStoreManager.getManager().createPersistenceManager();
-		try{
+	public TYPE getItem(PersistenceManager manager, Long id){
 			TYPE item = manager.getObjectById(dataClass, id);
 			/*for(int i=0 ; i< dataClass.getDeclaredFields().length ; i++){
 				Field field = dataClass.getDeclaredFields()[i];
@@ -84,45 +72,31 @@ public class AbstractDAO<TYPE> {
 				}
 			}*/
 			return item;
-		}finally{
-			manager.close();
-		}
 	}
 	
-	public void removeItem(Long id){
-		PersistenceManager manager = DataStoreManager.getManager().createPersistenceManager();
-		try{
-			TYPE item = manager.getObjectById(dataClass, id);
-			for(int i=0 ; i< dataClass.getDeclaredFields().length ; i++){
-				Field field = dataClass.getDeclaredFields()[i];
-				if(field.isAnnotationPresent(Blobkey.class)){
-					removeBlob(item, field);
-				}
+	public void removeItem(PersistenceManager manager, Long id){
+		TYPE item = manager.getObjectById(dataClass, id);
+		for(int i=0 ; i< dataClass.getDeclaredFields().length ; i++){
+			Field field = dataClass.getDeclaredFields()[i];
+			if(field.isAnnotationPresent(Blobkey.class)){
+				removeBlob(item, field);
 			}
-			manager.deletePersistent(item);
-		}finally{
-			manager.close();
 		}
+		manager.deletePersistent(item);
 	}
 	
-	public List<TYPE> getItems(){
+	public List<TYPE> getItems(PersistenceManager manager){
 		
-		return getAllItems();
+		return getAllItems(manager);
 		//q.setRange(5, 10);
 		//q.setFilter("name.startsWith('')");
 		//q.declareParameters("String code");
 	}
 	
-	private final List<TYPE> getAllItems(){
-		PersistenceManager manager = DataStoreManager.getManager().createPersistenceManager();
+	private final List<TYPE> getAllItems(PersistenceManager manager){
 		Query q = manager.newQuery(dataClass);
-		try{
-			List<TYPE> elements = (List<TYPE>)q.execute();
-			return elements;
-		}
-		finally{
-			manager.close();
-		}
+		List<TYPE> elements = (List<TYPE>)q.execute();
+		return elements;
 	}
 	
 	public void removeBlob(TYPE item, Field field){
@@ -148,7 +122,6 @@ public class AbstractDAO<TYPE> {
 			blobstoreService.delete(key);
 		}
 	}
-	
 	
 	
 	

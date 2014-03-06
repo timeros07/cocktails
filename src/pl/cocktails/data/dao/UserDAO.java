@@ -17,21 +17,15 @@ public class UserDAO extends AbstractDAO<UserData>{
 		super(UserData.class);
 	}
 
-	public UserData getUserByEmail(String email){
-		PersistenceManager manager = DataStoreManager.getManager().createPersistenceManager();
+	public UserData getUserByEmail(PersistenceManager manager, String email){
 		Query q = manager.newQuery(getDataClass());
 		q.setFilter("email == specifiedEmail");
 		q.declareParameters("String specifiedEmail");
-		try{
-			List<UserData> users = (List<UserData>)q.execute(email);
-			if( users.isEmpty()){
-				return null;
-			}else{
-				return users.get(0);
-			}
-		}
-		finally{
-			manager.close();
+		List<UserData> users = (List<UserData>)q.execute(email);
+		if( users.isEmpty()){
+			return null;
+		}else{
+			return users.get(0);
 		}
 	}
 }

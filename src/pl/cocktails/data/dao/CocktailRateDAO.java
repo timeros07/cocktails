@@ -17,50 +17,37 @@ public class CocktailRateDAO extends AbstractDAO<CocktailRateData> {
 		super(CocktailRateData.class);
 	}
 	
-	public CocktailRateData getUserRating(Long userId, Long cocktailId) {
-		PersistenceManager manager = DataStoreManager.getManager().createPersistenceManager();
+	public CocktailRateData getUserRating(PersistenceManager manager,Long userId, Long cocktailId) {
 		Query q = manager.newQuery(getDataClass());
 		q.setFilter("userId == specifiedUserId && cocktailId == specifiedCocktailId");
 		q.declareParameters("String specifiedUserId, String specifiedCocktailId");
-		try{
-			List<CocktailRateData> ratings = (List<CocktailRateData>)q.execute(userId, cocktailId);
-			if(ratings.isEmpty()){
-				return null;
-			}else{
-				return ratings.get(0);
-			}
-		}
-		finally{
-			manager.close();
+		List<CocktailRateData> ratings = (List<CocktailRateData>)q.execute(userId, cocktailId);
+		if(ratings.isEmpty()){
+			return null;
+		}else{
+			return ratings.get(0);
 		}
 	}
 	
-	public Double getCocktailRatings(Long cocktailId){
+	public Double getCocktailRatings(PersistenceManager m, Long cocktailId){
 		PersistenceManager manager = DataStoreManager.getManager().createPersistenceManager();
 		Query q = manager.newQuery(getDataClass());
-		q.setFilter("cocktailId == specifiedCocktailId");
-		q.declareParameters("String specifiedCocktailId");
-		q.setResult("avg(rank)");
-		try{
-			Double ratings = (Double)q.execute(cocktailId);
-			return Math.round(ratings*10.0)/10.0;
-		}
-		finally{
-			manager.close();
-		}
+		q.setFilter("cocktailId == specifiedCocktailId && rank != null");
+		q.declareParameters("Long specifiedCocktailId");
+		//problem zwi¹zany œcisle z funkcj¹ avg
+		q.setResult("avg(this.rank)");
+		Double ratings = (Double)q.execute(cocktailId);
+		manager.close();
+		return Math.round(ratings*10.0)/10.0;
 	}
+	
 	public Long getCocktailRatingsNoOfVotes(Long cocktailId){
 		PersistenceManager manager = DataStoreManager.getManager().createPersistenceManager();
 		Query q = manager.newQuery(getDataClass());
-		q.setFilter("cocktailId == specifiedCocktailId");
+		q.setFilter("cocktailId == specifiedCocktailId && rank != null");
 		q.declareParameters("String specifiedCocktailId");
 		q.setResult("count(rank)");
-		try{
-			return (Long)q.execute(cocktailId);
-		}
-		finally{
-			manager.close();
-		}
+		return (Long)q.execute(cocktailId);
 	}
 
 }

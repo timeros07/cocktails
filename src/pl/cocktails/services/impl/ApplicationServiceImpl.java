@@ -7,7 +7,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+import pl.cocktails.common.AbstractService;
 import pl.cocktails.data.CocktailData;
 import pl.cocktails.data.ElementData;
 import pl.cocktails.services.ApplicationService;
@@ -22,7 +25,7 @@ import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 
 @Service
-public class ApplicationServiceImpl implements ApplicationService {
+public class ApplicationServiceImpl extends AbstractService implements ApplicationService {
 
 	BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
 	
@@ -31,6 +34,8 @@ public class ApplicationServiceImpl implements ApplicationService {
 	@Autowired
 	CocktailService cocktailService;
 	
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
 	public Integer removeOrphanBlobs() {
 		Iterator<BlobInfo> iterator = null;
 		List<BlobInfo> blobsToCheck = new LinkedList<BlobInfo>(); 

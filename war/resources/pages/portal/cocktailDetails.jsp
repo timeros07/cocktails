@@ -11,7 +11,7 @@
 							<fmt:message key="labels.cocktail.averageRating"/>&nbsp
 						</label>
 						<span class="label label-primary" style="font-size: 1.3em;">
-							${cocktailRatings.ratings}/5
+							${cocktailRatings.ratings eq null ? '-' : cocktailRatings.ratings }/5
 						</span>
 						&nbsp<span style="font-size: 0.8em;"><fmt:message key="labels.cocktail.numberOfVotes"/>${cocktailRatings.numberOfVotes}</span>
 					</div>

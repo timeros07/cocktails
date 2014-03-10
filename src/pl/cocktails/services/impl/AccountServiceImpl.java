@@ -13,6 +13,7 @@ import pl.cocktails.data.dao.UserDAO;
 import pl.cocktails.services.AccountService;
 
 @Service
+@Transactional(propagation=Propagation.SUPPORTS)
 public class AccountServiceImpl extends AbstractService implements AccountService{
 
 	@Autowired 

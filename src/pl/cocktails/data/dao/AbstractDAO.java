@@ -18,6 +18,8 @@ import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 
 import pl.cocktails.common.Blobkey;
 import pl.cocktails.common.DataStoreManager;
+import pl.cocktails.common.ResultList;
+import pl.cocktails.common.SearchCriteria;
 import pl.cocktails.data.CocktailData;
 
 
@@ -97,6 +99,27 @@ public class AbstractDAO<TYPE> {
 		Query q = manager.newQuery(dataClass);
 		List<TYPE> elements = (List<TYPE>)q.execute();
 		return elements;
+	}
+	
+	public ResultList<TYPE> getItems(PersistenceManager manager, SearchCriteria criteria){
+		Query q = manager.newQuery(dataClass);
+		if(criteria.getPageNr() != null){
+			q.setRange((criteria.getPageNr()-1)*SearchCriteria.PAGE_SIZE, criteria.getPageNr()*SearchCriteria.PAGE_SIZE);
+			ResultList<TYPE> elements = new ResultList((List<TYPE>)q.execute());
+			elements.setPartial(true);
+			elements.setRealSize(countItems(manager));
+			return elements;
+		}else{
+			List<TYPE> elements = (List<TYPE>)q.execute();
+			return new ResultList<TYPE>(elements);
+		}
+	}
+	
+	public Long countItems(PersistenceManager manager){
+		Query q = manager.newQuery(dataClass);
+		q.setResult("count(id)");
+		Long count = (Long)q.execute();
+		return count;
 	}
 	
 	public void removeBlob(TYPE item, Field field){

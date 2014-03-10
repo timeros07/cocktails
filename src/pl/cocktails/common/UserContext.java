@@ -13,6 +13,8 @@ public class UserContext implements Serializable {
 	private String loginUrl;
 	
 	private String logoutUrl;
+	
+	private Boolean isAdmin;
 
 	public UserContext(){
 		user = null;
@@ -49,6 +51,14 @@ public class UserContext implements Serializable {
 
 	public void setLogoutUrl(String logoutUrl) {
 		this.logoutUrl = logoutUrl;
+	}
+
+	public Boolean getIsAdmin() {
+		return isAdmin;
+	}
+
+	public void setIsAdmin(Boolean isAdmin) {
+		this.isAdmin = isAdmin;
 	}
 	
 }

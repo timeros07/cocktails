@@ -33,7 +33,13 @@
 				<li class="dropdown navbar-right">
 			    	<a href="#" class="dropdown-toggle" data-toggle="dropdown">${UserContext.user.email}<b class="caret"></b></a>
 			    	<ul class="dropdown-menu">
+			    		<c:if test="${UserContext.isAdmin}" >
+			    			<li><a href="/admin"><span class="glyphicon glyphicon-briefcase"></span>&nbsp;<fmt:message key="title.switchToAdmin"/></a></li>
+			    		</c:if>
+			    	
 			     		<li><a onclick="window.location='${UserContext.logoutUrl}'" href="#"><span class="glyphicon glyphicon-log-out"></span>&nbsp;<fmt:message key="labels.logout"/></a></li>
+			     		<li><a href="/myRatings"><span class="glyphicon glyphicon-star"></span>&nbsp;<fmt:message key="title.myRatings"/></a></li>
+			     		<li><a href="/favourites"><span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;<fmt:message key="title.favourites"/></a></li>
 			        </ul>
 		    	</li>
 			</c:otherwise>

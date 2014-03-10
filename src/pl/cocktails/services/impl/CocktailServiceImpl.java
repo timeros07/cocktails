@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import pl.cocktails.common.AbstractService;
+import pl.cocktails.common.ResultList;
+import pl.cocktails.common.SearchCriteria;
 import pl.cocktails.data.AverageRatingData;
 import pl.cocktails.data.CocktailData;
 import pl.cocktails.data.CocktailRateData;
@@ -22,6 +24,7 @@ import pl.cocktails.services.CocktailService;
 
 
 @Service
+@Transactional(propagation=Propagation.SUPPORTS)
 public class CocktailServiceImpl extends AbstractService implements CocktailService{
 
 	@Autowired
@@ -48,10 +51,10 @@ public class CocktailServiceImpl extends AbstractService implements CocktailServ
 	}
 
 	@Override
-	public List<ElementData> findElements() {
-		return elementDAO.getItems(getPersistenceManager());
+	public ResultList<ElementData> findElements(SearchCriteria criteria) {
+		return elementDAO.getItems(getPersistenceManager(), criteria);
 	}
-
+	
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void createCocktail(CocktailData cocktail) {
@@ -76,8 +79,8 @@ public class CocktailServiceImpl extends AbstractService implements CocktailServ
 	}
 	
 	@Override
-	public List<CocktailData> findCocktails() {
-		return cocktailDAO.getItems(getPersistenceManager());
+	public ResultList<CocktailData> findCocktails(SearchCriteria criteria) {
+		return cocktailDAO.getItems(getPersistenceManager(), criteria);
 	}
 
 	@Override
@@ -141,8 +144,11 @@ public class CocktailServiceImpl extends AbstractService implements CocktailServ
 
 	@Override
 	public AverageRatingData getCocktailRatings(Long cocktailId) {
-		Double ratings = cocktailRateDAO.getCocktailRatings(getPersistenceManager(), cocktailId);
+		Double ratings = null;
 		Long numberOfVotes = cocktailRateDAO.getCocktailRatingsNoOfVotes(cocktailId);
+		if(numberOfVotes >0){
+			ratings = cocktailRateDAO.getCocktailRatings(getPersistenceManager(), cocktailId);
+		}
 		return new AverageRatingData(ratings, numberOfVotes);
 	}
 

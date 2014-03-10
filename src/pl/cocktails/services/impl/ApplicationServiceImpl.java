@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import pl.cocktails.common.AbstractService;
+import pl.cocktails.common.SearchCriteria;
 import pl.cocktails.data.CocktailData;
 import pl.cocktails.data.ElementData;
 import pl.cocktails.services.ApplicationService;
@@ -25,6 +26,7 @@ import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 
 @Service
+@Transactional(propagation=Propagation.SUPPORTS)
 public class ApplicationServiceImpl extends AbstractService implements ApplicationService {
 
 	BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
@@ -46,8 +48,8 @@ public class ApplicationServiceImpl extends AbstractService implements Applicati
 			blobsToCheck.add(iterator.next());
 		}
 		
-		List<ElementData> elements = cocktailService.findElements();
-		List<CocktailData> cocktails = cocktailService.findCocktails();
+		List<ElementData> elements = cocktailService.findElements(new SearchCriteria());
+		List<CocktailData> cocktails = cocktailService.findCocktails(new SearchCriteria());
 		List<BlobKey> keysToRemove = new ArrayList<BlobKey>();
 		
 		for(BlobInfo info : blobsToCheck){

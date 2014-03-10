@@ -35,5 +35,26 @@
 		</c:forEach>
 	  </tbody>
 	</table>
+	<div class="text-center">
+		<ul class="pagination pagination">
+			<c:if test="${paging.currentPageNr > 1 }">
+				<li class="previous"><a href="/admin/ingredients?p=${paging.currentPageNr-1}">&laquo; <fmt:message key="labels.previous"/></a></li>
+			</c:if>
+			<c:forEach begin="1" end="${paging.pagesCount}" varStatus="index">
+				<c:choose>
+					<c:when test="${index.index == paging.currentPageNr}">
+						<li class="active"><a href="/admin/ingredients?p=${index.index}">${index.index }</a></li>
+					</c:when>
+					<c:otherwise>
+						<li><a href="/admin/ingredients?p=${index.index}">${index.index }</a></li>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>	
+			<c:if test="${paging.currentPageNr < paging.pagesCount }">
+				<li class="next"><a href="/admin/ingredients?p=${paging.currentPageNr+1}"><fmt:message key="labels.next"/> &raquo;</a></li>
+			</c:if>
+		  
+		</ul>
+	</div>
 </div>
 	

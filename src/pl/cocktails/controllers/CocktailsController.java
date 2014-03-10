@@ -17,9 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.request.WebRequest;
-
-import pl.cocktails.common.AccountHandlerInterceptor;
 import pl.cocktails.common.JSONResponse;
+import pl.cocktails.common.PageableResult;
+import pl.cocktails.common.ResultList;
+import pl.cocktails.common.SearchCriteria;
 import pl.cocktails.common.UserContext;
 import pl.cocktails.data.AverageRatingData;
 import pl.cocktails.data.CocktailData;
@@ -42,7 +43,7 @@ public class CocktailsController {
 	@ModelAttribute
 	public void addAttributes(WebRequest request, Model model) {
 		
-		List<ElementData> elements = cocktailService.findElements();
+		List<ElementData> elements = cocktailService.findElements(new SearchCriteria());
 		Map<String, String> elementsMap = new HashMap<String, String>();
 		for(ElementData data: elements){
 			elementsMap.put(data.getId()+"", data.getName());
@@ -56,9 +57,11 @@ public class CocktailsController {
 	}
 	
 	@RequestMapping(value="/cocktails", method=RequestMethod.GET)
-	public String initCocktails(Model model) {
-		cocktails = cocktailService.findCocktails();
+	public String initCocktails(Model model, @RequestParam(required= false) Long p) {
+		SearchCriteria criteria = new SearchCriteria(p == null ? 1 : p);
+		ResultList<CocktailData> cocktails = cocktailService.findCocktails(criteria);
 		model.addAttribute("cocktails", cocktails);
+		model.addAttribute("paging", new PageableResult(cocktails.getRealSize(), p == null ? 1 : p));
 		return "cocktails";
 	}
 	

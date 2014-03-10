@@ -1,9 +1,13 @@
 package pl.cocktails.data.dao;
 
 
+import java.util.List;
+
 import javax.jdo.PersistenceManager;
 
 import org.springframework.stereotype.Repository;
+
+import pl.cocktails.common.SearchCriteria;
 import pl.cocktails.data.CocktailData;
 import pl.cocktails.data.IngredientData;
 
@@ -20,7 +24,7 @@ public class CocktailDAO extends AbstractDAO<CocktailData>{
 		for(IngredientData ingredient : item.getIngredients()){
 			ingredient.getElement();
 		}
-			
+	
 		return item;
 	}
 }

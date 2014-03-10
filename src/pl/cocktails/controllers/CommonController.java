@@ -51,6 +51,12 @@ public class CommonController
 					UserData exisitingUser = accountService.getUserByEmail(user.getEmail());
 					context = new UserContext(exisitingUser, userService.createLogoutURL("/home"));
 					
+					if(userService.isUserAdmin()){
+						context.setIsAdmin(Boolean.TRUE);
+					}else{
+						context.setIsAdmin(Boolean.FALSE);
+					}
+					
 					if(exisitingUser == null){
 						UserData userData = new UserData();
 						userData.setFirstLoginDate(new Date());

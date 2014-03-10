@@ -32,6 +32,10 @@
 				<li class="dropdown navbar-right">
 			    	<a href="#" class="dropdown-toggle" data-toggle="dropdown">${UserContext.user.email}<b class="caret"></b></a>
 			    	<ul class="dropdown-menu">
+			    		<c:if test="${UserContext.isAdmin}" >
+			    			<li><a href="/"><span class="glyphicon glyphicon-globe"></span>&nbsp;<fmt:message key="title.switchToPortal"/></a></li>
+			    		</c:if>
+			    	
 			     		<li><a onclick="window.location='${UserContext.logoutUrl}'" href="#"><span class="glyphicon glyphicon-log-out"></span>&nbsp;<fmt:message key="labels.logout"/></a></li>
 			        </ul>
 		    	</li>

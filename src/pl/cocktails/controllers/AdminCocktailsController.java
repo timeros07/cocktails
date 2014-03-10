@@ -29,6 +29,9 @@ import com.google.appengine.api.images.ServingUrlOptions;
 
 import pl.cocktails.common.JSONResponse;
 import pl.cocktails.common.JSONUploadMessage;
+import pl.cocktails.common.PageableResult;
+import pl.cocktails.common.ResultList;
+import pl.cocktails.common.SearchCriteria;
 import pl.cocktails.data.CocktailData;
 import pl.cocktails.data.ElementData;
 import pl.cocktails.data.IngredientData;
@@ -53,14 +56,13 @@ public class AdminCocktailsController {
 		model.addAttribute("ingredient", ingredient);
 		model.addAttribute("ingredients", ingredients);
 		
-		List<ElementData> elements = cocktailService.findElements();
+		List<ElementData> elements = cocktailService.findElements(new SearchCriteria());
 		Map<String, String> elementsMap = new HashMap<String, String>();
 		for(ElementData data: elements){
 			elementsMap.put(data.getId()+"", data.getName());
 		}
 		
 		model.addAttribute("elements", elementsMap);
-		model.addAttribute("cocktailData", cocktailData);
 		
 		Map<String, String> statusesMap = new HashMap<String, String>();
 		statusesMap.put("I", "Nieaktywny");
@@ -177,9 +179,12 @@ public class AdminCocktailsController {
 	}
 
 	@RequestMapping(value="/cocktails", method=RequestMethod.GET)
-	public String showCocktails(Model model){
-		List<CocktailData> cocktails = cocktailService.findCocktails();
+	public String showCocktails(Model model, @RequestParam(required= false) Long p){
+		
+		SearchCriteria criteria = new SearchCriteria(p == null ? 1 : p);
+		ResultList<CocktailData> cocktails = cocktailService.findCocktails(criteria);
 		model.addAttribute("cocktails", cocktails);
+		model.addAttribute("paging", new PageableResult(cocktails.getRealSize(), p == null ? 1 : p));
 		return "adminCocktails";
 	}
 	

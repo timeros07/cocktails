@@ -28,8 +28,12 @@ import com.google.appengine.api.images.ServingUrlOptions;
 
 import pl.cocktails.common.JSONResponse;
 import pl.cocktails.common.JSONUploadMessage;
+import pl.cocktails.common.PageableResult;
+import pl.cocktails.common.ResultList;
+import pl.cocktails.common.SearchCriteria;
 import pl.cocktails.data.ElementCategoryData;
 import pl.cocktails.data.ElementData;
+import pl.cocktails.data.dao.ElementDAO;
 import pl.cocktails.services.CocktailService;
 import pl.cocktails.validators.AdminElementValidator;
 
@@ -59,13 +63,14 @@ public class AdminIngredientsController {
 	}
 	
 	@RequestMapping(value="/ingredientCreate", method=RequestMethod.POST, params="job=CREATE")
-	public @ResponseBody JSONResponse addIngredient(@Validated ElementData element, BindingResult bindingResult, HttpServletRequest req) {
+	public @ResponseBody JSONResponse save(@Validated ElementData element, BindingResult bindingResult, HttpServletRequest req) {
 		AdminElementValidator validator = new AdminElementValidator();
 		validator.validate(element, bindingResult);
 	
 		if(bindingResult.hasErrors()){
 			return new JSONResponse(false, bindingResult.getAllErrors());
 		}
+		element.setCategory(cocktailService.getElementCategory(element.getCategory().getId()));
 		cocktailService.createElement(element);
 		return new JSONResponse(true, JSONResponse.OPERATION_SUCCESS, "ingredients");
 	}
@@ -96,7 +101,7 @@ public class AdminIngredientsController {
 		model.addAttribute(element);
 		String uploadUrl = blobstoreService.createUploadUrl("/admin/ingredientUpload");
 		model.addAttribute("uploadUrl", uploadUrl);
-		
+		categories = cocktailService.findElementCategories();
 		return "adminIngredientModify";
 	}
 	
@@ -116,6 +121,7 @@ public class AdminIngredientsController {
 	
 	@RequestMapping(value="/ingredientDetails", method=RequestMethod.GET)
 	public String showIngredient(@RequestParam(required= true) Long id, Model model){
+		categories = cocktailService.findElementCategories();
 		model.addAttribute(cocktailService.getElement(id));
 		return "adminIngredientDetails";
 	}
@@ -129,9 +135,12 @@ public class AdminIngredientsController {
 	/******Ingredients*****************************************/
 	
 	@RequestMapping(value="/ingredients", method=RequestMethod.GET)
-	public String showIngredients(Model model){
-		List<ElementData> elements = cocktailService.findElements();
+	public String showIngredients(Model model, @RequestParam(required= false) Long p){
+			
+		SearchCriteria criteria = new SearchCriteria(p == null ? 1 : p);
+		ResultList<ElementData> elements = cocktailService.findElements(criteria);
 		model.addAttribute("ingredients", elements);
+		model.addAttribute("paging", new PageableResult(elements.getRealSize(), p == null ? 1 : p));
 		return "adminIngredients";
 	}
 	

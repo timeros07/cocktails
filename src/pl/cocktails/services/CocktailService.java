@@ -2,6 +2,8 @@ package pl.cocktails.services;
 
 import java.util.List;
 
+import pl.cocktails.common.ResultList;
+import pl.cocktails.common.SearchCriteria;
 import pl.cocktails.data.AverageRatingData;
 import pl.cocktails.data.CocktailData;
 import pl.cocktails.data.CocktailRateData;
@@ -15,7 +17,7 @@ public interface CocktailService {
 	
 	public ElementData getElement(Long id);
 	
-	public List<ElementData> findElements();
+	public ResultList<ElementData> findElements(SearchCriteria criteria);
 	
 	public void modifyElement(ElementData element);
 	
@@ -38,7 +40,7 @@ public interface CocktailService {
 	
 	public CocktailData getCocktail(Long id);
 	
-	public List<CocktailData> findCocktails();
+	public ResultList<CocktailData> findCocktails(SearchCriteria criteria);
 	
 	public void modifyCocktail(CocktailData cocktail);
 	

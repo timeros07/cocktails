@@ -9,6 +9,8 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.NotBlank;
 
 
 @PersistenceCapable
@@ -26,12 +28,19 @@ public class CocktailData implements Serializable {
 	private Long id;
 	
 	@Persistent
+	@NotBlank(message="errors.name.empty")
 	private String name;
 	
 	@Persistent
+	@NotBlank(message="errors.description.empty")
 	private String description;
 	
 	@Persistent
+	@NotBlank(message="errors.status.empty")
+	private String status;
+	
+	@Persistent
+	@NotEmpty(message="errors.cocktail.ingredients.empty")
 	private List<IngredientData> ingredients;
 	
 	@Persistent
@@ -48,9 +57,6 @@ public class CocktailData implements Serializable {
 	
 	@Persistent
 	private String blobKey;
-	
-	@Persistent
-	private String status;
 	
 	public String getStatus() {
 		return status;
@@ -118,8 +124,6 @@ public class CocktailData implements Serializable {
 	}
 	
 	public List<IngredientData> getIngredients() {
-		if(ingredients == null)
-			ingredients = new ArrayList<IngredientData>();
 		return ingredients;
 	}
 	public void setIngredients(List<IngredientData> ingredients) {

@@ -51,7 +51,7 @@ public class JSONResponse implements Serializable {
 		this.messages = new ArrayList<JSONMessage>();
 		for(ObjectError error : allErrors){
 			String message = null, field = null;
-			message = MessageUtils.getMessage(error.getCode(), error.getArguments());
+			message = MessageUtils.getMessage(error.getDefaultMessage(), error.getArguments());
 			if(error instanceof FieldError){
 				field = ((FieldError) error).getField();
 			}

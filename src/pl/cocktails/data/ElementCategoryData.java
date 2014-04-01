@@ -7,6 +7,9 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+
 @PersistenceCapable
 public class ElementCategoryData implements Serializable {
 
@@ -22,12 +25,15 @@ public class ElementCategoryData implements Serializable {
 	private Long id;
 	
 	@Persistent
+	@NotBlank(message="errors.name.empty")
 	private String name;
 	
 	@Persistent
+	@NotBlank(message="errors.description.empty")
 	private String description;
 	
 	@Persistent
+	@NotBlank(message="errors.status.empty")
 	private String status;
 
 	public Long getId() {

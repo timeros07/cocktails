@@ -36,7 +36,8 @@
 					if(res.messages != undefined){
 						for(i in res.messages){
 							if(res.messages[i].field != null){
-								field = $('#container_'+ res.messages[i].field);
+								//replacement for escape dot in jquery
+								field = $( ('#container_'+ res.messages[i].field).replace('.', '\\.'));
 								field.addClass('has-error');
 							}
 							message = message + res.messages[i].message + '</br>';

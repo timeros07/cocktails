@@ -7,6 +7,7 @@ import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
+import javax.validation.constraints.NotNull;
 
 
 import com.google.appengine.api.datastore.Key;
@@ -27,6 +28,7 @@ public class IngredientData implements Serializable {
 	private ElementData element;
 	
 	@Persistent
+	@NotNull(message="errors.ingredient.count.empty")
 	private Integer count;
 	
 	public IngredientData(){}

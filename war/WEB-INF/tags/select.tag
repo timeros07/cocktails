@@ -21,7 +21,7 @@
 			path="${pageScope.property}"
 			disabled="${pageScope.disabled}"
 			cssStyle="width: ${empty pageScope.width ? '100%' : width }px"
-			onchange="onchange_${pageScope.property}()"
+			onchange="onchange_${pageScope.id}()"
 		>
 			<option value=""></option>
 			<sf:options items="${items}"/>
@@ -30,9 +30,10 @@
 </div>
 
 <script>
-function onchange_${pageScope.property}(){
-	if($('#container_${property}').hasClass('has-error')){
-		$('#container_${property}').removeClass('has-error');
+function onchange_${pageScope.id}(){
+	var container = $(('#container_${property}').replace('.', '\\.'));
+	if(container.hasClass('has-error')){
+		container.removeClass('has-error');
 	} 
 }
 </script>

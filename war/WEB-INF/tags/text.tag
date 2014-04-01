@@ -28,7 +28,7 @@
 		  	id="_${id}"
 		  	maxLength="${pageScope.maxLength}"
 		  	title="${_tooltip}"
-		  	onKeyDown="onKeyDown_${pageScope.property}()"
+		  	onKeyDown="onKeyDown_${pageScope.id}()"
 		  	cssClass="form-control"
 		  	type="text"
 		/>
@@ -37,9 +37,10 @@
 
 <script>
   
-function onKeyDown_${pageScope.property}(){
-	if($('#container_${property}').hasClass('has-error')){
-		$('#container_${property}').removeClass('has-error');
-	} 
+function onKeyDown_${pageScope.id}(){
+	var container = $(('#container_${property}').replace('.', '\\.'));
+	if(container.hasClass('has-error')){
+		container.removeClass('has-error');
+	}  
 }
 </script>

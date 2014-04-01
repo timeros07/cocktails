@@ -7,6 +7,9 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.google.appengine.datanucleus.annotations.Unowned;
 
 import pl.cocktails.common.Blobkey;
@@ -27,9 +30,11 @@ public class ElementData implements Serializable{
 	private Long id;
 	
 	@Persistent
+	@NotBlank(message="errors.name.empty")
 	private String name;
 	
 	@Persistent
+	@NotBlank(message="errors.description.empty")
 	private String description;
 	
 	@Blobkey(getterName = "getBlobKey")
@@ -37,6 +42,7 @@ public class ElementData implements Serializable{
 	private String blobKey;
 	
 	@Persistent
+	@NotBlank(message="errors.status.empty")
 	private String status;
 	
 	@Persistent

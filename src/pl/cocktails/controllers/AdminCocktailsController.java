@@ -6,12 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,8 +37,6 @@ import pl.cocktails.data.CocktailData;
 import pl.cocktails.data.ElementData;
 import pl.cocktails.data.IngredientData;
 import pl.cocktails.services.CocktailService;
-import pl.cocktails.validators.AdminCocktailValidator;
-import pl.cocktails.validators.AdminIngredientValidator;
 
 @Controller
 @RequestMapping("/admin")
@@ -48,13 +47,13 @@ public class AdminCocktailsController {
 	
 	BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
 	
-	private List<IngredientData> ingredients = new ArrayList<IngredientData>();
 	private IngredientData ingredient = new IngredientData();
+	private CocktailData cocktailData = new CocktailData();
 	
 	@ModelAttribute
 	public void addAttributes(WebRequest request, Model model) {
 		model.addAttribute("ingredient", ingredient);
-		model.addAttribute("ingredients", ingredients);
+		model.addAttribute("cocktailData", cocktailData);
 		
 		List<ElementData> elements = cocktailService.findElements(new SearchCriteria());
 		Map<String, String> elementsMap = new HashMap<String, String>();
@@ -74,52 +73,45 @@ public class AdminCocktailsController {
 	
 	@RequestMapping(value="/cocktailCreate", method=RequestMethod.GET)
 	public String initCreateCocktailForm(Model model) {
-		model.addAttribute(new CocktailData());
+		cocktailData = new CocktailData();
 		
 		String uploadUrl = blobstoreService.createUploadUrl("/admin/cocktailUpload");
 		model.addAttribute("uploadUrl", uploadUrl);
-		ingredients = new ArrayList<IngredientData>();
+		cocktailData.setIngredients(new ArrayList<IngredientData>());
 	
 		return "adminCocktailCreate";
 	}
 	
 	@RequestMapping(value="/cocktailCreate", method=RequestMethod.POST, params="job=CREATE")
-	public @ResponseBody JSONResponse createCocktail(@Validated CocktailData cocktail, BindingResult bindingResult) {
-		cocktail.setIngredients(ingredients);
-		
-		AdminCocktailValidator validator = new AdminCocktailValidator();
-		validator.validate(cocktail, bindingResult);
-	
+	public @ResponseBody JSONResponse createCocktail(@Valid CocktailData cocktail, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()){
 			return new JSONResponse(false, bindingResult.getAllErrors());
 		}
-		cocktail.setIngredients(ingredients);
 		cocktailService.createCocktail(cocktail);
 		return new JSONResponse(true, JSONResponse.OPERATION_SUCCESS, "cocktails");
 	}
 	
 	@RequestMapping(value="/cocktailCreate", method=RequestMethod.POST, params="job=ADD_INGREDIENT")
-	public @ResponseBody JSONResponse addIngredient(@Validated IngredientData ingredient, BindingResult bindingResult) {
-		AdminIngredientValidator validator = new AdminIngredientValidator();
-		validator.validate(ingredient, bindingResult);
+	public @ResponseBody JSONResponse addIngredient(@Valid IngredientData ingredient, BindingResult bindingResult) {
+		if(ingredient.getElement().getId() == null){
+			bindingResult.addError(new FieldError("element.id","element.id", "errors.ingredient.element.empty"));
+		}
 		if(bindingResult.hasErrors()){
 			return new JSONResponse(false, bindingResult.getAllErrors());
 		}
 		ingredient.setElement(cocktailService.getElement(ingredient.getElement().getId()));
-		ingredient.setKey(KeyFactory.createKey(IngredientData.class.getSimpleName(), (-1)*(ingredients.size()+1)));
-		ingredients.add(ingredient);
+		ingredient.setKey(KeyFactory.createKey(IngredientData.class.getSimpleName(), (-1)*(cocktailData.getIngredients().size()+1)));
+		cocktailData.getIngredients().add(ingredient);
 		ingredient = new IngredientData();
 		return new JSONResponse(true, JSONResponse.OPERATION_SUCCESS);
 	}
 	
 	@RequestMapping(value="/cocktailCreate", method=RequestMethod.POST, params="job=LOAD_INGREDIENTS")
 	public @ResponseBody List<IngredientData> getIngredients() {
-		return ingredients;
+		return cocktailData.getIngredients();
 	}
 	
 	/******CocktialModify*****************************************/
-	
-	CocktailData cocktailData = new CocktailData();
 	
 	@RequestMapping(value="/cocktailModify", method=RequestMethod.GET)
 	public String initModify(@RequestParam(required= true) Long id, Model model){
@@ -127,18 +119,12 @@ public class AdminCocktailsController {
 		String uploadUrl = blobstoreService.createUploadUrl("/admin/cocktailUpload");
 		model.addAttribute("uploadUrl", uploadUrl);
 		cocktailData = cocktailService.getCocktail(id);
-		model.addAttribute(cocktailData);
-		ingredients = cocktailData.getIngredients();
-		
+	
 		return "adminCocktailModify";
 	}
 	
 	@RequestMapping(value="/cocktailModify", method=RequestMethod.POST, params="job=SAVE")
-	public @ResponseBody JSONResponse modifyCocktail(@ModelAttribute CocktailData cocktail, BindingResult bindingResult) {
-		cocktail.setIngredients(ingredients);
-		
-		AdminCocktailValidator validator = new AdminCocktailValidator();
-		validator.validate(cocktail, bindingResult);
+	public @ResponseBody JSONResponse modifyCocktail(@Valid CocktailData cocktail, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()){
 			return new JSONResponse(false, bindingResult.getAllErrors());
 		}
@@ -155,9 +141,7 @@ public class AdminCocktailsController {
 	
 	@RequestMapping(value="/cocktailDetails", method=RequestMethod.GET)
 	public String showCocktail(@RequestParam(required= true) Long id, Model model){
-		CocktailData cocktail = cocktailService.getCocktail(id);
-		model.addAttribute(cocktail);
-		ingredients = cocktail.getIngredients();
+		cocktailData = cocktailService.getCocktail(id);
 		return "adminCocktailDetails";
 	}
 	
@@ -169,9 +153,9 @@ public class AdminCocktailsController {
 	
 	@RequestMapping(value="/removeIngredient", method=RequestMethod.GET)
 	public @ResponseBody String removeIngredient(@RequestParam Long id) {
-		for(int i=0 ; i<ingredients.size() ; i++){
-			if(id.equals(ingredients.get(i).getKey().getId())){
-				ingredients.remove(i);
+		for(int i=0 ; i<cocktailData.getIngredients().size() ; i++){
+			if(id.equals(cocktailData.getIngredients().get(i).getKey().getId())){
+				cocktailData.getIngredients().remove(i);
 			}
 		}
 		

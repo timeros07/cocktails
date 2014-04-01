@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,9 +33,7 @@ import pl.cocktails.common.ResultList;
 import pl.cocktails.common.SearchCriteria;
 import pl.cocktails.data.ElementCategoryData;
 import pl.cocktails.data.ElementData;
-import pl.cocktails.data.dao.ElementDAO;
 import pl.cocktails.services.CocktailService;
-import pl.cocktails.validators.AdminElementValidator;
 
 @Controller
 @RequestMapping("/admin")
@@ -63,9 +61,7 @@ public class AdminIngredientsController {
 	}
 	
 	@RequestMapping(value="/ingredientCreate", method=RequestMethod.POST, params="job=CREATE")
-	public @ResponseBody JSONResponse save(@Validated ElementData element, BindingResult bindingResult, HttpServletRequest req) {
-		AdminElementValidator validator = new AdminElementValidator();
-		validator.validate(element, bindingResult);
+	public @ResponseBody JSONResponse save(@Valid ElementData element, BindingResult bindingResult, HttpServletRequest req) {
 	
 		if(bindingResult.hasErrors()){
 			return new JSONResponse(false, bindingResult.getAllErrors());
@@ -106,10 +102,8 @@ public class AdminIngredientsController {
 	}
 	
 	@RequestMapping(value="/ingredientModify", method=RequestMethod.POST, params="job=SAVE")
-	public @ResponseBody JSONResponse modifyIngredient(@ModelAttribute ElementData element, BindingResult bindingResult) {
-		AdminElementValidator validator = new AdminElementValidator();
-		validator.validate(element, bindingResult);
-	
+	public @ResponseBody JSONResponse modifyIngredient(@Valid ElementData element, BindingResult bindingResult) {
+
 		if(bindingResult.hasErrors()){
 			return new JSONResponse(false, bindingResult.getAllErrors());
 		}

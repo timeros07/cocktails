@@ -67,35 +67,7 @@
    		<put-attribute name="body" value="/resources/pages/admin/ingredients/ingredients.jsp"/>
    	</definition>
    	
-   	   	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Administration ingredient categories pages !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-   	
-   	<definition name="adminIngredientCategoryCreateDef" template="/resources/pages/admin/ingredientCategories/ingredientCategoryCreate.jsp">
-   		<put-attribute name="mode" value="C"/>
-   	</definition>
-   	
-   	<definition name="adminIngredientCategoryDetailsDef" template="/resources/pages/admin/ingredientCategories/ingredientCategoryCreate.jsp">
-   		<put-attribute name="mode" value="D"/>
-   	</definition>
-   	
-   	<definition name="adminIngredientCategoryModifyDef" template="/resources/pages/admin/ingredientCategories/ingredientCategoryCreate.jsp">
-   		<put-attribute name="mode" value="M"/>
-   	</definition>
-   	
-   	<definition name="adminIngredientCategoryCreate" extends="adminLayout">
-   		<put-attribute name="title" value="title.ingredientCategory.create"/>
-   		<put-attribute name="body" value="adminIngredientCategoryCreateDef"/>
-   	</definition>
-   	
-   	<definition name="adminIngredientCategoryDetails" extends="adminLayout">
-   		<put-attribute name="title" value="title.ingredientCategory.details"/>
-   		<put-attribute name="body" value="adminIngredientCategoryDetailsDef"/>
-   	</definition>
-   	
-   	<definition name="adminIngredientCategoryModify" extends="adminLayout">
-   		<put-attribute name="title" value="title.ingredientCategory.modify"/>
-   		<put-attribute name="body" value="adminIngredientCategoryModifyDef"/>
-   	</definition>
-   	
+  	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Administration ingredient categories pages !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
    	<definition name="adminIngredientCategories" extends="adminLayout">
    		<put-attribute name="title" value="title.ingredientCategories"/>
    		<put-attribute name="body" value="/resources/pages/admin/ingredientCategories/ingredientCategories.jsp"/>

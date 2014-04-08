@@ -78,3 +78,8 @@ a:link:hover, a:visited:hover  {
 #language {
 	float: right;
 }
+/*---------------------------EDITABLE GRID---------------------------------*/
+.editableTextArea{
+	width: 400px !important;
+}
+

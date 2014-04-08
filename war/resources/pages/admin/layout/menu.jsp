@@ -19,7 +19,6 @@
             <li><a href="/admin/ingredientCreate"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;<fmt:message key="title.ingredient.add"/></a></li>
             <li class="divider"></li>
             <li><a href="/admin/ingredientCategories"><span class="glyphicon glyphicon-list"></span>&nbsp;<fmt:message key="title.ingredientCategories.list"/></a></li>
-            <li><a href="/admin/ingredientCategoryCreate"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;<fmt:message key="title.ingredientCategory.add"/></a></li>
           </ul>
         </li>
 		<li name="users"><a href="/admin/users"><fmt:message key="labels.menu.admin.link.users"/></a></li>

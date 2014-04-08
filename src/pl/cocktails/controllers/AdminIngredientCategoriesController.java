@@ -21,6 +21,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
@@ -35,6 +36,8 @@ public class AdminIngredientCategoriesController {
 	
 	@Autowired
 	private CocktailService cocktailService;
+
+	/******Ingredient categories*****************************************/
 	
 	@ModelAttribute
 	public void addAttributes(WebRequest request, Model model) {
@@ -44,15 +47,13 @@ public class AdminIngredientCategoriesController {
 		model.addAttribute("statuses", statusesMap);
 	}
 	
-	/******Ingredients*****************************************/
-	
 	@RequestMapping(value="/ingredientCategories", method=RequestMethod.GET)
 	public String getItems(Model model){
 		List<ElementCategoryData> categories = cocktailService.findElementCategories();
-		
-		
 		model.addAttribute("categories", categories);
 		
+		ElementCategoryData category = new ElementCategoryData();
+		model.addAttribute("newCategory", category);
 		return "adminIngredientCategories";
 	}
 	
@@ -76,21 +77,18 @@ public class AdminIngredientCategoriesController {
 		return new JSONResponse(true, JSONResponse.OPERATION_SUCCESS);
 	}
 	
-	/******IngredientCategoryCreate*****************************************/
-	
-	@RequestMapping(value="/ingredientCategoryCreate", method=RequestMethod.GET)
-	public String initCreateIngredientForm(Model model) {
-		ElementCategoryData category = new ElementCategoryData();
-		model.addAttribute("category", category);;
-		return "adminIngredientCategoryCreate";
-	}
-	
-	@RequestMapping(value="/ingredientCategoryCreate", method=RequestMethod.POST, params="job=CREATE")
-	public @ResponseBody JSONResponse save(@Valid ElementCategoryData category, BindingResult bindingResult, HttpServletRequest req) {
+	@RequestMapping(value="/ingredientCategories", method=RequestMethod.POST, params="job=CREATE")
+	public @ResponseBody JSONResponse create(@Valid ElementCategoryData category, BindingResult bindingResult, HttpServletRequest req) {
 		if(bindingResult.hasErrors()){
 			return new JSONResponse(false, bindingResult.getAllErrors());
 		}
 		cocktailService.createElementCategory(category);
+		return new JSONResponse(true, JSONResponse.OPERATION_SUCCESS, "ingredientCategories");
+	}
+
+	@RequestMapping(value="/ingredientCategory", method=RequestMethod.POST, params="job=REMOVE")
+	public @ResponseBody JSONResponse removeCategory(@RequestParam(required= true) Long id, Model model){
+		cocktailService.removeElementCategory(id);
 		return new JSONResponse(true, JSONResponse.OPERATION_SUCCESS, "ingredientCategories");
 	}
 	

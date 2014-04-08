@@ -35,5 +35,15 @@ public class AccountServiceImpl extends AbstractService implements AccountServic
 		return userDAO.getItems(getPersistenceManager());
 	}
 
+	@Override
+	public UserData getUser(Long id) {
+		return userDAO.getItem(getPersistenceManager(), id);
+	}
+
+	@Override
+	public void modifyUser(UserData user) {
+		userDAO.modifyItem(getPersistenceManager(), user);
+	}
+
 
 }

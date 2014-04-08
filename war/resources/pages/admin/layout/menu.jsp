@@ -22,6 +22,7 @@
           </ul>
         </li>
 		<li name="users"><a href="/admin/users"><fmt:message key="labels.menu.admin.link.users"/></a></li>
+		<li name="contactMessages"><a href="/admin/contactMessages"><fmt:message key="title.contactMessages.list"/></a></li>
 		<li name="applicationInfo"><a href="/admin/applicationInfo"><fmt:message key="labels.menu.admin.link.applicationInfo"/></a></li>
 		<c:choose>
 			<c:when test="${empty UserContext.user}">

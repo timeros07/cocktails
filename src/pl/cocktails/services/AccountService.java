@@ -10,6 +10,10 @@ public interface AccountService {
 	
 	public void createUser(UserData user);
 	
+	public UserData getUser(Long id);
+	
 	public List<UserData> findUsers();
+	
+	public void modifyUser(UserData user);
 
 }

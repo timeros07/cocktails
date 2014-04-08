@@ -13,7 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.cocktails.common.AbstractService;
 import pl.cocktails.common.SearchCriteria;
 import pl.cocktails.data.CocktailData;
+import pl.cocktails.data.ContactMessageData;
 import pl.cocktails.data.ElementData;
+import pl.cocktails.data.dao.ContactMessageDAO;
 import pl.cocktails.services.ApplicationService;
 import pl.cocktails.services.CocktailService;
 
@@ -34,7 +36,10 @@ public class ApplicationServiceImpl extends AbstractService implements Applicati
 	DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 	
 	@Autowired
-	CocktailService cocktailService;
+	private CocktailService cocktailService;
+	
+	@Autowired
+	private ContactMessageDAO contactMessageDAO;
 	
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
@@ -75,6 +80,28 @@ public class ApplicationServiceImpl extends AbstractService implements Applicati
 		
 		return keysToRemove.size();
 
+	}
+
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void sendContactMessage(ContactMessageData message) {
+		contactMessageDAO.createItem(getPersistenceManager(), message);
+	}
+
+	@Override
+	public List<ContactMessageData> getContactMessages() {
+		return contactMessageDAO.getItems(getPersistenceManager());
+	}
+
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void removeContactMessage(Long id) {
+		contactMessageDAO.removeItem(getPersistenceManager(), id);
+	}
+
+	@Override
+	public ContactMessageData getContactMessage(Long id) {
+		return contactMessageDAO.getItem(getPersistenceManager(), id);
 	}
 
 }

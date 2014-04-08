@@ -115,7 +115,16 @@
    		<put-attribute name="body" value="/resources/pages/admin/users/users.jsp"/>
    	</definition>
    	
-   	
+   	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Administration contact messages !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+   	<definition name="contactMessages" extends="adminLayout">
+   		<put-attribute name="title" value="title.contactMessages.list"/>
+   		<put-attribute name="body" value="/resources/pages/admin/contactMessages/contactMessages.jsp"/>
+   	</definition>
+   	   	<definition name="contactMessageDetails" extends="adminLayout">
+   		<put-attribute name="title" value="title.contactMessages.list"/>
+   		<put-attribute name="body" value="/resources/pages/admin/contactMessages/contactMessageDetails.jsp"/>
+   	</definition>
+   	   	
    	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  Member pages !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  -->
    	<definition name="layout" template="/resources/pages/portal/layout/layout.jsp">
    		<put-attribute name="title" value=""/>

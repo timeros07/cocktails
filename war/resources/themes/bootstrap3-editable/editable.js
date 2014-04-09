@@ -59,10 +59,10 @@ $(document).ready(function () {
 	
 });
 
-function addItemToGrid(){
+function addItemToGrid(url){
 	$('body').mask("Wczytywanie");
 	 $('.editableFooter a').editable('submit', { 
-	       url: '/admin/ingredientCategories?job=CREATE', 
+	       url: url, 
 			success: function(res){
 				if(res.success){
 

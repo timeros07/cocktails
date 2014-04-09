@@ -27,17 +27,17 @@ import org.springframework.web.context.request.WebRequest;
 
 import pl.cocktails.common.JSONResponse;
 import pl.cocktails.common.XEditableForm;
-import pl.cocktails.data.ElementCategoryData;
+import pl.cocktails.data.CocktailCategoryData;
 import pl.cocktails.services.CocktailService;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminIngredientCategoriesController {
+public class AdminCocktailCategoriesController {
 	
 	@Autowired
 	private CocktailService cocktailService;
 
-	/******Ingredient categories*****************************************/
+	/******Cocktail categories*****************************************/
 	
 	@ModelAttribute
 	public void addAttributes(WebRequest request, Model model) {
@@ -47,24 +47,24 @@ public class AdminIngredientCategoriesController {
 		model.addAttribute("statuses", statusesMap);
 	}
 	
-	@RequestMapping(value="/ingredientCategories", method=RequestMethod.GET)
+	@RequestMapping(value="/cocktailCategories", method=RequestMethod.GET)
 	public String getItems(Model model){
-		List<ElementCategoryData> categories = cocktailService.findElementCategories();
+		List<CocktailCategoryData> categories = cocktailService.findCocktailCategories();
 		model.addAttribute("categories", categories);
 		
-		ElementCategoryData category = new ElementCategoryData();
+		CocktailCategoryData category = new CocktailCategoryData();
 		model.addAttribute("newCategory", category);
-		return "ingredientCategories";
+		return "cocktailCategories";
 	}
 	
-	@RequestMapping(value="/ingredientCategories", method=RequestMethod.POST, params="job=MODIFY")
+	@RequestMapping(value="/cocktailCategories", method=RequestMethod.POST, params="job=MODIFY")
 	public @ResponseBody JSONResponse modifyCategory(@ModelAttribute XEditableForm form, BindingResult bindingResult) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 	
-		ElementCategoryData categoryToModify = cocktailService.getElementCategory(form.getPk());
+		CocktailCategoryData categoryToModify = cocktailService.getCocktailCategory(form.getPk());
 		PropertyUtils.setSimpleProperty(categoryToModify, form.getName(), form.getValue());
 		
 		Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-		Set<ConstraintViolation<ElementCategoryData>> constraintViolations = validator.validateProperty(categoryToModify, form.getName());
+		Set<ConstraintViolation<CocktailCategoryData>> constraintViolations = validator.validateProperty(categoryToModify, form.getName());
 		if(!constraintViolations.isEmpty())
 		bindingResult.addError(new ObjectError(constraintViolations.iterator().next().getMessageTemplate(), constraintViolations.iterator().next().getMessage()));
 		
@@ -72,24 +72,23 @@ public class AdminIngredientCategoriesController {
 			return new JSONResponse(false, bindingResult.getAllErrors());
 		}
 		
-		cocktailService.modifyElementCategory(categoryToModify);
+		cocktailService.modifyCocktailCategory(categoryToModify);
 		
 		return new JSONResponse(true, JSONResponse.OPERATION_SUCCESS);
 	}
 	
-	@RequestMapping(value="/ingredientCategories", method=RequestMethod.POST, params="job=CREATE")
-	public @ResponseBody JSONResponse create(@Valid ElementCategoryData category, BindingResult bindingResult, HttpServletRequest req) {
+	@RequestMapping(value="/cocktailCategories", method=RequestMethod.POST, params="job=CREATE")
+	public @ResponseBody JSONResponse create(@Valid CocktailCategoryData category, BindingResult bindingResult, HttpServletRequest req) {
 		if(bindingResult.hasErrors()){
 			return new JSONResponse(false, bindingResult.getAllErrors());
 		}
-		cocktailService.createElementCategory(category);
-		return new JSONResponse(true, JSONResponse.OPERATION_SUCCESS, "ingredientCategories");
+		cocktailService.createCocktailCategory(category);
+		return new JSONResponse(true, JSONResponse.OPERATION_SUCCESS, "cocktailCategories");
 	}
 
-	@RequestMapping(value="/ingredientCategories", method=RequestMethod.POST, params="job=REMOVE")
+	@RequestMapping(value="/cocktailCategories", method=RequestMethod.POST, params="job=REMOVE")
 	public @ResponseBody JSONResponse removeCategory(@RequestParam(required= true) Long id, Model model){
-		cocktailService.removeElementCategory(id);
-		return new JSONResponse(true, JSONResponse.OPERATION_SUCCESS, "ingredientCategories");
+		cocktailService.removeCocktailCategory(id);
+		return new JSONResponse(true, JSONResponse.OPERATION_SUCCESS, "cocktailCategories");
 	}
-	
 }

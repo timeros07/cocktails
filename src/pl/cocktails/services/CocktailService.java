@@ -5,6 +5,7 @@ import java.util.List;
 import pl.cocktails.common.ResultList;
 import pl.cocktails.common.SearchCriteria;
 import pl.cocktails.data.AverageRatingData;
+import pl.cocktails.data.CocktailCategoryData;
 import pl.cocktails.data.CocktailData;
 import pl.cocktails.data.CocktailRateData;
 import pl.cocktails.data.ElementCategoryData;
@@ -45,6 +46,17 @@ public interface CocktailService {
 	public void modifyCocktail(CocktailData cocktail);
 	
 	public void removeCocktail(Long id);
+	
+	/*Cocktail categories*/
+	public void createCocktailCategory(CocktailCategoryData category);
+	
+	public CocktailCategoryData getCocktailCategory(Long id);
+	
+	public List<CocktailCategoryData> findCocktailCategories();
+	
+	public void modifyCocktailCategory(CocktailCategoryData category);
+	
+	public void removeCocktailCategory(Long id);
 	
 	/*Rank*/
 	

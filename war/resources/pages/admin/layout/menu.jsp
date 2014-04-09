@@ -8,8 +8,7 @@
             <li><a href="/admin/cocktails"><span class="glyphicon glyphicon-list"></span>&nbsp;<fmt:message key="title.cocktails.list"/></a></li>
             <li><a href="/admin/cocktailCreate"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;<fmt:message key="title.cocktail.add"/></a></li>
             <li class="divider"></li>
-            <li><a href="/admin/cocktailCategories"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;<fmt:message key="title.cocktailCategories.list"/></a></li>
-            <li><a href="/admin/cocktailCategoryCreate"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;<fmt:message key="title.cocktailCategory.add"/></a></li>
+            <li><a href="/admin/cocktailCategories"><span class="glyphicon glyphicon-list"></span>&nbsp;<fmt:message key="title.cocktailCategories.list"/></a></li>
           </ul>
         </li>
 		<li class="dropdown">

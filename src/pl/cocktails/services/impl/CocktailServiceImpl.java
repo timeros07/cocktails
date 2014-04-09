@@ -12,10 +12,12 @@ import pl.cocktails.common.AbstractService;
 import pl.cocktails.common.ResultList;
 import pl.cocktails.common.SearchCriteria;
 import pl.cocktails.data.AverageRatingData;
+import pl.cocktails.data.CocktailCategoryData;
 import pl.cocktails.data.CocktailData;
 import pl.cocktails.data.CocktailRateData;
 import pl.cocktails.data.ElementCategoryData;
 import pl.cocktails.data.ElementData;
+import pl.cocktails.data.dao.CocktailCategoryDAO;
 import pl.cocktails.data.dao.CocktailDAO;
 import pl.cocktails.data.dao.CocktailRateDAO;
 import pl.cocktails.data.dao.ElementCategoryDAO;
@@ -32,6 +34,9 @@ public class CocktailServiceImpl extends AbstractService implements CocktailServ
 	
 	@Autowired
 	ElementCategoryDAO elementCategoryDAO;
+	
+	@Autowired
+	CocktailCategoryDAO cocktailCategoryDAO;
 	
 	@Autowired
 	CocktailDAO cocktailDAO;
@@ -134,6 +139,34 @@ public class CocktailServiceImpl extends AbstractService implements CocktailServ
 		}
 	}
 
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void createCocktailCategory(CocktailCategoryData category) {
+		cocktailCategoryDAO.createItem(getPersistenceManager(), category);
+	}
+
+	@Override
+	public CocktailCategoryData getCocktailCategory(Long id) {
+		return cocktailCategoryDAO.getItem(getPersistenceManager(),id);
+	}
+
+	@Override
+	public List<CocktailCategoryData> findCocktailCategories() {
+		return cocktailCategoryDAO.getItems(getPersistenceManager());
+	}
+
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void modifyCocktailCategory(CocktailCategoryData category) {
+		cocktailCategoryDAO.modifyItem(getPersistenceManager(),category);
+	}
+
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void removeCocktailCategory(Long id) {
+		cocktailCategoryDAO.removeItem(getPersistenceManager(),id);
+	}
+	
 	@Override
 	public Integer getUserRating(Long userId, Long cocktailId) {
 		if(cocktailRateDAO.getUserRating(getPersistenceManager(), userId, cocktailId) != null){

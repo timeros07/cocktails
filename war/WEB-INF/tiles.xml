@@ -68,9 +68,14 @@
    	</definition>
    	
   	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Administration ingredient categories pages !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-   	<definition name="adminIngredientCategories" extends="adminLayout">
+   	<definition name="ingredientCategories" extends="adminLayout">
    		<put-attribute name="title" value="title.ingredientCategories"/>
    		<put-attribute name="body" value="/resources/pages/admin/ingredientCategories/ingredientCategories.jsp"/>
+   	</definition>
+   	
+   	   	<definition name="cocktailCategories" extends="adminLayout">
+   		<put-attribute name="title" value="title.cocktailCategories"/>
+   		<put-attribute name="body" value="/resources/pages/admin/cocktailCategories/cocktailCategories.jsp"/>
    	</definition>
    	
    	

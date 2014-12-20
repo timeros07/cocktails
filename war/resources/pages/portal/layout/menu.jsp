@@ -31,7 +31,7 @@
 			</c:when>	
 			<c:otherwise>
 				<li class="dropdown navbar-right">
-			    	<a href="#" class="dropdown-toggle" data-toggle="dropdown">${UserContext.user.email}<b class="caret"></b></a>
+			    	<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class=" glyphicon glyphicon-user lg">&nbsp;</span>${UserContext.user.email}<b class="caret"></b></a>
 			    	<ul class="dropdown-menu">
 			    		<c:if test="${UserContext.isAdmin}" >
 			    			<li><a href="/admin"><span class="glyphicon glyphicon-briefcase"></span>&nbsp;<fmt:message key="title.switchToAdmin"/></a></li>
